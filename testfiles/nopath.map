@@ -1,0 +1,9 @@
+42
+##start
+start 0 0
+##end
+end 0 0
+room1 0 0
+room2 0 0
+start-room1
+room2-end

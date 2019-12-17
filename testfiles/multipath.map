@@ -1,0 +1,16 @@
+6
+room1 100 500
+room2 1600 700
+room3 1600 300
+room4 600 400
+##start
+start 900 800
+##end
+end 900 200
+start-room1
+start-room4
+room1-end
+start-room2
+room2-room3
+room4-end
+room3-end
