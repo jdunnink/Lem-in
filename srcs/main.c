@@ -6,15 +6,11 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/02 08:49:11 by jdunnink      #+#    #+#                 */
-/*   Updated: 2019/12/06 21:46:14 by jdunnink      ########   odam.nl         */
+/*   Updated: 2019/12/17 10:45:41 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-/*
-**	//	REMOVE STDIO INCLUDE FROM LIBFT (FT_PUTFLOAT USES CLIB PRINTF)
-*/
 
 static	void	cleanup(t_data *data, t_pathdata *path_data)
 {
