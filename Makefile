@@ -51,6 +51,7 @@ SRC = 	main.c				\
 		conflicts.c			\
 		send_explore_wave.c	\
 		free_data.c 		\
+		print_data.c 		\
 
 OBJ = $(SRC:.c=.o)
 
@@ -86,33 +87,3 @@ fclean: clean
 	make fclean -C libft/
 
 re: fclean all
-
-test:
-##	@./lem-in < ./testfiles/1K.map
-	@./lem-in < ./testfiles/10K.map
-##	@./lem-in < ./testfiles/map200k-m
-##	@./lem-in < ./testfiles/tricky
-##	@./lem-in < ./testfiles/more_tricky
-##	@./lem-in < ./testfiles/42
-##	@./lem-in < ./testfiles/dude.map
-##	@./lem-in < ./testfiles/empty.map
-##	@./lem-in < ./testfiles/nopath.map
-##	@./lem-in < ./testfiles/no_mandatory_comments.map
-##	@./lem-in < ./testfiles/no_room.map
-##	@./lem-in < ./testfiles/no_possible_solution.map
-##	@./lem-in < ./testfiles/no_possible.map
-##	@./lem-in < ./testfiles/no_single_exit.map
-##	@./lem-in < ./testfiles/no_ants.map
-##	@./lem-in < ./testfiles/simple_multi.map
-##	@./lem-in < ./testfiles/long_Chloe
-##	@./lem-in < ./testfiles/3_coor
-##	@./lem-in < ./testfiles/duplicatepipe
-##	@./lem-in < ./testfiles/empty_line
-##	@./lem-in < ./testfiles/illegalname
-##	@./lem-in < ./testfiles/illegalname1
-##	@./lem-in < ./testfiles/invalidcommand1
-##	@./lem-in < ./testfiles/loop
-##	@./lem-in < ./testfiles/loop1
-##	@./lem-in < ./testfiles/overflow
-##	@./lem-in < ./testfiles/underflow
-##	@./lem-in < ./testfiles/whitespaces

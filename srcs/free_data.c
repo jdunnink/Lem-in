@@ -62,6 +62,9 @@ void			free_data(t_data **target)
 	if (data->move_list != NULL)
 		ft_lstdel(&data->move_list, &ft_del);
 	data->move_list = NULL;
+	if (data->lines != NULL)
+		ft_lstdel(&data->lines, &ft_del);
+	data->lines = NULL;
 	free(data);
 	data = NULL;
 }

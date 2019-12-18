@@ -18,6 +18,8 @@ void			verify_data(t_data *data)
 		error_verif(1, data);
 	if (data->ants == 0)
 		error_verif(2, data);
+	if (data->total_links == 0 || data->rooms == 0)
+		error_verif(5, data);
 	if (data->links_num[data->start] == 0)
 		error_verif(3, data);
 	if (data->links_num[data->end] == 0)

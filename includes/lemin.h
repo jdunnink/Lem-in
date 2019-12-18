@@ -160,10 +160,6 @@ void			error_exec(int err_code, t_data *data, t_pathdata *pathdata);
 */
 
 void			print_move_list(t_data *data);
-void			print_pathdata(char *segment, t_pathdata **data);
 void			print_data(char *segment, t_data **data);
-void			print_active_ants(t_list *active);
-
-void			print_path(t_list *path);
 
 #endif
