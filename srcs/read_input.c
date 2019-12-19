@@ -12,13 +12,19 @@
 
 #include "lemin.h"
 
+static	void 	check_comment(char *line, t_data **data)
+{
+	if (line[0] != '#')
+		error_input(11, *data, line);
+}
+
 static void	parse_line(char *line, t_data **data, int *type)
 {
 	if (ft_strlen(line) == 0)
 		error_input(10, *data, line);
-	if (strcmp(line, "##start") == 0)
+	if (ft_strcmp(line, "##start") == 0)
 		*type = 1;
-	else if (strcmp(line, "##end") == 0)
+	else if (ft_strcmp(line, "##end") == 0)
 	{
 		if (*type == 1)
 			error_input(1, *data, line);
@@ -37,6 +43,7 @@ static void	parse_line(char *line, t_data **data, int *type)
 		if (ft_isint(line) == 1 && ft_atoll(line) >= 0)
 			(*data)->ants = ft_atoi(line);
 	}
+	check_comment(line, data);
 }
 
 void		read_input(t_data **data)
