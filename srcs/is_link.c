@@ -14,12 +14,24 @@
 
 static	int	check_dup(char *one, char *two)
 {
-	if (ft_strcmp(one, two) == 0)
+	char *first;
+
+	first = ft_strdup_until(one, '-');
+	if (ft_strcmp(first, two) == 0)
+	{
+		free(first);
 		return (1);
+	}
+	free(first);
+
+//	if (ft_strncmp(one, two, ft_strlen(two)) == 0)
+//		return (1);
+//	if (ft_strncmp(one, two, ft_strlen(one)) == 0)
+//		return (1);
 	return (0);
 }
 
-int			is_link(char *link)
+int			is_link(char *link, t_data *data)
 {
 	int		i;
 	char	*second;
@@ -40,6 +52,6 @@ int			is_link(char *link)
 	if (link[i - 1] == '-')
 		return (0);
 	if (check_dup(link, second) == 1)
-		return (0);
+		error_input(17, data, link);
 	return (1);
 }

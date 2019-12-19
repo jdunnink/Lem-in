@@ -27,6 +27,35 @@ static	int	check_line(char *line, t_data *data)
 	return (1);
 }
 
+static	int	check_dupcoor(int x, int y, t_data *data)
+{
+	t_list *iter;
+	t_coor *curr;
+
+	iter = data->coors;
+	while (iter)
+	{
+		curr = iter->content;
+		if (x == curr->x && y == curr->y)
+			return (-1);
+		iter = iter->next;
+	}
+	curr = (t_coor *)malloc(sizeof(t_coor));
+	if (!curr)
+		return (-1);
+	curr->x = x;
+	curr->y = y;
+	ft_lstpushfront(curr, &data->coors, sizeof(t_coor));
+	return (1);
+}
+
+static	int	verif_coor(char *x, char *y, t_data *data)
+{
+	if (ft_isint(x) == 0 || ft_isint(y) == 0)
+		return (-1);		
+	return (check_dupcoor(ft_atoi(x), ft_atoi(y), data));
+}
+
 int			is_valid_room(char *line, t_data *data)
 {
 	int		i;
@@ -48,8 +77,9 @@ int			is_valid_room(char *line, t_data *data)
 	}
 	if (i != 3)
 		ret = 0;
-	if (ft_isint(array[1]) == 0 || ft_isint(array[2]) == 0)
-		ret = 0;
+	ret = verif_coor(array[1], array[2], data);
 	ft_freestrarr(array);
+	if (ret == -1)
+		error_input(16, data, line);
 	return (ret);
 }

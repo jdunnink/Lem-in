@@ -34,4 +34,5 @@ void	init_data(t_data **data)
 	(*data)->move_list = NULL;
 	(*data)->active_ants = NULL;
 	(*data)->lines = NULL;
+	(*data)->coors = NULL;
 }

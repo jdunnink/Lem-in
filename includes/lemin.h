@@ -62,7 +62,14 @@ typedef struct	s_data
 	t_list		*move_list;
 	t_list		*active_ants;
 	t_list		*lines;
+	t_list		*coors;
 }				t_data;
+
+typedef	struct s_coor
+{
+	int x;
+	int y;
+}				t_coor;
 
 typedef	struct	s_ant
 {
@@ -99,7 +106,7 @@ void			init_data(t_data **data);
 void			init_pathdata(t_data **data, t_pathdata **path_data);
 void			init_state(t_data **data);
 void			init_pheromone(t_data **data);
-int				is_link(char *link);
+int				is_link(char *link, t_data *data);
 int				is_valid_room(char *line, t_data *data);
 void			add_room(char *line, t_data **data, int *type);
 void			add_link(char *link, t_data **data);

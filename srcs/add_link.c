@@ -70,8 +70,9 @@ static	int		load_old_links(t_data *data, int **array, int src, int dst)
 		ptr[i] = data->links[src][i];
 		if (ptr[i] == dst)
 		{
-			free(ptr);
-			return (0);
+			error_input(18, data, NULL);
+//			free(ptr);
+//			return (0);
 		}
 		i++;
 	}
@@ -108,7 +109,9 @@ void			add_link(char *link, t_data **data)
 	char	*dst_room;
 	int		src_index;
 	int		dst_index;
+	char	*line;
 
+	line = link;
 	if ((*data)->links == NULL)
 		init_links(data);
 	if ((*data)->links_num == NULL)
@@ -118,13 +121,13 @@ void			add_link(char *link, t_data **data)
 		link++;
 	dst_room = ft_strdup(link + 1);
 	if (dst_room == NULL)
-		error_input(4, *data, link);
+		error_input(4, *data, line);
 	dst_index = get_room_index(dst_room, *data);
 	src_index = get_room_index(src_room, *data);
 	free(src_room);
 	free(dst_room);
 	if (dst_index == -1 || src_index == -1)
-		return ;
+		error_input(15, *data, line);
 	process_link(src_index, dst_index, data);
 	process_link(dst_index, src_index, data);
 	(*data)->total_links = (*data)->total_links + 1;

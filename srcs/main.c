@@ -12,32 +12,6 @@
 
 #include "lemin.h"
 
-static	void	cleanup(t_data *data, t_pathdata *path_data)
-{
-	int i;
-
-	free(path_data);
-	path_data = NULL;
-	ft_freestrarr(data->room_names);
-	data->room_names = NULL;
-	i = 0;
-	while (i < data->rooms)
-	{
-		free(data->links[i]);
-		i++;
-	}
-	free(data->links);
-	data->links = NULL;
-	free(data->state);
-	data->state = NULL;
-	free(data->pheromone);
-	data->pheromone = NULL;
-	free(data->links_num);
-	data->links_num = NULL;
-	free(data);
-	data = NULL;
-}
-
 static	void	setup(t_data **data, t_pathdata **path_data)
 {
 	read_input(data);
@@ -57,7 +31,7 @@ static	void	dump_lines(t_data *data)
 	while (iter)
 	{
 		curr = iter->content;
-		write(1, curr, iter->content_size);
+		write(1, curr, iter->content_size - 1);
 		write(1, "\n", 1);
 		iter = iter->next;
 	}
@@ -76,6 +50,7 @@ int				main(void)
 	reset_map(data);
 	dump_lines(data);
 	traverse_maze(data, path_data);
-	cleanup(data, path_data);
+	free(path_data);
+	free_data(&data);
 	return (0);
 }
