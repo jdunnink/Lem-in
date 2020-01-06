@@ -12,9 +12,13 @@
 
 #include "lemin.h"
 
+#include <stdio.h>
+
 static	void	adjust_maze_state(t_pathdata *data, int conflict)
 {
 	int i;
+
+	printf("	conflict found at %i\n", conflict);
 
 	i = 0;
 	free_paths(data);
@@ -34,8 +38,13 @@ static	void	adjust_maze_state(t_pathdata *data, int conflict)
 void			search_maze(t_pathdata *data)
 {
 	int conflict;
+	int i;
 
+//	printf("	search maze is called..\n looking for path threshold: %i\n", data->path_threshold);
+
+	i = 0;
 	create_phero_trail(data);
+//	printf("	phero trail set..\n");
 	while (data->total_paths < data->path_threshold)
 	{
 		if (send_explore_wave(data) == 0)
@@ -46,9 +55,13 @@ void			search_maze(t_pathdata *data)
 	if (data->active_ants != NULL)
 		ft_lstdel(&data->active_ants, &del_ant);
 	conflict = 0;
-	if (conflicts(data->paths, &conflict) != 0)
+	if (conflicts(data->paths, &conflict) != 0 && data->path_threshold < 4)
 	{
 		adjust_maze_state(data, conflict);
 		search_maze(data);
 	}
+	else if (conflict != 0)
+		filter_dups(data);
+//	printf("	path threshold is reached! rooms: %i links: %i path collection: \n", data->rooms, data->total_links);
+//	show_paths(data->paths);
 }

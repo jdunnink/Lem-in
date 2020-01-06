@@ -153,6 +153,7 @@ void			reset_map(t_data *data);
 void			del_ant(void *content, size_t content_size);
 int				conflicts(t_list *paths, int *conflict);
 void			free_data(t_data **target);
+void			filter_dups(t_pathdata *data);
 
 /*
 **	error handlers
@@ -168,5 +169,6 @@ void			error_exec(int err_code, t_data *data, t_pathdata *pathdata);
 
 void			print_move_list(t_data *data);
 void			print_data(char *segment, t_data **data);
+void			print_path(t_list *path);
 
 #endif

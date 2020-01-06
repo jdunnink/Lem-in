@@ -52,6 +52,7 @@ SRC = 	main.c				\
 		send_explore_wave.c	\
 		free_data.c 		\
 		print_data.c 		\
+		filter_dups.c		\
 
 OBJ = $(SRC:.c=.o)
 

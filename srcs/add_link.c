@@ -69,11 +69,7 @@ static	int		load_old_links(t_data *data, int **array, int src, int dst)
 	{
 		ptr[i] = data->links[src][i];
 		if (ptr[i] == dst)
-		{
 			error_input(18, data, NULL);
-//			free(ptr);
-//			return (0);
-		}
 		i++;
 	}
 	ptr[i] = dst;
