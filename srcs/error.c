@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 static	void	free_pathdata(t_pathdata *data)
 {
 	if (data->paths != NULL)
@@ -27,7 +25,6 @@ static	void	free_pathdata(t_pathdata *data)
 
 void			error_input(int err_code, t_data *data, char *line)
 {
-	printf("	input error with code: %i at line : %s\n", err_code, line);
 	if (err_code > 0)
 		ft_putendl("ERROR");
 	free_data(&data);

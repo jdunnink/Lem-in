@@ -32,7 +32,7 @@ int			is_link(char *link, t_data *data)
 	char	*second;
 
 	i = 0;
-	if (link[i] == '-')
+	if (link[i] == '-' || link[i] == '#')
 		return (0);
 	if (ft_cinstr(link, '-') == 0)
 		return (0);

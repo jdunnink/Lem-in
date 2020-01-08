@@ -54,6 +54,8 @@ SRC = 	main.c				\
 		print_data.c 		\
 		filter_dups.c		\
 		init_link_storage.c	\
+		free_backup.c		\
+		create_backup.c		\
 
 OBJ = $(SRC:.c=.o)
 

@@ -151,6 +151,8 @@ t_list			*get_path(t_pathdata *path_data, int index);
 int				moves(t_list *ants);
 void			show_paths(t_list *paths);
 void			free_paths(t_pathdata *data);
+void			free_backup(t_list *backup);
+void			create_backup(t_list *paths, t_list **backup);
 void			reset_map(t_data *data);
 void			del_ant(void *content, size_t content_size);
 int				conflicts(t_list *paths, int *conflict);
