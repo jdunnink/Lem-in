@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static	void 	check_comment(char *line, t_data **data, int *type)
+static	void	check_comment(char *line, t_data **data, int *type)
 {
 	if (line[0] != '#')
 		error_input(11, *data, line);
@@ -22,7 +22,7 @@ static	void 	check_comment(char *line, t_data **data, int *type)
 		error_input(13, *data, line);
 }
 
-static void	parse_line(char *line, t_data **data, int *type)
+static	void	parse_line(char *line, t_data **data, int *type)
 {
 	if (ft_strlen(line) == 0)
 		error_input(10, *data, line);
@@ -43,13 +43,13 @@ static void	parse_line(char *line, t_data **data, int *type)
 		add_link(line, data);
 	}
 	else if ((*data)->rooms == 0 && (*data)->total_links == 0 &&
-			ft_isint(line) == 1 && ft_atoll(line) >= 0)
-			(*data)->ants = ft_atoi(line);
+		ft_isint(line) == 1 && ft_atoll(line) >= 0)
+		(*data)->ants = ft_atoi(line);
 	else
 		check_comment(line, data, type);
 }
 
-static	int	unrecog_cmd(char *line)
+static	int		unrecog_cmd(char *line)
 {
 	if (ft_strcmp("##start", line) == 0)
 		return (0);
@@ -63,7 +63,7 @@ static	int	unrecog_cmd(char *line)
 	return (0);
 }
 
-void		read_input(t_data **data)
+void			read_input(t_data **data)
 {
 	char		*line;
 	char		*trimmed;

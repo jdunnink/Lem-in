@@ -23,11 +23,6 @@ static	int	check_dup(char *one, char *two)
 		return (1);
 	}
 	free(first);
-
-//	if (ft_strncmp(one, two, ft_strlen(two)) == 0)
-//		return (1);
-//	if (ft_strncmp(one, two, ft_strlen(one)) == 0)
-//		return (1);
 	return (0);
 }
 

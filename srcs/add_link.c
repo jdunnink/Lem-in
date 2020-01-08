@@ -12,50 +12,6 @@
 
 #include "lemin.h"
 
-static	void	init_links(t_data **data)
-{
-	int	rooms;
-	int	**array;
-	int	i;
-
-	rooms = (*data)->rooms;
-	if (rooms <= 0)
-		error_input(6, *data, NULL);
-	array = (int **)malloc(sizeof(int *) * rooms);
-	if (!array)
-		error_input(4, *data, NULL);
-	i = 0;
-	while (i < rooms)
-	{
-		array[i] = (int *)malloc(sizeof(int) * 1);
-		if (!(array[i]))
-		{
-			free_2d_int_array(i - 1, array);
-			error_input(4, *data, NULL);
-		}
-		array[i][0] = -1;
-		i++;
-	}
-	(*data)->links = array;
-}
-
-static	void	init_links_num(t_data **data)
-{
-	int rooms;
-	int i;
-
-	rooms = (*data)->rooms;
-	(*data)->links_num = (int *)malloc(sizeof(int) * rooms);
-	if (!(*data)->links_num)
-		error_input(4, *data, NULL);
-	i = 0;
-	while (i < rooms)
-	{
-		(*data)->links_num[i] = 0;
-		i++;
-	}
-}
-
 static	int		load_old_links(t_data *data, int **array, int src, int dst)
 {
 	int curr_links;
@@ -108,10 +64,7 @@ void			add_link(char *link, t_data **data)
 	char	*line;
 
 	line = link;
-	if ((*data)->links == NULL)
-		init_links(data);
-	if ((*data)->links_num == NULL)
-		init_links_num(data);
+	init_link_storage(data);
 	src_room = ft_strdup_until(link, '-');
 	while (*link != '-')
 		link++;

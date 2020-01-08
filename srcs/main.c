@@ -40,25 +40,14 @@ static	void	dump_lines(t_data *data)
 	data->lines = NULL;
 }
 
-//#include <stdio.h>
-
 int				main(void)
 {
 	t_data		*data;
 	t_pathdata	*path_data;
 
 	setup(&data, &path_data);
-
-//	printf("	searching maze...\n");
-
 	search_maze(path_data);
-
-//	printf("	resetting map...\n");
-
 	reset_map(data);
-
-//	printf("	dumping lines...\n");
-
 	dump_lines(data);
 	traverse_maze(data, path_data);
 	free(path_data);

@@ -52,7 +52,7 @@ static	int	check_dupcoor(int x, int y, t_data *data)
 static	int	verif_coor(char *x, char *y, t_data *data)
 {
 	if (ft_isint(x) == 0 || ft_isint(y) == 0)
-		return (-1);		
+		return (-1);
 	return (check_dupcoor(ft_atoi(x), ft_atoi(y), data));
 }
 

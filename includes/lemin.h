@@ -65,10 +65,10 @@ typedef struct	s_data
 	t_list		*coors;
 }				t_data;
 
-typedef	struct s_coor
+typedef	struct	s_coor
 {
 	int x;
-	int y;
+	int	y;
 }				t_coor;
 
 typedef	struct	s_ant
@@ -106,6 +106,7 @@ void			init_data(t_data **data);
 void			init_pathdata(t_data **data, t_pathdata **path_data);
 void			init_state(t_data **data);
 void			init_pheromone(t_data **data);
+void			init_link_storage(t_data **data);
 int				is_link(char *link, t_data *data);
 int				is_valid_room(char *line, t_data *data);
 void			add_room(char *line, t_data **data, int *type);
@@ -124,6 +125,7 @@ void			spread_pheromones(t_pathdata *data);
 void			process_path(t_pathdata *data);
 void			remove_explorer(t_exp_ant *ant, t_pathdata *data);
 void			create_phero_trail(t_pathdata *data);
+void			filter_dups(t_pathdata *data);
 
 /*
 **	traversal algorithm
@@ -153,7 +155,6 @@ void			reset_map(t_data *data);
 void			del_ant(void *content, size_t content_size);
 int				conflicts(t_list *paths, int *conflict);
 void			free_data(t_data **target);
-void			filter_dups(t_pathdata *data);
 
 /*
 **	error handlers
