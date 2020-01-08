@@ -6,13 +6,11 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/10 08:30:10 by jdunnink      #+#    #+#                 */
-/*   Updated: 2019/12/10 08:30:10 by jdunnink      ########   odam.nl         */
+/*   Updated: 2020/01/08 17:02:12 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-#include <stdio.h>
 
 static	void	adjust_maze_state(t_pathdata *data, int conflict)
 {
