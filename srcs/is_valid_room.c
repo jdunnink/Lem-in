@@ -46,14 +46,18 @@ static	int	check_dupcoor(int x, int y, t_data *data)
 	curr->x = x;
 	curr->y = y;
 	ft_lstpushfront(curr, &data->coors, sizeof(t_coor));
+	free(curr);
 	return (1);
 }
 
 static	int	verif_coor(char *x, char *y, t_data *data)
 {
+	int ret;
+
 	if (ft_isint(x) == 0 || ft_isint(y) == 0)
 		return (-1);
-	return (check_dupcoor(ft_atoi(x), ft_atoi(y), data));
+	ret = check_dupcoor(ft_atoi(x), ft_atoi(y), data);
+	return (ret);
 }
 
 int			is_valid_room(char *line, t_data *data)

@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/02 08:49:11 by jdunnink      #+#    #+#                 */
-/*   Updated: 2019/12/17 10:45:41 by jdunnink      ########   odam.nl         */
+/*   Updated: 2020/01/08 10:44:37 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static	void	dump_lines(t_data *data)
 	while (iter)
 	{
 		curr = iter->content;
-		write(1, curr, iter->content_size - 1);
-		write(1, "\n", 1);
+		ft_putendl(curr);
 		iter = iter->next;
 	}
 	ft_lstdel(&data->lines, &ft_del);
