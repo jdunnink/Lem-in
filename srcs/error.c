@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 static	void	free_pathdata(t_pathdata *data)
 {
 	if (data->paths != NULL)
