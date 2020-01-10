@@ -52,10 +52,10 @@ SRC = 	main.c				\
 		send_explore_wave.c	\
 		free_data.c 		\
 		print_data.c 		\
-		filter_dups.c		\
 		init_link_storage.c	\
 		free_backup.c		\
 		create_backup.c		\
+		adjust_maze_state.c	\
 
 OBJ = $(SRC:.c=.o)
 

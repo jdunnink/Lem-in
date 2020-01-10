@@ -125,7 +125,7 @@ void			spread_pheromones(t_pathdata *data);
 void			process_path(t_pathdata *data);
 void			remove_explorer(t_exp_ant *ant, t_pathdata *data);
 void			create_phero_trail(t_pathdata *data);
-void			filter_dups(t_pathdata *data);
+void			adjust_maze_state(t_pathdata *data, int conflict);
 
 /*
 **	traversal algorithm

@@ -1,43 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstdelend.c                                     :+:    :+:            */
+/*   adjust_maze_state.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/11 18:13:55 by jdunnink      #+#    #+#                 */
-/*   Updated: 2019/12/11 18:13:55 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/01/10 16:24:05 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/01/10 16:24:06 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lemin.h"
 
-#include <stdio.h>
-
-void	ft_lstdelend(t_list **list)
+void	adjust_maze_state(t_pathdata *data, int conflict)
 {
-	t_list *iter;
-	t_list *trail;
+	int i;
 
-	if (!list)
-		return ;
-	iter = *list;
-	if (!iter)
-		return ;
-	if (ft_listlen(iter) == 1)
+	i = 0;
+	data->total_paths = 0;
+	while (i < data->rooms)
 	{
-		ft_lstdelone(&iter, &ft_del);
-		*list = NULL;
-		return ;
+		if (i != data->start && i != data->end)
+		{
+			if (data->pheromone[i] > 13000 || data->pheromone[i] < 0.00)
+				data->pheromone[i] = 0;
+		}
+		i++;
 	}
-	trail = iter;
-	while (iter->next)
-	{
-		trail = iter;
-		iter = iter->next;
-	}
-	free(iter->content);
-	free(iter);
-	if (trail)
-		trail->next = NULL;
+	data->pheromone[conflict] = 18000;
 }

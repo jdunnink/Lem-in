@@ -12,24 +12,6 @@
 
 #include "lemin.h"
 
-static	void	adjust_maze_state(t_pathdata *data, int conflict)
-{
-	int i;
-
-	i = 0;
-	data->total_paths = 0;
-	while (i < data->rooms)
-	{
-		if (i != data->start && i != data->end)
-		{
-			if (data->pheromone[i] > 13000 || data->pheromone[i] < 0.00)
-				data->pheromone[i] = 0;
-		}
-		i++;
-	}
-	data->pheromone[conflict] = 18000;
-}
-
 static	void	take_backup(t_list *backup, t_pathdata *data)
 {
 	free_paths(data);
@@ -42,7 +24,6 @@ static	void	init_backup(t_list **backup, t_pathdata *data)
 	if (data->paths != NULL)
 	{
 		create_backup(data->paths, backup);
-		show_paths(*backup);
 		free_paths(data);
 		data->paths = NULL;
 	}
@@ -58,6 +39,24 @@ static	int		check_backup(t_list *backup, t_pathdata *data)
 	return (0);
 }
 
+static	int		eval_start_conn_phero(t_pathdata *data)
+{
+	int links;
+	int i;
+	int link_to_start;
+
+	i = 0;
+	links = data->links_num[data->start];
+	while (i < links)
+	{
+		link_to_start = data->links[data->start][i];
+		i++;
+		if (data->pheromone[link_to_start] < 0)
+			return (0);
+	}
+	return (1);
+}
+
 void			search_maze(t_pathdata *data)
 {
 	int		conflict;
@@ -71,6 +70,8 @@ void			search_maze(t_pathdata *data)
 			break ;
 		spread_pheromones(data);
 		recharge_ants(data->active_ants);
+		if (eval_start_conn_phero(data) == 1 && data->path_threshold > 10)
+			break ;
 	}
 	if (data->active_ants != NULL)
 		ft_lstdel(&data->active_ants, &del_ant);
@@ -82,7 +83,5 @@ void			search_maze(t_pathdata *data)
 		adjust_maze_state(data, conflict);
 		return (search_maze(data));
 	}
-	else if (conflict != 0)
-		filter_dups(data);
 	free_backup(backup);
 }
