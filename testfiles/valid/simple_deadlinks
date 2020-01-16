@@ -1,0 +1,15 @@
+42
+dead1 1 0
+dead2 2 456
+##start
+one 2 4
+three 56 67
+##end
+end 3 5
+two 45 65
+one-two
+one-three
+one-dead1
+three-end
+two-end
+end-dead2
