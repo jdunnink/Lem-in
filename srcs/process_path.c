@@ -35,6 +35,8 @@ static void		reset_searchmap(t_pathdata *data)
 	pheromone[data->start] = state[data->start] * 0.000001;
 }
 
+#include <stdio.h>
+
 static	void	mark_path(t_list *path, t_pathdata *data)
 {
 	t_list	*iter;
@@ -49,7 +51,11 @@ static	void	mark_path(t_list *path, t_pathdata *data)
 		if (room_index == data->end)
 			data->pheromone[room_index] = trail * -1;
 		else
-			data->pheromone[room_index] = trail;
+		{
+			if (data->pheromone[room_index] < 15000)
+				data->pheromone[room_index] = trail;
+			trail = trail * 1.00001;
+		}
 		iter = iter->next;
 	}
 }
@@ -82,6 +88,8 @@ static	void	del_active_ants(t_list **active_ants)
 	*active_ants = NULL;
 }
 
+#include <stdio.h>
+
 void			process_path(t_pathdata *data)
 {
 	t_list		*iter;
@@ -93,8 +101,10 @@ void			process_path(t_pathdata *data)
 		ant = iter->content;
 		if (ant->room == data->end)
 		{
+//			printf("	a new path of %lu length has been found! clearing maze\n", ft_listlen(ant->path));
 			mark_path(ant->path, data);
 			add_path(&ant->path, data);
+//			show_paths(data->paths);
 			ant->path = NULL;
 			del_active_ants(&data->active_ants);
 			reset_searchmap(data);

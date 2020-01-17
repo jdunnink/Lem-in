@@ -23,7 +23,8 @@ void	adjust_maze_state(t_pathdata *data, int conflict)
 		if (i != data->start && i != data->end)
 		{
 			if (data->pheromone[i] > 13000 || data->pheromone[i] < 0.00)
-				data->pheromone[i] = 0;
+				if (data->pheromone[i] < 17999)
+					data->pheromone[i] = 0;
 		}
 		i++;
 	}

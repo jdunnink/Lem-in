@@ -23,8 +23,11 @@ static	void	free_pathdata(t_pathdata *data)
 	free(data);
 }
 
+#include <stdio.h>
+
 void			error_input(int err_code, t_data *data, char *line)
 {
+	printf("	input err_code %i with line %s\n", err_code, line);
 	if (err_code > 0)
 		ft_putendl("ERROR");
 	free_data(&data);
@@ -35,6 +38,7 @@ void			error_input(int err_code, t_data *data, char *line)
 
 void			error_verif(int err_code, t_data *data)
 {
+	printf("	verif err_code %i\n", err_code);
 	if (err_code > 0)
 		ft_putendl("ERROR");
 	free_data(&data);
@@ -43,6 +47,7 @@ void			error_verif(int err_code, t_data *data)
 
 void			error_exec(int err_code, t_data *data, t_pathdata *path_data)
 {
+	printf("	exec err_code %i\n", err_code);
 	if (err_code > 0)
 		ft_putendl("ERROR");
 	if (path_data != NULL)

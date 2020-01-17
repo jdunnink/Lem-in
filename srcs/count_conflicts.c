@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   conflicts.c                                        :+:    :+:            */
+/*   count_conflicts.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static	int	cmp_val_to_path(int room, t_list *path, int *conflict)
+static	void	cmp_val_to_path(int room, t_list *path, int *conflict)
 {
 	t_list *iter;
 
@@ -20,30 +20,24 @@ static	int	cmp_val_to_path(int room, t_list *path, int *conflict)
 	while (iter)
 	{
 		if (room == *(int *)iter->content)
-		{
-			*conflict = room;
-			return (1);
-		}
+			(*conflict)++;
 		iter = iter->next;
 	}
-	return (0);
 }
 
-static	int	cmp_val_to_rem_paths(int room, t_list *remaining_paths, int *conflict)
+static	void	cmp_val_to_rem_paths(int room, t_list *remaining_paths, int *conflict)
 {
 	t_list *iter;
 
 	iter = remaining_paths;
 	while (iter)
 	{
-		if (cmp_val_to_path(room, iter->content, conflict) == 1)
-			return (1);
+		cmp_val_to_path(room, iter->content, conflict);
 		iter = iter->next;
 	}
-	return (0);
 }
 
-static	int	cmp_path_to_rem_paths(t_list *path, t_list *remaining_paths, int *conflict)
+static	void	cmp_path_to_rem_paths(t_list *path, t_list *remaining_paths, int *conflict)
 {
 	t_list *iter;
 	int		room;
@@ -52,27 +46,28 @@ static	int	cmp_path_to_rem_paths(t_list *path, t_list *remaining_paths, int *con
 	while (iter)
 	{
 		room = *(int *)iter->content;
-		if (cmp_val_to_rem_paths(room , remaining_paths, conflict) == 1)
-			return (1);
+		cmp_val_to_rem_paths(room , remaining_paths, conflict);
 		iter = iter->next;
 	}
-	return (0);
 }
 
-int			conflicts(t_list *paths, int *conflict)
+int			count_conflicts(t_list *paths)
 {
 	t_list *iter;
 	t_list *remaining_paths;
+	int conflicts;
+
+	if (!paths)
+		return (0);
 
 	iter = paths;
 	if (iter->next == NULL)
 		return (0);
-
+	conflicts = 0;
 	remaining_paths = iter->next;
 	while (iter->next)
 	{
-		if (cmp_path_to_rem_paths(iter->content, remaining_paths, conflict) == 1)
-			return (1);
+		cmp_path_to_rem_paths(iter->content, remaining_paths, &conflicts);
 		iter = iter->next;
 		if (iter == NULL)
 			break;
@@ -80,5 +75,5 @@ int			conflicts(t_list *paths, int *conflict)
 		if (remaining_paths == NULL)
 			break ;
 	}
-	return (0);
+	return (conflicts);
 }
