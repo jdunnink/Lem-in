@@ -115,6 +115,7 @@ void	del_all_conflicting(t_pathdata *data, int conflict)
 	iter = data->paths;
 	while (iter)
 	{
+//		printf("	checking remaining paths for conflict with %i\n", conflict);
 		if (contains(iter->content, conflict) == 1)
 		{
 //			printf("	removing path %i from %i total paths\n", i + 1, (int)ft_listlen(data->paths));
@@ -127,8 +128,13 @@ void	del_all_conflicting(t_pathdata *data, int conflict)
 			data->total_paths--;
 			iter = data->paths;
 			i = 0;
+//			printf("	paths remaining: \n");
+//			show_paths(data->paths);
 		}
-		i++;
-		iter = iter->next;
+		else
+		{
+			i++;
+			iter = iter->next;
+		}
 	}
 }

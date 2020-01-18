@@ -32,13 +32,12 @@ typedef	struct	s_pathdata
 	float		*pheromone;
 	t_list		*active_ants;
 	t_list		*paths;
+	t_list		*tmp_paths;
+	int			total_tmp_paths;
 	int			total_paths;
 	int			path_threshold;
 	int			orig_threshold;
-	int			search_depth;
 	t_list		*conflicts;
-	t_list		*collisions;
-	id_t		direction;
 }				t_pathdata;
 
 typedef	struct	s_exp_ant
@@ -160,11 +159,13 @@ void			free_backup(t_list *backup);
 void			create_backup(t_list *paths, t_list **backup);
 void			reset_map(t_data *data);
 void			del_ant(void *content, size_t content_size);
-int				conflicts(t_list *paths, int *conflict);
+int				conflicts(t_list *paths, int *conflict, t_pathdata *data);
 int				count_conflicts(t_list *paths);
 int				worst_conflict(t_pathdata *data);
 void			del_all_conflicting(t_pathdata *data, int conflict);
 void			free_data(t_data **target);
+void			choose_path(t_pathdata *data);
+void			clear_maze(t_pathdata *data);
 
 /*
 **	error handlers

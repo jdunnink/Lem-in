@@ -14,9 +14,9 @@
 
 static	void	init_conflict_vars(t_pathdata **new)
 {
-	(*new)->search_depth = 0;
 	(*new)->conflicts = NULL;
-	(*new)->direction = 0;
+	(*new)->tmp_paths = NULL;
+	(*new)->total_tmp_paths = 0;
 }
 
 void	init_pathdata(t_data **data, t_pathdata **path_data)
@@ -45,7 +45,6 @@ void	init_pathdata(t_data **data, t_pathdata **path_data)
 	else
 		new->path_threshold = new->links_num[new->start];
 	new->orig_threshold = new->path_threshold;
-	new->collisions = NULL;
 	new->paths = NULL;
 	init_conflict_vars(&new);
 	*path_data = new;

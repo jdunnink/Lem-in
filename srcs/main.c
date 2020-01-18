@@ -45,15 +45,34 @@ int				main(void)
 {
 	t_data		*data;
 	t_pathdata	*path_data;
+	int			i;
+	int			cmp;
 
 	setup(&data, &path_data);
 
 //	printf("	searching maze..");
 
-	path_data->path_threshold *= 2;
+	path_data->path_threshold = 1;
 
-	search_maze(path_data);
+	i = 0;
+	while (path_data->total_paths < path_data->orig_threshold)
+	{
+		cmp = path_data->orig_threshold - path_data->total_paths;
+		search_maze(path_data);
+		if (path_data->orig_threshold - path_data->total_paths <= cmp)
+			i++;
+		if (i > path_data->orig_threshold * 4 && path_data->total_paths < path_data->orig_threshold)
+		{
+			reset_map(data);
+			search_maze(path_data);
+			i = 0;
+			path_data->orig_threshold--;
+		}
+	}
 
+
+//	show_paths(path_data->paths);
+//	exit (0);
 
 	reset_map(data);
 	dump_lines(data);

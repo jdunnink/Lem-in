@@ -14,26 +14,9 @@
 
 #include <stdio.h>
 
+
+
 /*
-
-static	float	get_average_pathlen(t_list *paths)
-{
-	float		aggregate;
-	int			len;
-	t_list		*iter;
-
-	aggregate = 0;
-	iter = paths;
-	while (iter)
-	{
-		len = ft_listlen(iter->content);
-		aggregate += (float)len;
-		iter = iter->next;
-	}
-	return (aggregate / ft_listlen(paths));
-}
-
-
 
 
 static	void	show_phero(float *array, int rooms)
@@ -48,8 +31,6 @@ static	void	show_phero(float *array, int rooms)
 	}
 	ft_putchar('\n');
 }
-
-
 
 static	int		eval_start_conn_phero(t_pathdata *data)
 {
@@ -83,58 +64,56 @@ static	int	pop_conflict(t_list **conflicts)
 	return (conflict_index);
 }
 
-static	void	cleanup_phero(t_pathdata *data)
-{
-	int i;
-
-	i = 0;
-	while (i < data->rooms)
-	{
-		if (i != data->end && i != data->start)
-		{
-			if (data->pheromone[i] < 14999)
-				data->pheromone[i] = 0;
-		}
-		i++;
-	}
-}
-
 void			search_maze(t_pathdata *data)
 {
 	int		conflict;
+	int		i;
+	
+//	printf("\n\n	search maze is called with %i paths, looking for %i total paths \n", data->total_paths, data->path_threshold);
 
-//	printf("	search maze is called with %i paths, looking for %i total paths \n", data->total_paths, data->path_threshold);
-	cleanup_phero(data);
 //	show_phero(data->pheromone, data->rooms);
 
-
-
 	create_phero_trail(data);
-	while (data->total_paths < data->path_threshold)
+	i = 0;
+//	printf("	created phero trail --> searching maze\n");
+	while ((data->ants_in_maze > 0 || data->ants_at_start > 0) && data->total_tmp_paths < 1)
 	{
+//		if (eval_start_conn_phero(data) == 1)
+//			break ;
+//		printf("	%i ants in the maze with %i remaining at start\n %i paths collected", data->ants_in_maze, data->ants_at_start, data->total_tmp_paths);
 		if (send_explore_wave(data) == 0)
 			break ;
 		spread_pheromones(data);
 		recharge_ants(data->active_ants);
+		i++;
+		if (i == 500)
+			break ;
 	}
-	if (data->active_ants != NULL)
-		ft_lstdel(&data->active_ants, &del_ant);
-
+//	printf("	searching done --> clearing maze\n");
+	clear_maze(data);
+	choose_path(data);
 //	printf("	%i paths collected while target was %i\n", data->total_paths, data->path_threshold);
+	if (data->total_paths == data->path_threshold - 1 && ft_listlen(data->conflicts) == 0)
+	{
+		data->orig_threshold--;
+		return ;
+	}
 //	show_paths(data->paths);
+//	exit (0);
 
 
 	conflict = -1;
 
-	if (conflicts(data->paths, &conflict) != 0)
+	if (conflicts(data->paths, &conflict, data) != 0)
 	{
 //		printf("	%i new conflicts have emerged! --> removing conflicting paths\n", count_conflicts(data->paths));
 		conflict = worst_conflict(data);
+//		printf("	blocking access to room %i\n", conflict);
 		ft_lstpushfront(&conflict, &data->conflicts, sizeof(int *));
 		data->pheromone[conflict] = 18000;
 		del_all_conflicting(data, conflict);
 		(data->path_threshold)--;
-		search_maze(data);
+		return ;
 	}
 
 	if (ft_listlen(data->conflicts) > 0)
@@ -143,8 +122,15 @@ void			search_maze(t_pathdata *data)
 		data->pheromone[conflict] = 0;
 //		printf("	opening room %i for path traversal\n", conflict);
 		data->path_threshold = data->total_paths + 1;
-		search_maze(data);
+		return ;
 	}
 
-//	printf("	collected (measured: %i/actual: %i) paths with an average length of %0.2f with %i conflicts remaining\n", data->total_paths, (int)ft_listlen(data->paths), get_average_pathlen(data->paths), count_conflicts(data->paths));
+	if (data->path_threshold < data->orig_threshold)
+	{
+//		printf("	target threshold of %i has not yet been reached --> finding augmenting paths\n", data->orig_threshold);
+		data->path_threshold = data->total_paths + 1;
+		return ;
+	}
+
+//	printf("	collected (measured: %i/actual: %i) paths with %i conflicts remaining\n", data->total_paths , (int)ft_listlen(data->paths), count_conflicts(data->paths));
 }

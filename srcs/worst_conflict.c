@@ -65,7 +65,6 @@ static	void	hash_paths(t_list *paths, int *conflict_hash, int *last_conflict, in
 
 #include <stdio.h>
 
-
 /*
 
 static	void	show_hash(int *conflict_hash, int rooms)
@@ -94,7 +93,8 @@ int	worst_conflict(t_pathdata *data)
 	hash_paths(data->paths, conflict_hash, &last_conflict, data->end);
 //	printf("	worst conflict found was %i which occurred %i times\n", last_conflict, conflict_hash[last_conflict]);
 
-//	show_hash(conflict_hash, data->rooms);
+//	if (data->total_paths == data->orig_threshold)
+//		show_hash(conflict_hash, data->rooms);
 	free(conflict_hash);
 	return (last_conflict);
 }

@@ -49,6 +49,8 @@ static void		move_explorers(t_pathdata *data)
 
 #include <stdio.h>
 
+/*
+
 static	void	show_phero(float *array, int rooms)
 {
 	int i;
@@ -60,6 +62,8 @@ static	void	show_phero(float *array, int rooms)
 		i++;
 	}
 }
+
+*/
 
 static	int	pop_conflict(t_list **conflicts)
 {
@@ -73,11 +77,14 @@ static	int	pop_conflict(t_list **conflicts)
 	return (conflict_index);
 }
 
+
+
 int				send_explore_wave(t_pathdata *data)
 {
 	int links_num;
 
 //	printf("	send explore wave is called!\n");
+//	show_phero(data->pheromone, data->rooms);
 
 	if (moves(data->active_ants) > 0)
 		move_explorers(data);
@@ -85,20 +92,11 @@ int				send_explore_wave(t_pathdata *data)
 //	printf("	%i open links detected!\n", links_num);
 	if (links_num > data->ants_at_start)
 		links_num = data->ants_at_start;
-	if (links_num == 0 && data->total_paths != 0)
-		return (0);
-	else if (links_num == 0 && data->total_paths == 0 && ft_listlen(data->conflicts) == 0)
-	{
-		printf("	%i ants remaining in the maze\n", data->ants_in_maze);
-		ft_putnbr_array("state", data->state, data->rooms);
-		ft_putnbr_2d_var("links", data->links, data->rooms, data->links_num);
-		show_phero(data->pheromone, data->rooms);
-		error_exec(3, NULL, data);
-	}
 	else if (links_num == 0 && data->total_paths == 0 && ft_listlen(data->conflicts) > 0)
 	{
 		data->pheromone[pop_conflict(&data->conflicts)] = 0;
-		printf("	the only possible path is blocked! --> opening blocked room\n");
+//		printf("	the only possible path is blocked! --> opening blocked room\n");
+		data->orig_threshold--;
 		return (1);
 	}
 	while (links_num > 0)

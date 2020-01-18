@@ -59,6 +59,8 @@ SRC = 	main.c				\
 		count_conflicts.c	 \
 		worst_conflict.c 	 \
 		del_all_conflicting.c\
+		choose_path.c		\
+		clear_maze.c		\
 
 OBJ = $(SRC:.c=.o)
 

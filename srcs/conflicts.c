@@ -59,7 +59,7 @@ static	int	cmp_path_to_rem_paths(t_list *path, t_list *remaining_paths, int *con
 	return (0);
 }
 
-int			conflicts(t_list *paths, int *conflict)
+int			conflicts(t_list *paths, int *conflict, t_pathdata *data)
 {
 	t_list *iter;
 	t_list *remaining_paths;
@@ -72,7 +72,10 @@ int			conflicts(t_list *paths, int *conflict)
 	while (iter->next)
 	{
 		if (cmp_path_to_rem_paths(iter->content, remaining_paths, conflict) == 1)
-			return (1);
+		{
+			if (*conflict != data->end && *conflict != data->start)
+				return (1);
+		}
 		iter = iter->next;
 		if (iter == NULL)
 			break;
