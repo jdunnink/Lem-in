@@ -36,11 +36,6 @@ static	void	check_arrays(t_data *data)
 		free(data->state);
 		data->state = NULL;
 	}
-	if (data->pheromone != NULL)
-	{
-		free(data->pheromone);
-		data->pheromone = NULL;
-	}
 	if (data->links_num != NULL)
 	{
 		free(data->links_num);

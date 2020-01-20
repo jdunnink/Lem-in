@@ -30,8 +30,6 @@ static	int		check_deadends(t_pathdata *data, t_exp_ant *ant, int best)
 	return (0);
 }
 
-#include <stdio.h>
-
 static	void	exp_move_to_room(t_pathdata *data, t_exp_ant *ant, int best)
 {
 	int next_room;
@@ -39,8 +37,6 @@ static	void	exp_move_to_room(t_pathdata *data, t_exp_ant *ant, int best)
 	if (check_deadends(data, ant, best) == 1)
 		return ;
 	next_room = data->links[ant->room][best];
-	if (data->pheromone[next_room] > 17999)
-		 return ;
 	if (ant->room == data->start && ant->number == 0)
 	{
 		(data->ants_at_start)--;
@@ -53,7 +49,6 @@ static	void	exp_move_to_room(t_pathdata *data, t_exp_ant *ant, int best)
 		(data->ants_at_end)++;
 	}
 	ft_lstpushfront(&next_room, &ant->path, sizeof(int *));
-//	printf("	ant %i is moving to room %i with phero %0.6f\n", ant->number, next_room, data->pheromone[next_room]);
 	data->state[ant->room]--;
 	data->state[next_room]++;
 	if (data->links_num[next_room] == 1 &&

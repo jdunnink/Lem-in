@@ -22,45 +22,29 @@ SRC = 	main.c				\
 		get_room_name.c		\
 		verify_data.c		\
 		init_state.c		\
-		init_pheromone.c	\
 		traverse_maze.c		\
-		spread_pheromones.c	\
 		spawn_ant.c			\
 		move_ant.c			\
 		recharge_ants.c		\
-		open_links.c		\
 		moves.c				\
 		move_swarm.c		\
 		print_move_list.c	\
 		exit_ants.c			\
 		exit_ant.c			\
 		init_pathdata.c		\
-		move_explorer.c		\
-		process_path.c		\
 		search_maze.c		\
-		remove_explorer.c	\
 		show_paths.c		\
 		new_gnl.c			\
-		reset_map.c			\
-		del_ant.c			\
-		create_phero_trail.c\
 		get_pathcpy.c		\
 		get_path.c 			\
 		assign_routes.c 	\
 		free_paths.c		\
 		conflicts.c			\
-		send_explore_wave.c	\
 		free_data.c 		\
 		print_data.c 		\
 		init_link_storage.c	\
-		free_backup.c		\
-		create_backup.c		\
-		adjust_maze_state.c	\
-		count_conflicts.c	 \
-		worst_conflict.c 	 \
-		del_all_conflicting.c\
-		choose_path.c		\
-		clear_maze.c		\
+		same_override.c		\
+		diff_override.c 	\
 
 OBJ = $(SRC:.c=.o)
 

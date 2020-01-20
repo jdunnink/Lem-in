@@ -12,11 +12,29 @@
 
 #include "lemin.h"
 
-static	void	init_conflict_vars(t_pathdata **new)
+static	int	init_bfs_data(t_pathdata **new)
 {
-	(*new)->conflicts = NULL;
-	(*new)->tmp_paths = NULL;
-	(*new)->total_tmp_paths = 0;
+	t_pathdata	*curr;
+	int			i;
+
+	curr = *new;
+	curr->bfs_data = (int **)malloc(sizeof(int *) * curr->rooms);
+	if (!curr->bfs_data)
+		return (0);
+	i = 0;
+	while (i < curr->rooms)
+	{
+		curr->bfs_data[i] = (int *)malloc(sizeof(int) * 3);
+		if (!curr->bfs_data[i])
+			return (0);
+		curr->bfs_data[i][0] = 0;
+		curr->bfs_data[i][1] = 0;
+		curr->bfs_data[i][2] = 0;
+		i++;
+	}
+	curr->diff_override = NULL;
+	curr->same_override = NULL;
+	return (1);
 }
 
 void	init_pathdata(t_data **data, t_pathdata **path_data)
@@ -26,26 +44,19 @@ void	init_pathdata(t_data **data, t_pathdata **path_data)
 	new = (t_pathdata *)malloc(sizeof(t_pathdata));
 	if (!new)
 		error_input(4, *data, NULL);
-	new->explore_ants = __INT_MAX__;
-	new->ants_at_start = new->explore_ants;
-	new->ants_in_maze = 0;
-	new->ants_at_end = 0;
 	new->rooms = (*data)->rooms;
 	new->total_links = (*data)->total_links;
 	new->start = (*data)->start;
 	new->end = (*data)->end;
 	new->links = (*data)->links;
 	new->links_num = (*data)->links_num;
-	new->state = (*data)->state;
-	new->pheromone = (*data)->pheromone;
-	new->active_ants = NULL;
 	new->total_paths = 0;
 	if (new->links_num[new->end] < new->links_num[new->start])
 		new->path_threshold = new->links_num[new->end];
 	else
 		new->path_threshold = new->links_num[new->start];
-	new->orig_threshold = new->path_threshold;
 	new->paths = NULL;
-	init_conflict_vars(&new);
+	if (init_bfs_data(&new) == 0)
+		error_input(4, *data, NULL);
 	*path_data = new;
 }

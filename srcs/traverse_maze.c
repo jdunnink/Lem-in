@@ -24,15 +24,12 @@ static	void	spawn_ants(t_data *data)
 	}
 }
 
-#include <stdio.h>
-
 void			traverse_maze(t_data *data, t_pathdata *path_data)
 {
 	spawn_ants(data);
 	assign_routes(data, path_data);
 	while (data->ants_at_end != data->ants)
 	{
-//		printf("	%i ants of %i total have reached the end!\n", data->ants_at_end, data->ants);
 		if (moves(data->active_ants) > 0)
 			move_swarm(data);
 		print_move_list(data);

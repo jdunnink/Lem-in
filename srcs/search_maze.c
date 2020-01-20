@@ -12,125 +12,178 @@
 
 #include "lemin.h"
 
+static	void show_bfs_data(t_pathdata *data)
+{
+	int i;
+
+	i = 0;
+	while (i < data->rooms)
+	{
+		if (data->bfs_data[i][0] != 0 && data->bfs_data[i][1] == 0)
+		{
+			ft_putchar(' ');
+			ft_putnbr(i);
+			ft_putstr(" => ");
+			ft_putnbr(data->bfs_data[i][0]);
+			ft_putchar(' ');
+			ft_putnbr(data->bfs_data[i][1]);
+			ft_putchar(' ');
+			ft_putnbr(data->bfs_data[i][2]);
+			ft_putchar('\n');
+		}
+		i++;
+	}
+}
+
+static	void	process_start(t_pathdata *data, int *curr_depth)
+{
+	int i;
+	int	total_links;
+	int	link;
+
+	i = 0;
+	data->bfs_data[data->start][0] = -1;										// distance to start = -1 because 0 means empty room
+	data->bfs_data[data->start][1] = -1;										//	pathnum of start == -1 because part of all routes
+	data->bfs_data[data->start][2] = data->links_num[data->start];				// links is links_num of start
+	total_links = data->links_num[data->start];
+	while (i < total_links)
+	{
+		link = data->links[data->start][i];
+		data->bfs_data[link][0] = 1;
+		data->bfs_data[link][1] = i;
+		data->bfs_data[link][2] = data->links_num[link];
+		i++;
+	}
+	(*curr_depth)++;
+}
+
 #include <stdio.h>
 
+static	void	set_empty(int link, int index, t_pathdata *data)
+{
+	data->bfs_data[link][0] = data->bfs_data[index][0] + 1;						// distance is one higher
+	data->bfs_data[link][1] = data->bfs_data[index][1];							// pathnum is the same
+	data->bfs_data[link][2] = data->links_num[link];
+//	printf("	room %i is set to (%i, %i, %i)\n", link, data->bfs_data[link][0], data->bfs_data[link][1], data->bfs_data[link][2]);
+//	printf("	coming from source %i(%i, %i, %i)\n\n", index, data->bfs_data[index][0], data->bfs_data[index][1], data->bfs_data[index][2]);
+}
 
+static	void push_link(int link, int index, t_pathdata *data)
+{
+	t_link conn;
+
+	conn.src = index;
+	conn.dst = link;
+	if (data->bfs_data[link][1] == data->bfs_data[index][1])					// if from the same path
+		ft_lstpushfront(&conn, &data->same_override, sizeof(t_link *));
+	else																		// if from diff paths
+		ft_lstpushfront(&conn, &data->diff_override, sizeof(t_link *));
+}
+
+static	void	set_link(int link, int index, t_pathdata *data)
+{
+	int link_dis;
+
+	link_dis = data->bfs_data[link][0];
+
+	if (link_dis == 0)
+		set_empty(link, index, data);
+	else
+	{
+		if (index == 2529)
+			printf("	target room is not empty --> pushing link to override lists\n");
+		push_link(link, index, data);
+	}
+}	
+
+static	void	set_room(int index, t_pathdata *data)
+{
+	int i;
+	int	total_links;
+	int	link;
+
+
+	i = 0;
+	total_links = data->links_num[index];
+	while(i < total_links)
+	{
+		link = data->links[index][i];
+		if (index == 2529)
+			printf("	eval of room 2529!\n");
+		set_link(link, index, data);
+		i++;
+	}
+}
+
+static	void	process_bfs(t_pathdata *data, int *curr_depth)
+{
+	int i;
+
+	i = 0;
+	while (i < data->rooms)
+	{
+		if (data->bfs_data[i][0] == (*curr_depth) - 1 && i != data->end)
+		{
+//			printf("	path %i is active!\n", data->bfs_data[i][1]);
+			set_room(i, data);
+		}
+		i++;
+	}
+	(*curr_depth)++;
+	same_override(data);
+//	show_bfs_data(data);
+	diff_override(data);
+//	printf("	curr_depth is increased to %i\n", *curr_depth);
+}
+
+static	void	process_rooms(t_pathdata *data, int *curr_depth)
+{
+	if (*curr_depth == 1)
+		process_start(data, curr_depth);
+	else
+		process_bfs(data, curr_depth);
+}
 
 /*
 
-
-static	void	show_phero(float *array, int rooms)
+static	void	show_end_conn(t_pathdata *data)
 {
 	int i;
-
-	i = 0;
-	while (i < rooms)
-	{
-		printf("	[%i] => %0.6f\n", i, array[i]);
-		i++;
-	}
-	ft_putchar('\n');
-}
-
-static	int		eval_start_conn_phero(t_pathdata *data)
-{
 	int links;
-	int i;
-	int link_to_start;
+	int	link;
 
+	links = data->links_num[data->end];
 	i = 0;
-	links = data->links_num[data->start];
 	while (i < links)
 	{
-		link_to_start = data->links[data->start][i];
+		link = data->links[data->end][i];
+		printf("	link %i has path %i\n", link, data->bfs_data[link][1]);
 		i++;
-		if (data->pheromone[link_to_start] < 0)
-			return (0);
 	}
-	return (1);
 }
 
 */
 
-static	int	pop_conflict(t_list **conflicts)
-{
-	t_list *iter;
-	int		conflict_index;
-
-	conflict_index = 0;
-	iter = *conflicts;
-	conflict_index = *(int *)iter->content;
-	ft_lstdelfront(conflicts);
-	return (conflict_index);
-}
-
 void			search_maze(t_pathdata *data)
 {
-	int		conflict;
-	int		i;
-	
-//	printf("\n\n	search maze is called with %i paths, looking for %i total paths \n", data->total_paths, data->path_threshold);
+	int			curr_depth;
+	int			i;
 
-//	show_phero(data->pheromone, data->rooms);
-
-	create_phero_trail(data);
 	i = 0;
-//	printf("	created phero trail --> searching maze\n");
-	while ((data->ants_in_maze > 0 || data->ants_at_start > 0) && data->total_tmp_paths < 1)
+	curr_depth = 1;
+	while (1)
 	{
-//		if (eval_start_conn_phero(data) == 1)
-//			break ;
-//		printf("	%i ants in the maze with %i remaining at start\n %i paths collected", data->ants_in_maze, data->ants_at_start, data->total_tmp_paths);
-		if (send_explore_wave(data) == 0)
-			break ;
-		spread_pheromones(data);
-		recharge_ants(data->active_ants);
+
+		process_rooms(data, &curr_depth);
+//		ft_putchar('\n');
+		if (i == 21)
+		{
+			show_bfs_data(data);
+			exit (0);
+		}
 		i++;
-		if (i == 500)
-			break ;
 	}
-//	printf("	searching done --> clearing maze\n");
-	clear_maze(data);
-	choose_path(data);
-//	printf("	%i paths collected while target was %i\n", data->total_paths, data->path_threshold);
-	if (data->total_paths == data->path_threshold - 1 && ft_listlen(data->conflicts) == 0)
-	{
-		data->orig_threshold--;
-		return ;
-	}
-//	show_paths(data->paths);
-//	exit (0);
-
-
-	conflict = -1;
-
-	if (conflicts(data->paths, &conflict, data) != 0)
-	{
-//		printf("	%i new conflicts have emerged! --> removing conflicting paths\n", count_conflicts(data->paths));
-		conflict = worst_conflict(data);
-//		printf("	blocking access to room %i\n", conflict);
-		ft_lstpushfront(&conflict, &data->conflicts, sizeof(int *));
-		data->pheromone[conflict] = 18000;
-		del_all_conflicting(data, conflict);
-		(data->path_threshold)--;
-		return ;
-	}
-
-	if (ft_listlen(data->conflicts) > 0)
-	{
-		conflict = pop_conflict(&data->conflicts);
-		data->pheromone[conflict] = 0;
-//		printf("	opening room %i for path traversal\n", conflict);
-		data->path_threshold = data->total_paths + 1;
-		return ;
-	}
-
-	if (data->path_threshold < data->orig_threshold)
-	{
-//		printf("	target threshold of %i has not yet been reached --> finding augmenting paths\n", data->orig_threshold);
-		data->path_threshold = data->total_paths + 1;
-		return ;
-	}
-
-//	printf("	collected (measured: %i/actual: %i) paths with %i conflicts remaining\n", data->total_paths , (int)ft_listlen(data->paths), count_conflicts(data->paths));
+//	show_end_conn(data);
+	printf("	end has been taken by: %i\n", data->bfs_data[data->end][1]);
+	exit (0);
 }

@@ -32,6 +32,8 @@ static	void	mark_links(t_pathdata *data, int room, float phero)
 	while (i < all_links)
 	{
 		link_i = data->links[room][i];
+		if (data->total_paths == 1 && data->pheromone[link_i] > 16000)
+			data->pheromone[link_i] = 0;
 		if (data->pheromone[link_i] < 10000 && start_or_end(data, link_i) == 0)
 		{
 			if (data->pheromone[link_i] > partial)
@@ -51,6 +53,8 @@ void			create_phero_trail(t_pathdata *data)
 	i = 0;
 	while (i < data->rooms)
 	{
+		if (data->total_paths == 1 && data->pheromone[i] > 16000)
+			data->pheromone[i] = 0;
 		if (data->pheromone[i] < 0.000000 && data->state[i] == 0)
 		{
 			mark_links(data, i, data->pheromone[i]);

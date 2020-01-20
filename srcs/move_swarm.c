@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 void	move_swarm(t_data *data)
 {
 	t_list	*iter;
@@ -25,7 +23,6 @@ void	move_swarm(t_data *data)
 		curr = iter->content;
 		if (curr->has_moved == 0)
 			move_ant(data, curr);
-//		printf("	active ants: --> this ant has target path remaining of of %lu rooms\n", ft_listlen(curr->target_path));
 		iter = iter->next;
 	}
 	exit_ants(data);

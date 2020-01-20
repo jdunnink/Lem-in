@@ -18,35 +18,21 @@
 
 typedef	struct	s_pathdata
 {
-	int			explore_ants;
-	int			ants_at_start;
-	int			ants_in_maze;
-	int			ants_at_end;
 	int			rooms;
 	int			total_links;
 	int			start;
 	int			end;
 	int			**links;
 	int			*links_num;
-	int			*state;
-	float		*pheromone;
-	t_list		*active_ants;
+	
+	int			**bfs_data;
+	t_list		*diff_override;
+	t_list		*same_override;
+
 	t_list		*paths;
-	t_list		*tmp_paths;
-	int			total_tmp_paths;
 	int			total_paths;
 	int			path_threshold;
-	int			orig_threshold;
-	t_list		*conflicts;
 }				t_pathdata;
-
-typedef	struct	s_exp_ant
-{
-	int			number;
-	int			room;
-	int			has_moved;
-	t_list		*path;
-}				t_exp_ant;
 
 typedef struct	s_data
 {
@@ -62,7 +48,6 @@ typedef struct	s_data
 	int			**links;
 	int			*links_num;
 	int			*state;
-	float		*pheromone;
 	t_list		*move_list;
 	t_list		*active_ants;
 	t_list		*lines;
@@ -100,6 +85,12 @@ typedef struct	s_varpack1
 	float		link_rating;
 }				t_varpack1;
 
+typedef	struct	s_link
+{
+	int src;
+	int dst;
+}				t_link;
+
 /*
 **	reading input and data structure setup
 */
@@ -109,7 +100,6 @@ void			read_input(t_data **data);
 void			init_data(t_data **data);
 void			init_pathdata(t_data **data, t_pathdata **path_data);
 void			init_state(t_data **data);
-void			init_pheromone(t_data **data);
 void			init_link_storage(t_data **data);
 int				is_link(char *link, t_data *data);
 int				is_valid_room(char *line, t_data *data);
@@ -122,14 +112,9 @@ void			verify_data(t_data *data);
 */
 
 void			search_maze(t_pathdata *data);
-int				send_explore_wave(t_pathdata *data);
-int				open_links(t_pathdata *data, int room_index);
-void			move_explorer(t_pathdata *data, t_exp_ant *ant);
-void			spread_pheromones(t_pathdata *data);
-void			process_path(t_pathdata *data);
-void			remove_explorer(t_exp_ant *ant, t_pathdata *data);
-void			create_phero_trail(t_pathdata *data);
-void			adjust_maze_state(t_pathdata *data, int conflict);
+void			same_override(t_pathdata *data);
+void			diff_override(t_pathdata *data);
+
 
 /*
 **	traversal algorithm
@@ -155,17 +140,7 @@ t_list			*get_path(t_pathdata *path_data, int index);
 int				moves(t_list *ants);
 void			show_paths(t_list *paths);
 void			free_paths(t_pathdata *data);
-void			free_backup(t_list *backup);
-void			create_backup(t_list *paths, t_list **backup);
-void			reset_map(t_data *data);
-void			del_ant(void *content, size_t content_size);
-int				conflicts(t_list *paths, int *conflict, t_pathdata *data);
-int				count_conflicts(t_list *paths);
-int				worst_conflict(t_pathdata *data);
-void			del_all_conflicting(t_pathdata *data, int conflict);
 void			free_data(t_data **target);
-void			choose_path(t_pathdata *data);
-void			clear_maze(t_pathdata *data);
 
 /*
 **	error handlers
