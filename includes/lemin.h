@@ -24,7 +24,7 @@ typedef	struct	s_pathdata
 	int			end;
 	int			**links;
 	int			*links_num;
-	
+	int			*active_links_num;
 	int			**bfs_data;
 	t_list		*diff_override;
 	t_list		*same_override;
@@ -47,6 +47,7 @@ typedef struct	s_data
 	char		**room_names;
 	int			**links;
 	int			*links_num;
+	int			*active_links_num;
 	int			*state;
 	t_list		*move_list;
 	t_list		*active_ants;
@@ -106,6 +107,7 @@ int				is_valid_room(char *line, t_data *data);
 void			add_room(char *line, t_data **data, int *type);
 void			add_link(char *link, t_data **data);
 void			verify_data(t_data *data);
+void			filter_deadends(t_data **data);
 
 /*
 **	exploration algorithm

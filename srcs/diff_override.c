@@ -89,6 +89,7 @@ static	void	exec_override(int dst, int src, t_pathdata *data)
 {
 	if (data->bfs_data[dst][0] >= data->bfs_data[src][0] + 1)				// if target distance is higher or equal than src distance + 1
 	{
+		printf("		target distance is higher than src --> no override possible\n");
 		data->bfs_data[src][2] -= 1;
 		return ;
 	}
@@ -100,7 +101,7 @@ static	void	exec_override(int dst, int src, t_pathdata *data)
 		decr_conns(dst, data);
 		data->bfs_data[dst][0] = data->bfs_data[src][0] + 1;							// set dist in target + 1 than src
 		data->bfs_data[dst][1] = data->bfs_data[src][1];									// path is same as src
-		data->bfs_data[dst][2] = data->links_num[dst];									// links is reinitialized and adjusted in the next round
+		data->bfs_data[dst][2] = data->active_links_num[dst];									// links is reinitialized and adjusted in the next round
 	}
 	else
 	{
@@ -120,9 +121,9 @@ void	diff_override(t_pathdata *data)
 
 		if (data->bfs_data[curr->src][1] != data->bfs_data[curr->dst][1] && curr->dst != data->start)
 		{
-//			printf("\n	checking hostile override from room %i (%i, %i, %i) to room %i (%i, %i, %i)\n", 
-//				curr->src, data->bfs_data[curr->src][0], data->bfs_data[curr->src][1], data->bfs_data[curr->src][2],
-//				curr->dst, data->bfs_data[curr->dst][0], data->bfs_data[curr->dst][1], data->bfs_data[curr->dst][2]);
+			printf("\n	checking hostile override from room %i (%i, %i, %i) to room %i (%i, %i, %i)\n", 
+				curr->src, data->bfs_data[curr->src][0], data->bfs_data[curr->src][1], data->bfs_data[curr->src][2],
+				curr->dst, data->bfs_data[curr->dst][0], data->bfs_data[curr->dst][1], data->bfs_data[curr->dst][2]);
 			exec_override(curr->dst, curr->src, data);
 		}
 

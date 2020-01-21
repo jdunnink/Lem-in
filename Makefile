@@ -45,6 +45,7 @@ SRC = 	main.c				\
 		init_link_storage.c	\
 		same_override.c		\
 		diff_override.c 	\
+		filter_deadends.c 	\
 
 OBJ = $(SRC:.c=.o)
 

@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static	int		load_old_links(t_data *data, int **array, int src, int dst)
+int		load_old_links(t_data *data, int **array, int src, int dst)
 {
 	int curr_links;
 	int *ptr;
@@ -32,7 +32,7 @@ static	int		load_old_links(t_data *data, int **array, int src, int dst)
 	return (1);
 }
 
-static	void	process_link(int src_index, int dst_index, t_data **data)
+void	process_link(int src_index, int dst_index, t_data **data)
 {
 	int curr_links;
 	int *new_array;
@@ -53,6 +53,7 @@ static	void	process_link(int src_index, int dst_index, t_data **data)
 		(*data)->links[src_index] = new_array;
 	}
 	(((*data)->links_num)[src_index])++;
+	(((*data)->active_links_num)[src_index])++;
 }
 
 void			add_link(char *link, t_data **data)

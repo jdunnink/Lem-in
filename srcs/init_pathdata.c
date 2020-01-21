@@ -50,6 +50,7 @@ void	init_pathdata(t_data **data, t_pathdata **path_data)
 	new->end = (*data)->end;
 	new->links = (*data)->links;
 	new->links_num = (*data)->links_num;
+	new->active_links_num = (*data)->active_links_num;
 	new->total_paths = 0;
 	if (new->links_num[new->end] < new->links_num[new->start])
 		new->path_threshold = new->links_num[new->end];

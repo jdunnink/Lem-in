@@ -42,14 +42,14 @@ static	void exec_override(int dst, int src, t_pathdata *data)
 	src_dis = data->bfs_data[src][0];
 	if (dst_dis == src_dis)
 		data->bfs_data[src][2] -= 1;
-	else if (in_range(dst_dis, src_dis - 1, src_dis + 1) == 0)				// linked room of the same path is coming from a different branch
+	else if (in_range(dst_dis, src_dis - 1, src_dis + 1) == 0)
 		data->bfs_data[src][2] -= 1;
 	else
 	{
-//		printf("	same_override was called from room %i to target room %i --> rooms are connected on the same branch\n", src, dst);
+		printf("	path: %i --> same_override was called from room %i to target room %i --> rooms are connected on the same branch\n", data->bfs_data[dst][1], src, dst);
 		return ;
 	}
-//	printf("	same_override was called from room %i to target room %i --> rooms are from different branches --> decremented link_count of %i to %i\n", src, dst, src, data->bfs_data[src][0]);
+	printf("	path: %i --> same_override was called from room %i to target room %i --> rooms are from different branches --> decremented link_count of %i to %i\n", data->bfs_data[dst][1], src, dst, src, data->bfs_data[src][0]);
 }
 
 void	same_override(t_pathdata *data)
@@ -62,4 +62,5 @@ void	same_override(t_pathdata *data)
 		exec_override(curr->dst, curr->src, data);
 		free(curr);
 	}
+	ft_putchar('\n');
 }

@@ -18,6 +18,7 @@ static	void	setup(t_data **data, t_pathdata **path_data)
 	verify_data(*data);
 	init_state(data);
 	(*data)->ants_at_start = (*data)->ants;
+	filter_deadends(data);
 	init_pathdata(data, path_data);
 }
 
@@ -46,6 +47,8 @@ int				main(void)
 	t_pathdata	*path_data;
 
 	setup(&data, &path_data);
+
+
 	search_maze(path_data);
 
 	printf("	%i total_paths found!\n", path_data->total_paths);
