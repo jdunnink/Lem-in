@@ -54,6 +54,7 @@ static	void exec_override(int dst, int src, t_pathdata *data)
 
 void	same_override(t_pathdata *data)
 {
+	ft_putchar('\n');
 	t_link *curr;
 
 	while (data->same_override != NULL)

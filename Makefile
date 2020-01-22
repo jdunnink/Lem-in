@@ -58,7 +58,7 @@ NAME = lem-in
 
 HEADER = -I includes/
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 LIBS = -L libft/ -lft
 
 all: $(NAME)

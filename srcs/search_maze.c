@@ -132,6 +132,7 @@ static	void	process_bfs(t_pathdata *data, int *curr_depth)
 	same_override(data);
 //	show_bfs_data(data);
 	diff_override(data);
+
 }
 
 static	void	process_rooms(t_pathdata *data, int *curr_depth)
@@ -155,10 +156,12 @@ static	void	show_end_conn(t_pathdata *data)
 	while (i < links)
 	{
 		link = data->links[data->end][i];
-		printf("	link %i has path %i\n", link, data->bfs_data[link][1]);
+		printf("	link %i has path %i with distance %i\n", link, data->bfs_data[link][1], data->bfs_data[link][0]);
 		i++;
 	}
 }
+
+
 
 static	int		check_solved(t_pathdata *data)
 {
@@ -173,16 +176,16 @@ static	int		check_solved(t_pathdata *data)
 	while (i < links)
 	{
 		link = data->links[data->end][i];
-		if (data->bfs_data[link][1] == paths)
+		if (link == -1)
 		{
-			paths++;
-			i = 0;
+			i++;
+			continue ;
 		}
+		if (data->bfs_data[link][0] == 0)
+			return (0);
 		i++;
 	}
-	if (paths == data->path_threshold)
-		return (1);
-	return (0);
+	return (1);
 }
 
 void			search_maze(t_pathdata *data)
@@ -190,12 +193,13 @@ void			search_maze(t_pathdata *data)
 	int			curr_depth;
 
 	curr_depth = 1;
-	while (check_solved(data) == 0 && curr_depth < 30)
+	while (check_solved(data) == 0)
 	{
 		process_rooms(data, &curr_depth);
 //		show_bfs_data(data);
 //		ft_putchar('\n');
 	}
+	curr_depth = 1;
 	show_end_conn(data);
 	exit (0);
 }
