@@ -43,9 +43,14 @@ SRC = 	main.c				\
 		free_data.c 		\
 		print_data.c 		\
 		init_link_storage.c	\
-		same_override.c		\
 		diff_override.c 	\
 		filter_deadends.c 	\
+		purge_upstream.c	\
+		purge_downstream.c	\
+		contains.c			\
+		in_range.c 			\
+		is_link_to_start.c	\
+		reconstruct_path.c	\
 
 OBJ = $(SRC:.c=.o)
 

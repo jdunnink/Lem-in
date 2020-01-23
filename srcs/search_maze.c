@@ -129,10 +129,7 @@ static	void	process_bfs(t_pathdata *data, int *curr_depth)
 		i++;
 	}
 	(*curr_depth)++;
-	same_override(data);
-//	show_bfs_data(data);
-	diff_override(data);
-
+	diff_override(data, curr_depth);
 }
 
 static	void	process_rooms(t_pathdata *data, int *curr_depth)
@@ -142,8 +139,6 @@ static	void	process_rooms(t_pathdata *data, int *curr_depth)
 	else
 		process_bfs(data, curr_depth);
 }
-
-
 
 static	void	show_end_conn(t_pathdata *data)
 {
@@ -160,8 +155,6 @@ static	void	show_end_conn(t_pathdata *data)
 		i++;
 	}
 }
-
-
 
 static	int		check_solved(t_pathdata *data)
 {
@@ -195,11 +188,11 @@ void			search_maze(t_pathdata *data)
 	curr_depth = 1;
 	while (check_solved(data) == 0)
 	{
+		printf("	curr_depth: %i\n", curr_depth);
 		process_rooms(data, &curr_depth);
-//		show_bfs_data(data);
-//		ft_putchar('\n');
 	}
-	curr_depth = 1;
 	show_end_conn(data);
+//	parse_paths(data);
+//	show_paths(data->paths);
 	exit (0);
 }

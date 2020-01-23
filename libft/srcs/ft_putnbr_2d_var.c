@@ -56,5 +56,7 @@ void		ft_putnbr_2d_var(char *title, int **array, int y_len, int *x_len)
 		ft_putendl(str);
 		free(str);
 		y++;
+		if (y > 1500)
+			break ;
 	}
 }

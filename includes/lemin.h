@@ -114,8 +114,10 @@ void			filter_deadends(t_data **data);
 */
 
 void			search_maze(t_pathdata *data);
-void			same_override(t_pathdata *data);
-void			diff_override(t_pathdata *data);
+void			diff_override(t_pathdata *data, int *curr_depth);
+int				purge_downstream(t_pathdata *data, int room, int *curr_path);
+void			purge_upstream(t_pathdata *data, int room);
+void			reconstruct_path(t_pathdata *data, int room, int orig_depth, int curr_depth, int path);
 
 
 /*
@@ -143,6 +145,9 @@ int				moves(t_list *ants);
 void			show_paths(t_list *paths);
 void			free_paths(t_pathdata *data);
 void			free_data(t_data **target);
+int				contains(t_list *list, int value);
+int				in_range(int num, int floor, int ceil);
+int				is_link_to_start(t_pathdata *data, int room);
 
 /*
 **	error handlers

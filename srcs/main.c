@@ -48,7 +48,6 @@ int				main(void)
 
 	setup(&data, &path_data);
 
-
 	search_maze(path_data);
 
 	printf("	%i total_paths found!\n", path_data->total_paths);
