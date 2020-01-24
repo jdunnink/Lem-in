@@ -32,7 +32,7 @@ static  void    disable_reverse(t_data *data, int src, int dst)
         }
         i++;
     }
-    printf("    error! could not locate reverse active link\n");
+//    printf("    error! could not locate reverse active link\n");
     exit (0);
 }
 
@@ -55,7 +55,7 @@ static  void    disable_active_link(t_data *data, int room)
         }
         i++;
     }
-    printf("    error! could not locate active link\n");
+//    printf("    error! could not locate active link\n");
     exit (0);
 }
 

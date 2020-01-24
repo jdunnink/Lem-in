@@ -34,6 +34,7 @@ static	int	init_bfs_data(t_pathdata **new)
 	}
 	curr->diff_override = NULL;
 	curr->same_override = NULL;
+	curr->finish_order = NULL;
 	return (1);
 }
 

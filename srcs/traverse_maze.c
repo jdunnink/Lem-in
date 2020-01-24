@@ -12,6 +12,8 @@
 
 #include "lemin.h"
 
+#include <stdio.h>
+
 static	void	spawn_ants(t_data *data)
 {
 	int i;
@@ -22,12 +24,14 @@ static	void	spawn_ants(t_data *data)
 		spawn_ant(data);
 		i++;
 	}
+//	printf("	%i ants spawned!\n", i);
 }
 
 void			traverse_maze(t_data *data, t_pathdata *path_data)
 {
 	spawn_ants(data);
 	assign_routes(data, path_data);
+//	exit (0);
 	while (data->ants_at_end != data->ants)
 	{
 		if (moves(data->active_ants) > 0)

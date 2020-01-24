@@ -54,13 +54,13 @@ static	int	clear_downstream(t_pathdata *data, int room, int orig_depth)
 
 	if (is_upconvergence(data, room) > 0)
 	{
-		printf("	convergence found at room %i --> multiple upstreams\n", room);
+//		printf("	convergence found at room %i --> multiple upstreams\n", room);
 		return (1);
 	}
-	if (is_link_to_start(data, room) == 1)
+	if (data->bfs_data[room][0] == 1)
 	{
-		printf("		clearing downstream in room %i (%i, %i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1], data->bfs_data[room][2]);
-		printf("	downstream was part of a connection to start! --> reconstructing path %i to depth %i\n", data->bfs_data[room][1], orig_depth);
+//		printf("		clearing downstream in room %i (%i, %i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1], data->bfs_data[room][2]);
+//		printf("	downstream was part of a connection to start! --> reconstructing path %i to depth %i\n", data->bfs_data[room][1], orig_depth);
 		reconstruct_path(data, room, orig_depth, 1, data->bfs_data[room][1]);
 		return (0);
 	}
@@ -100,7 +100,15 @@ int 	purge_downstream(t_pathdata *data, int room, int *curr_depth)
 	int room_dis;
 	int	ret;
 
-	printf("		purging downstream in room %i (%i, %i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1], data->bfs_data[room][2]);
+//	printf("		purging downstream in room %i (%i, %i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1], data->bfs_data[room][2]);
+
+	if (data->bfs_data[room][0] == 1)
+	{
+//		printf("		clearing downstream in room %i (%i, %i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1], data->bfs_data[room][2]);
+//		printf("	downstream was part of a connection to start! --> reconstructing path %i to depth %i\n", data->bfs_data[room][1], *curr_depth - 1);
+		reconstruct_path(data, room, *curr_depth - 1, 1, data->bfs_data[room][1]);
+		return (0);
+	}
 
 	i = 0;
 	ret = 0;

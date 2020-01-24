@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 
-static	void	assign_to_ant(t_pathdata *data, t_ant *ant, int *counter)
+static	void	distribute(t_pathdata *data, int *counter)
 {
 	int i;
 	int curr_score;
@@ -32,7 +32,7 @@ static	void	assign_to_ant(t_pathdata *data, t_ant *ant, int *counter)
 	while (iter)
 	{
 		path = iter->content;
-		curr_score =	(int)ft_listlen(path) + counter[i];
+		curr_score =  (int)ft_listlen(path) + counter[i];
 		if (curr_score < best_score)
 		{
 			best_score = curr_score;
@@ -45,7 +45,16 @@ static	void	assign_to_ant(t_pathdata *data, t_ant *ant, int *counter)
 //	printf("	assigning route: \n");
 //	print_path(best_path);
 	counter[path_cnt]++;
-	ant->target_path = ft_lstcpy(best_path);
+}
+
+static  int get_first_room(t_list *path)
+{
+    t_list *iter;
+
+    iter = path;
+    while (iter->next)
+        iter = iter->next;
+    return (*(int *)iter->content);
 }
 
 static	void	show_pathlens(t_list *paths)
@@ -59,31 +68,59 @@ static	void	show_pathlens(t_list *paths)
 	while (iter)
 	{
 		len = ft_listlen(iter->content);
-//		printf("	path %i has len %lu\n", i, len);
+//		printf("	path %i starting with room %i has len %lu\n", i, get_first_room(iter->content), len);
 		iter = iter->next;
 		i++;
 	}
 }
 
-void			assign_routes(t_data *data, t_pathdata *path_data)
+static	int	array_contains(int *array, int len, int value)
 {
-	t_list	*iter;
-	t_ant	*curr_ant;
+	int i;
+	int zeros;
+	i = 0;
+
+	zeros = 0;
+	while (i < len)
+	{
+		if (array[i] == 0)
+			zeros++;
+		i++;
+	}
+	if (zeros > 2)
+		return (1);
+	return (0);
+}
+
+int		eval_paths(t_data *data, t_pathdata *path_data)
+{
 	int		*counter;
 	int		i;
 
 	show_pathlens(path_data->paths);
 
+	if (path_data->total_paths == 0)
+		return (0);
+
 	counter = ft_intnew(path_data->total_paths);
 //	printf("	%i different paths\n", path_data->total_paths);
-	iter = data->active_ants;
-	while (iter)
-	{
-		curr_ant = iter->content;
-		assign_to_ant(path_data, curr_ant, counter);
-		iter = iter->next;
-	}
+    i = 0;
+	while (i < data->ants)
+    {
+		distribute(path_data, counter);
+        i++;
+    }
 //	ft_putnbr_array("path distribution", counter, path_data->total_paths);
 	free(counter);
-	free_paths(path_data);
+	if (array_contains(counter, path_data->total_paths, 0) == 1)
+	{
+//		printf("	current solution would contain unused paths\n");
+//		printf("	blocking last finished path\n");
+//		printf("	rerunning BFS\n");
+		free_paths(path_data);
+		reset_bfs_data(data, path_data);
+		return (0);
+	}
+	else
+		return (1);
 }

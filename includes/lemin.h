@@ -32,6 +32,7 @@ typedef	struct	s_pathdata
 	t_list		*paths;
 	int			total_paths;
 	int			path_threshold;
+	t_list		*finish_order;
 }				t_pathdata;
 
 typedef struct	s_data
@@ -118,6 +119,10 @@ void			diff_override(t_pathdata *data, int *curr_depth);
 int				purge_downstream(t_pathdata *data, int room, int *curr_path);
 void			purge_upstream(t_pathdata *data, int room);
 void			reconstruct_path(t_pathdata *data, int room, int orig_depth, int curr_depth, int path);
+void			parse_paths(t_pathdata *data);
+int				eval_paths(t_data *data, t_pathdata *path_data);
+void			push_finished(t_pathdata *data);
+void			reset_bfs_data(t_data *data, t_pathdata *path_data);
 
 
 /*

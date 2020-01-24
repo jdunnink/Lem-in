@@ -45,15 +45,21 @@ int				main(void)
 {
 	t_data		*data;
 	t_pathdata	*path_data;
-
+	int i;
 	setup(&data, &path_data);
 
-	search_maze(path_data);
+	while (eval_paths(data, path_data) == 0)
+	{
+		search_maze(path_data);
+		path_data->total_paths = (int)ft_listlen(path_data->paths);
+//		ft_putchar('\n');
+	}
+//	printf("	%i total_paths found!\n", path_data->total_paths);
+//	show_paths(path_data->paths);
 
-	printf("	%i total_paths found!\n", path_data->total_paths);
-	show_paths(path_data->paths);
+//	exit (0);
 
-	dump_lines(data);
+//	dump_lines(data);
 	traverse_maze(data, path_data);
 	free(path_data);
 	free_data(&data);

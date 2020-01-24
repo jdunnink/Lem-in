@@ -51,11 +51,11 @@ static	void	clear_upstream(t_pathdata *data, int room)
 	int	upstream_val;
 	int	path;
 
-	printf("		clearing upstream in room %i (%i, %i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1], data->bfs_data[room][2]);
+//	printf("		clearing upstream in room %i (%i, %i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1], data->bfs_data[room][2]);
 
 	if (is_convergence(data, room) > 1)
 	{
-		printf("	convergence found at room %i --> %i downstreams\n", room, is_convergence(data, room));
+//		printf("	convergence found at room %i --> %i downstreams\n", room, is_convergence(data, room));
 		return ;
 	}
 
@@ -75,10 +75,10 @@ static	void	clear_upstream(t_pathdata *data, int room)
 			i++;
 			continue ;
 		}
-		if (link == data->end)
-		{
-			printf("	upstream was part of a connection to end!\n");
-		}
+//		if (link == data->end)
+//		{
+//			printf("	upstream was part of a connection to end!\n");
+//		}
 
 		if (data->bfs_data[link][0] == upstream_val && data->bfs_data[link][1] == path && data->bfs_data[link][0] > 0)
 		{
@@ -95,7 +95,7 @@ void	purge_upstream(t_pathdata *data, int room)
 	int links;
 	int link;
 
-	printf("		purging upstream in room %i (%i, %i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1], data->bfs_data[room][2]);
+//	printf("		purging upstream in room %i (%i, %i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1], data->bfs_data[room][2]);
 
 	i = 0;
 	links = data->links_num[room];

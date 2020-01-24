@@ -21,7 +21,7 @@ void    reconstruct_path(t_pathdata *data, int room, int orig_depth, int curr_de
     int link;
 
 //    printf("		reconstructing path in room %i (%i, %i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1], data->bfs_data[room][2]);
-  printf("    reconstruct path is called with room %i, orig_depth %i, curr_depth %i and path %i\n", room, orig_depth, curr_depth, path);
+// printf("    reconstruct path is called with room %i, orig_depth %i, curr_depth %i and path %i\n", room, orig_depth, curr_depth, path);
         
 
     if (data->bfs_data[room][1] == 0 && data->bfs_data[room][0] == 0)

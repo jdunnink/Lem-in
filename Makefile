@@ -51,6 +51,10 @@ SRC = 	main.c				\
 		in_range.c 			\
 		is_link_to_start.c	\
 		reconstruct_path.c	\
+		parse_paths.c 		\
+		eval_paths.c		\
+		push_finished.c 	\
+		reset_bfs_data.c 	\
 
 OBJ = $(SRC:.c=.o)
 

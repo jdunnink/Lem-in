@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-/*
-
 static	void show_bfs_data(t_pathdata *data)
 {
 	int i;
@@ -34,8 +32,6 @@ static	void show_bfs_data(t_pathdata *data)
 		i++;
 	}
 }
-
-*/
 
 static	void	process_start(t_pathdata *data, int *curr_depth)
 {
@@ -151,20 +147,27 @@ static	void	show_end_conn(t_pathdata *data)
 	while (i < links)
 	{
 		link = data->links[data->end][i];
-		printf("	link %i has path %i with distance %i\n", link, data->bfs_data[link][1], data->bfs_data[link][0]);
+		if (link == -1)
+		{
+			i++;
+			continue ;
+		}
+//		if (data->bfs_data[link][0] > 0)
+//			printf("	link %i has path %i with distance %i\n", link, data->bfs_data[link][1], data->bfs_data[link][0]);
 		i++;
 	}
 }
+
 
 static	int		check_solved(t_pathdata *data)
 {
 	int i;
 	int links;
 	int	link;
-	int	paths;
+	int	empty_paths;
 
 	links = data->links_num[data->end];
-	paths = 0;
+	empty_paths = 0;
 	i = 0;
 	while (i < links)
 	{
@@ -175,9 +178,11 @@ static	int		check_solved(t_pathdata *data)
 			continue ;
 		}
 		if (data->bfs_data[link][0] == 0)
-			return (0);
+			empty_paths++;
 		i++;
 	}
+	if (empty_paths > 0)
+		return (0);
 	return (1);
 }
 
@@ -185,14 +190,17 @@ void			search_maze(t_pathdata *data)
 {
 	int			curr_depth;
 
+//	printf("	search maze is called!\n");
+//	show_bfs_data(data);
+
 	curr_depth = 1;
-	while (check_solved(data) == 0)
+	while (curr_depth < 100)
 	{
-		printf("	curr_depth: %i\n", curr_depth);
+//		printf("	curr_depth: %i\n", curr_depth);
 		process_rooms(data, &curr_depth);
+		push_finished(data);
 	}
 	show_end_conn(data);
-//	parse_paths(data);
+	parse_paths(data);
 //	show_paths(data->paths);
-	exit (0);
 }

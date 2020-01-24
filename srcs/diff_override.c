@@ -54,18 +54,18 @@ static	t_link *pop_link(t_pathdata *data)
 
 static	int	check_override(int room, t_pathdata *data, int src, int *curr_depth)
 {
-	if (is_link_to_start(data, room) == 1)
-	{
-		printf("	target is connected to start\n");
-		return (0);
-	}
+//	if (is_link_to_start(data, room) == 1)
+//	{
+//		printf("	target is connected to start\n");
+//		return (0);
+//	}
 
 	if (data->bfs_data[src][0] + 1 >= data->bfs_data[room][0])
 	{
-		printf("		target distance is lower\n");
+//		printf("		target distance is lower\n");
 		return (1);
 	}
-	printf("		target distance is higher\n");
+//	printf("		target distance is higher\n");
 	return (0);
 }
 
@@ -76,20 +76,20 @@ static	void	exec_override(int dst, int src, t_pathdata *data, t_list **overridde
 		purge_upstream(data, dst);
 		if (purge_downstream(data, dst, curr_depth) == 0)
 		{
-			printf("	override would cause elimination of path %i\n", data->bfs_data[dst][1]);
+//			printf("	override would cause elimination of path %i\n", data->bfs_data[dst][1]);
 			return ;
 		}
 		ft_lstpushfront(&dst, overridden, sizeof(int *));
-		printf("		overriding room %i from (%i, %i, %i) to (%i, %i, %i)\n", 
-				dst, data->bfs_data[dst][0], data->bfs_data[dst][1], data->bfs_data[dst][2],
-				data->bfs_data[src][0] + 1, data->bfs_data[src][1], data->links_num[dst]);
+//		printf("		overriding room %i from (%i, %i, %i) to (%i, %i, %i)\n", 
+//				dst, data->bfs_data[dst][0], data->bfs_data[dst][1], data->bfs_data[dst][2],
+//				data->bfs_data[src][0] + 1, data->bfs_data[src][1], data->links_num[dst]);
 	
 		data->bfs_data[dst][0] = data->bfs_data[src][0] + 1;							// set dist in target + 1 than src
 		data->bfs_data[dst][1] = data->bfs_data[src][1];									// path is same as src
 		data->bfs_data[dst][2] = data->active_links_num[dst];									// links is reinitialized and adjusted in the next round
 	}
-	else
-		printf("		could not override room %i to path %i\n", dst, data->bfs_data[src][1]);
+//	else
+//		printf("		could not override room %i to path %i\n", dst, data->bfs_data[src][1]);
 }
 
 void	diff_override(t_pathdata *data, int *curr_depth)
@@ -104,16 +104,16 @@ void	diff_override(t_pathdata *data, int *curr_depth)
 
 		if (curr->dst != data->start)
 		{
-			printf("\n	checking hostile override from room %i (%i, %i, %i) to room %i (%i, %i, %i)\n", 
-				curr->src, data->bfs_data[curr->src][0], data->bfs_data[curr->src][1], data->bfs_data[curr->src][2],
-				curr->dst, data->bfs_data[curr->dst][0], data->bfs_data[curr->dst][1], data->bfs_data[curr->dst][2]);
-			if (contains(overridden, curr->src) == 0 && has_end_conn(data, data->bfs_data[curr->src][1]) == 0)
+//			printf("\n	checking hostile override from room %i (%i, %i, %i) to room %i (%i, %i, %i)\n", 
+//				curr->src, data->bfs_data[curr->src][0], data->bfs_data[curr->src][1], data->bfs_data[curr->src][2],
+//				curr->dst, data->bfs_data[curr->dst][0], data->bfs_data[curr->dst][1], data->bfs_data[curr->dst][2]);
+			if (contains(overridden, curr->src) == 0)
 			{
-				printf("	source room %i has %i connections to end\n", curr->src, has_end_conn(data, data->bfs_data[curr->src][1]));
+//				printf("	source room %i has %i connections to end\n", curr->src, has_end_conn(data, data->bfs_data[curr->src][1]));
 				exec_override(curr->dst, curr->src, data, &overridden, curr_depth);
 			}
-			else
-				printf("	reverse override was already triggered\n");
+//			else
+//				printf("	reverse override was already triggered\n");
 		}
 		free(curr);
 	}
