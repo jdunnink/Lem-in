@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 static	void	distribute(t_pathdata *data, int *counter)
 {
 	int i;
@@ -42,39 +40,10 @@ static	void	distribute(t_pathdata *data, int *counter)
 		iter = iter->next;
 		i++;
 	}
-//	printf("	assigning route: \n");
-//	print_path(best_path);
 	counter[path_cnt]++;
 }
 
-static  int get_first_room(t_list *path)
-{
-    t_list *iter;
-
-    iter = path;
-    while (iter->next)
-        iter = iter->next;
-    return (*(int *)iter->content);
-}
-
-static	void	show_pathlens(t_list *paths)
-{
-	t_list *iter;
-	size_t len;
-	int i;
-
-	i = 0;
-	iter = paths;
-	while (iter)
-	{
-		len = ft_listlen(iter->content);
-//		printf("	path %i starting with room %i has len %lu\n", i, get_first_room(iter->content), len);
-		iter = iter->next;
-		i++;
-	}
-}
-
-static	int	array_contains(int *array, int len, int value)
+static	int	array_contains(int *array, int len)
 {
 	int i;
 	int zeros;
@@ -97,26 +66,18 @@ int		eval_paths(t_data *data, t_pathdata *path_data)
 	int		*counter;
 	int		i;
 
-	show_pathlens(path_data->paths);
-
 	if (path_data->total_paths == 0)
 		return (0);
-
 	counter = ft_intnew(path_data->total_paths);
-//	printf("	%i different paths\n", path_data->total_paths);
     i = 0;
 	while (i < data->ants)
     {
 		distribute(path_data, counter);
         i++;
     }
-//	ft_putnbr_array("path distribution", counter, path_data->total_paths);
 	free(counter);
-	if (array_contains(counter, path_data->total_paths, 0) == 1)
+	if (array_contains(counter, path_data->total_paths) == 1)
 	{
-//		printf("	current solution would contain unused paths\n");
-//		printf("	blocking last finished path\n");
-//		printf("	rerunning BFS\n");
 		free_paths(path_data);
 		reset_bfs_data(data, path_data);
 		return (0);

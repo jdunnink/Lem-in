@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 static	void	assign_to_ant(t_pathdata *data, t_ant *ant, int *counter)
 {
 	int i;
@@ -42,27 +40,8 @@ static	void	assign_to_ant(t_pathdata *data, t_ant *ant, int *counter)
 		iter = iter->next;
 		i++;
 	}
-//	printf("	assigning route: \n");
-//	print_path(best_path);
 	counter[path_cnt]++;
 	ant->target_path = ft_lstcpy(best_path);
-}
-
-static	void	show_pathlens(t_list *paths)
-{
-	t_list *iter;
-	size_t len;
-	int i;
-
-	i = 0;
-	iter = paths;
-	while (iter)
-	{
-		len = ft_listlen(iter->content);
-//		printf("	path %i has len %lu\n", i, len);
-		iter = iter->next;
-		i++;
-	}
 }
 
 void			assign_routes(t_data *data, t_pathdata *path_data)
@@ -70,12 +49,8 @@ void			assign_routes(t_data *data, t_pathdata *path_data)
 	t_list	*iter;
 	t_ant	*curr_ant;
 	int		*counter;
-	int		i;
-
-	show_pathlens(path_data->paths);
 
 	counter = ft_intnew(path_data->total_paths);
-//	printf("	%i different paths\n", path_data->total_paths);
 	iter = data->active_ants;
 	while (iter)
 	{
@@ -83,7 +58,6 @@ void			assign_routes(t_data *data, t_pathdata *path_data)
 		assign_to_ant(path_data, curr_ant, counter);
 		iter = iter->next;
 	}
-//	ft_putnbr_array("path distribution", counter, path_data->total_paths);
 	free(counter);
 	free_paths(path_data);
 }

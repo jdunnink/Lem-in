@@ -39,31 +39,19 @@ static	void	dump_lines(t_data *data)
 	data->lines = NULL;
 }
 
-#include <stdio.h>
-
 int				main(void)
 {
 	t_data		*data;
 	t_pathdata	*path_data;
-	int i;
+	
 	setup(&data, &path_data);
-
 	while (eval_paths(data, path_data) == 0)
 	{
 		search_maze(path_data);
 		path_data->total_paths = (int)ft_listlen(path_data->paths);
 		if (path_data->total_paths >= path_data->path_threshold)
-		{
-//			printf("	path threshold is reached --> breaking search..\n");
 			break ;
-		}
-//		ft_putchar('\n');
 	}
-//	printf("	%i total_paths found!\n", path_data->total_paths);
-//	show_paths(path_data->paths);
-
-//	exit (0);
-
 	dump_lines(data);
 	traverse_maze(data, path_data);
 	free(path_data);

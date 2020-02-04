@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-void	print_path(t_list *path)
+static void	print_path(t_list *path)
 {
 	t_list *iter;
 

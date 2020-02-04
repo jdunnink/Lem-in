@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 static  void    disable_reverse(t_data *data, int src, int dst)
 {
     int i;
@@ -26,13 +24,11 @@ static  void    disable_reverse(t_data *data, int src, int dst)
         if (data->links[src][i] == dst)
         {
             data->active_links_num[src] -= 1;
-//           printf("    reverse active link found! --> disabling link from %i to %i and reducing active links num to %i\n", src, dst, data->active_links_num[src]);
             data->links[src][i] = -1;
             return ;
         }
         i++;
     }
-//    printf("    error! could not locate reverse active link\n");
     exit (0);
 }
 
@@ -48,14 +44,12 @@ static  void    disable_active_link(t_data *data, int room)
         if (data->links[room][i] != -1)
         {
             data->active_links_num[room] -= 1;
-//            printf("    active link found! --> disabling link from %i to %i and reducing active links num to %i\n", room, data->links[room][i], data->active_links_num[room]);
             disable_reverse(data, data->links[room][i], room);
             data->links[room][i] = -1;
             return ;
         }
         i++;
     }
-//    printf("    error! could not locate active link\n");
     exit (0);
 }
 
@@ -75,7 +69,4 @@ void    filter_deadends(t_data **data)
         }
         i++;
     }
-//    print_data("active_links_num", data);
-//    printf("    start has %i active links remaining\n", (*data)->active_links_num[(*data)->start]);
-//    printf("    end has %i active links remaining\n", (*data)->active_links_num[(*data)->end]);
 }

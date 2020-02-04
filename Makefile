@@ -55,6 +55,9 @@ SRC = 	main.c				\
 		eval_paths.c		\
 		push_finished.c 	\
 		reset_bfs_data.c 	\
+		show_bfs_data.c 	\
+		count_branches.c	\
+		path_end_conn.c		\
 
 OBJ = $(SRC:.c=.o)
 
@@ -67,7 +70,7 @@ NAME = lem-in
 
 HEADER = -I includes/
 CC = gcc
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 LIBS = -L libft/ -lft
 
 all: $(NAME)

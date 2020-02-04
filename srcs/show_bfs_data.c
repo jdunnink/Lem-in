@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   in_range.c                                         :+:    :+:            */
+/*   show_bfs_data.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/04 16:33:35 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/02/04 16:33:37 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/04 16:40:08 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/04 16:40:09 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int	in_range(int num, int floor, int ceil)
+void show_bfs_data(t_pathdata *data)
 {
-	if (num >= floor && num <= ceil)
-		return (1);
-	return (0);
+	int i;
+
+	i = 0;
+	while (i < data->rooms)
+	{
+		ft_putchar('\n');
+		ft_putchar(' ');
+		ft_putnbr(i);
+		ft_putstr(" => ");
+		ft_putnbr(data->bfs_data[i][0]);
+		ft_putchar(' ');
+		ft_putnbr(data->bfs_data[i][1]);
+		ft_putchar(' ');
+		ft_putnbr(data->bfs_data[i][2]);
+		ft_putchar('\n');
+		i++;
+	}
 }

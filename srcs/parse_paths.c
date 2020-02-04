@@ -12,16 +12,12 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 static  t_list  *map_to_path(t_pathdata *data, int room, t_list *path, int depth)
 {
     int i;
     int links;
     int link;
     int path_num;
-
-//   printf("    map to path is called with room %i (%i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1]);
 
     if (room == data->start)
         return (path);
@@ -77,10 +73,7 @@ static  int is_shortest_of_paths(t_pathdata *data, int room)
         if (data->bfs_data[link][1] == path)
         {
             if (data->bfs_data[link][0] < distance && data->bfs_data[link][0] > 0)
-            {
-//                printf("    there is a shorter path with path number: %i at room %i\n", path, link);
                 return (0);
-            }
         }
         i++;
     }
@@ -93,8 +86,6 @@ void    parse_paths(t_pathdata *data)
     int links;
     int link;
     t_list *path;
-
-//    printf("    parse paths is called\n");
 
     i = 0;
     path = NULL;
@@ -114,7 +105,6 @@ void    parse_paths(t_pathdata *data)
         }
         ft_lstpushfront(&data->end, &path, sizeof(int *));
         path = map_to_path(data, link, path, 1);
-//       printf("\n    path is added to list\n\n");
         ft_lstappend(&data->paths, path, sizeof(t_list *));
         path = NULL;
         i++;

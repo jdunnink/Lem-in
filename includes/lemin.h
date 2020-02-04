@@ -123,7 +123,9 @@ void			parse_paths(t_pathdata *data);
 int				eval_paths(t_data *data, t_pathdata *path_data);
 void			push_finished(t_pathdata *data);
 void			reset_bfs_data(t_data *data, t_pathdata *path_data);
-
+void			show_bfs_data(t_pathdata *data);
+int				count_branches(t_pathdata *data, int path, int curr_depth);
+int				path_end_conn(t_pathdata *data, int path);
 
 /*
 **	traversal algorithm
@@ -168,6 +170,5 @@ void			error_exec(int err_code, t_data *data, t_pathdata *pathdata);
 
 void			print_move_list(t_data *data);
 void			print_data(char *segment, t_data **data);
-void			print_path(t_list *path);
 
 #endif
