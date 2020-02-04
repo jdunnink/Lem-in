@@ -75,10 +75,10 @@ static	void	clear_upstream(t_pathdata *data, int room)
 			i++;
 			continue ;
 		}
-//		if (link == data->end)
-//		{
+		if (link == data->end)
+		{
 //			printf("	upstream was part of a connection to end!\n");
-//		}
+		}
 
 		if (data->bfs_data[link][0] == upstream_val && data->bfs_data[link][1] == path && data->bfs_data[link][0] > 0)
 		{
@@ -109,7 +109,7 @@ void	purge_upstream(t_pathdata *data, int room)
 		}
 		if (data->bfs_data[link][1] == data->bfs_data[room][1])
 		{
-			if (data->bfs_data[link][0] >= data->bfs_data[room][0] && data->bfs_data[link][0] > 0)
+			if (data->bfs_data[link][0] > data->bfs_data[room][0] && data->bfs_data[link][0] > 0)
 				clear_upstream(data, link);
 		}
 		i++;

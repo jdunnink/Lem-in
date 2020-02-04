@@ -108,7 +108,7 @@ void    reset_bfs_data(t_data *main, t_pathdata *data)
     room = get_start_room(data, last_finished);
 //    printf("    path %i started with room %i\n", last_finished, room);
     disable_link(main, room);
-//    filter_deadends(&main);
+    filter_deadends(&main);
     clear_bfs_state(main, data);
     ft_lstdel(&data->finish_order, &ft_del);
     data->total_paths = 0;

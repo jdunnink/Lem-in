@@ -75,7 +75,7 @@ void    filter_deadends(t_data **data)
         }
         i++;
     }
-//   print_data("active_links_num", data);
+//    print_data("active_links_num", data);
 //    printf("    start has %i active links remaining\n", (*data)->active_links_num[(*data)->start]);
 //    printf("    end has %i active links remaining\n", (*data)->active_links_num[(*data)->end]);
 }

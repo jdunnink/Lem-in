@@ -21,7 +21,7 @@ static  t_list  *map_to_path(t_pathdata *data, int room, t_list *path, int depth
     int link;
     int path_num;
 
-//    printf("    map to path is called with room %i (%i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1]);
+//   printf("    map to path is called with room %i (%i, %i)\n", room, data->bfs_data[room][0], data->bfs_data[room][1]);
 
     if (room == data->start)
         return (path);
@@ -42,8 +42,11 @@ static  t_list  *map_to_path(t_pathdata *data, int room, t_list *path, int depth
         {
             if (data->bfs_data[link][0] == data->bfs_data[room][0] - 1)
             {
-                path = map_to_path(data, link, path, depth + 1);
-                return (path);
+                if (data->bfs_data[link][0] > 0)
+                {
+                    path = map_to_path(data, link, path, depth + 1);
+                    return (path);
+                }
             }
         }
         i++;
@@ -73,8 +76,11 @@ static  int is_shortest_of_paths(t_pathdata *data, int room)
         }
         if (data->bfs_data[link][1] == path)
         {
-            if (data->bfs_data[link][0] < distance)
+            if (data->bfs_data[link][0] < distance && data->bfs_data[link][0] > 0)
+            {
+//                printf("    there is a shorter path with path number: %i at room %i\n", path, link);
                 return (0);
+            }
         }
         i++;
     }
@@ -108,7 +114,7 @@ void    parse_paths(t_pathdata *data)
         }
         ft_lstpushfront(&data->end, &path, sizeof(int *));
         path = map_to_path(data, link, path, 1);
- //       printf("\n    path is added to list\n\n");
+//       printf("\n    path is added to list\n\n");
         ft_lstappend(&data->paths, path, sizeof(t_list *));
         path = NULL;
         i++;

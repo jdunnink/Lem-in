@@ -52,6 +52,11 @@ int				main(void)
 	{
 		search_maze(path_data);
 		path_data->total_paths = (int)ft_listlen(path_data->paths);
+		if (path_data->total_paths >= path_data->path_threshold)
+		{
+//			printf("	path threshold is reached --> breaking search..\n");
+			break ;
+		}
 //		ft_putchar('\n');
 	}
 //	printf("	%i total_paths found!\n", path_data->total_paths);
@@ -59,7 +64,7 @@ int				main(void)
 
 //	exit (0);
 
-//	dump_lines(data);
+	dump_lines(data);
 	traverse_maze(data, path_data);
 	free(path_data);
 	free_data(&data);

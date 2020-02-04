@@ -87,7 +87,7 @@ static	int	array_contains(int *array, int len, int value)
 			zeros++;
 		i++;
 	}
-	if (zeros > 2)
+	if (zeros > 3)
 		return (1);
 	return (0);
 }

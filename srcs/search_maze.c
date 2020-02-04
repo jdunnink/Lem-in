@@ -56,6 +56,7 @@ static	void	process_start(t_pathdata *data, int *curr_depth)
 		i++;
 	}
 	(*curr_depth)++;
+//	show_bfs_data(data);
 }
 
 #include <stdio.h>
@@ -136,12 +137,14 @@ static	void	process_rooms(t_pathdata *data, int *curr_depth)
 		process_bfs(data, curr_depth);
 }
 
-static	void	show_end_conn(t_pathdata *data)
+static	int	show_end_conn(t_pathdata *data)
 {
 	int i;
 	int links;
 	int	link;
+	int paths;
 
+	paths = 0;
 	links = data->links_num[data->end];
 	i = 0;
 	while (i < links)
@@ -152,10 +155,14 @@ static	void	show_end_conn(t_pathdata *data)
 			i++;
 			continue ;
 		}
-//		if (data->bfs_data[link][0] > 0)
+		if (data->bfs_data[link][0] > 0)
+		{
+			paths++;
 //			printf("	link %i has path %i with distance %i\n", link, data->bfs_data[link][1], data->bfs_data[link][0]);
+		}
 		i++;
 	}
+	return (paths);
 }
 
 
@@ -186,21 +193,35 @@ static	int		check_solved(t_pathdata *data)
 	return (1);
 }
 
+// simple 6 --> 3 paths
+// simple 5 --> 2 paths
+
 void			search_maze(t_pathdata *data)
 {
 	int			curr_depth;
 
-//	printf("	search maze is called!\n");
+//	printf("	search maze is called! with path threshold %i\n", data->path_threshold);
 //	show_bfs_data(data);
 
 	curr_depth = 1;
 	while (curr_depth < 100)
 	{
 //		printf("	curr_depth: %i\n", curr_depth);
+//		printf("	%i total paths found\n", data->total_paths);
+//		printf("	path threshold: %i\n", data->path_threshold);
+//		printf("	finish list contains %lu paths\n", ft_listlen(data->finish_order));
 		process_rooms(data, &curr_depth);
 		push_finished(data);
+//		show_bfs_data(data);
+		if (show_end_conn(data) == data->path_threshold)
+		{
+//			printf("	%i active finished paths\n", show_end_conn(data));
+//			printf("	%lu paths in the finished list\n", ft_listlen(data->finish_order));
+			if (ft_listlen(data->finish_order) >= data->path_threshold)
+				break ;
+		}
 	}
-	show_end_conn(data);
+//	show_end_conn(data);
 	parse_paths(data);
 //	show_paths(data->paths);
 }

@@ -92,6 +92,53 @@ static	void	exec_override(int dst, int src, t_pathdata *data, t_list **overridde
 //		printf("		could not override room %i to path %i\n", dst, data->bfs_data[src][1]);
 }
 
+static	int	count_branches(t_pathdata *data, int path, int curr_depth)
+{
+	int i;
+	int rooms;
+	int branches;
+
+	rooms = data->rooms;
+	i = 0;
+	branches = 0;
+	while (i < rooms)
+	{
+		if (data->bfs_data[i][1] == path)
+		{
+			if (data->bfs_data[i][0] == curr_depth)
+				branches++;
+		}
+		i++;
+	}
+//	printf("	path %i has %i active branches at depth %i\n", path, branches, curr_depth);
+	return (branches);
+}
+
+static	int	path_end_conn(t_pathdata *data, int path)
+{
+	int end_conns;
+	int link;
+	int links;
+	int i;
+
+	i = 0;
+	end_conns = 0;
+	links = data->links_num[data->end];
+	while (i < links)
+	{
+		link = data->links[data->end][i];
+		if (link == -1)
+		{
+			i++;
+			continue ;
+		}
+		if (data->bfs_data[link][1] == path)
+			end_conns++;
+		i++;
+	}
+	return (end_conns);
+}
+
 void	diff_override(t_pathdata *data, int *curr_depth)
 {
 	t_link *curr;
@@ -109,8 +156,19 @@ void	diff_override(t_pathdata *data, int *curr_depth)
 //				curr->dst, data->bfs_data[curr->dst][0], data->bfs_data[curr->dst][1], data->bfs_data[curr->dst][2]);
 			if (contains(overridden, curr->src) == 0)
 			{
-//				printf("	source room %i has %i connections to end\n", curr->src, has_end_conn(data, data->bfs_data[curr->src][1]));
-				exec_override(curr->dst, curr->src, data, &overridden, curr_depth);
+//				printf("	source path %i has %i connections to end\n", data->bfs_data[curr->src][1], path_end_conn(data, data->bfs_data[curr->src][1]));
+//				printf("	dst path %i has %i connections to end\n", data->bfs_data[curr->dst][1], path_end_conn(data, data->bfs_data[curr->dst][1]));
+				if (path_end_conn(data, data->bfs_data[curr->src][1]) <= path_end_conn(data, data->bfs_data[curr->dst][1]))
+				{
+					if (count_branches(data, data->bfs_data[curr->src][1], *curr_depth - 1) == 0)
+						exec_override(curr->dst, curr->src, data, &overridden, curr_depth);
+					else if (path_end_conn(data, data->bfs_data[curr->dst][1]) > 1)
+						exec_override(curr->dst, curr->src, data, &overridden, curr_depth);
+//					else
+//						printf("	src path %i has other branches\n", data->bfs_data[curr->src][1]);
+				}
+//				else
+//					printf("	override source is already connected to end\n");
 			}
 //			else
 //				printf("	reverse override was already triggered\n");
