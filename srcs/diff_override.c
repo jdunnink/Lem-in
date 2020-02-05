@@ -31,43 +31,63 @@ static	int		check_override(int room, t_pathdata *data, int src)
 	return (0);
 }
 
-static	void	exec_override(int dst, int src, t_pathdata *data, t_list **overridden, int *curr_depth)
+static	void	exec(t_link *link, t_pathdata *data, t_list **rec, int *depth)
 {
-	if (check_override(dst, data, src) == 1)
+	if (check_override(link->dst, data, link->src) == 1)
 	{
-		purge_upstream(data, dst);
-		if (purge_downstream(data, dst, curr_depth) == 0)
+		purge_upstream(data, link->dst);
+		if (purge_downstream(data, link->dst, depth) == 0)
 			return ;
-		ft_lstpushfront(&dst, overridden, sizeof(int *));
-		data->bfs_data[dst][0] = data->bfs_data[src][0] + 1;
-		data->bfs_data[dst][1] = data->bfs_data[src][1];
+		ft_lstpushfront(&link->dst, rec, sizeof(int *));
+		data->bfs_data[link->dst][0] = data->bfs_data[link->src][0] + 1;
+		data->bfs_data[link->dst][1] = data->bfs_data[link->src][1];
 	}
 }
 
-void			diff_override(t_pathdata *data, int *curr_depth)
+static	int		confirm(t_pathdata *data, t_list *record, t_link *link)
+{
+	int		src_p;
+	int		dst_p;
+
+	src_p = data->bfs_data[link->src][1];
+	dst_p = data->bfs_data[link->dst][1];
+	if (link->dst != data->start)
+	{
+		if (ft_lstcontains(record, link->src) == 0)
+		{
+			if (path_end_conn(data, src_p) <= path_end_conn(data, dst_p))
+			{
+				return (1);
+			}
+			return (0);
+		}
+		return (0);
+	}
+	return (0);
+}
+
+void			diff_override(t_pathdata *data, int *depth)
 {
 	t_link	*curr;
-	t_list	*overridden;
+	t_list	*record;
+	int		src_p;
+	int		dst_p;
 
-	overridden = NULL;
+	record = NULL;
 	while (data->diff_override != NULL)
 	{
 		curr = pop_link(data);
-		if (curr->dst != data->start)
+		src_p = data->bfs_data[curr->src][1];
+		dst_p = data->bfs_data[curr->dst][1];
+		if (confirm(data, record, curr) == 1)
 		{
-			if (ft_lstcontains(overridden, curr->src) == 0)
-			{
-				if (path_end_conn(data, data->bfs_data[curr->src][1]) <= path_end_conn(data, data->bfs_data[curr->dst][1]))
-				{
-					if (count_branches(data, data->bfs_data[curr->src][1], *curr_depth - 1) == 0)
-						exec_override(curr->dst, curr->src, data, &overridden, curr_depth);
-					else if (path_end_conn(data, data->bfs_data[curr->dst][1]) > 1)
-						exec_override(curr->dst, curr->src, data, &overridden, curr_depth);
-				}
-			}
+			if (count_branches(data, src_p, *depth - 1) == 0)
+				exec(curr, data, &record, depth);
+			else if (path_end_conn(data, dst_p) > 1)
+				exec(curr, data, &record, depth);
 		}
 		free(curr);
 	}
-	if (overridden != NULL)
-		ft_lstdel(&overridden, &ft_del);
+	if (record != NULL)
+		ft_lstdel(&record, &ft_del);
 }

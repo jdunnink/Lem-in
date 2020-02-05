@@ -12,27 +12,28 @@
 
 #include "lemin.h"
 
-static	int		is_convergence(t_pathdata *data, int room)
+static	int		is_convergence(t_pathdata *d, int room)
 {
 	int i;
 	int links;
-	int	link;
+	int	l;
 	int down_streams;
 
-	links = data->links_num[room];
+	links = d->links_num[room];
 	down_streams = 0;
 	i = 0;
 	while (i < links)
 	{
-		link = data->links[room][i];
-		if (link == -1)
+		l = d->links[room][i];
+		if (l == -1)
 		{
 			i++;
 			continue ;
 		}
-		if (data->bfs_data[link][1] == data->bfs_data[room][1])
+		if (d->bfs_data[l][1] == d->bfs_data[room][1])
 		{
-			if (data->bfs_data[link][0] <= data->bfs_data[room][0] && data->bfs_data[link][0] > 0)
+			if (d->bfs_data[l][0] <= d->bfs_data[room][0] &&
+				d->bfs_data[l][0] > 0)
 				down_streams++;
 		}
 		i++;
@@ -40,57 +41,54 @@ static	int		is_convergence(t_pathdata *data, int room)
 	return (down_streams);
 }
 
-static	void	clear_upstream(t_pathdata *data, int room)
+static	void	clear_upstream(t_pathdata *d, int room)
 {
 	int i;
 	int links;
 	int	link;
-	int	upstream_val;
+	int	next;
 	int	path;
 
-	if (is_convergence(data, room) > 1)
+	if (is_convergence(d, room) > 1)
 		return ;
 	i = 0;
-	links = data->links_num[room];
-	upstream_val = data->bfs_data[room][0] + 1;
-	path = data->bfs_data[room][1];
-	data->bfs_data[room][0] = 0;
-	data->bfs_data[room][1] = 0;
-	data->bfs_data[room][2] = 0;
+	links = d->links_num[room];
+	next = d->bfs_data[room][0] + 1;
+	path = d->bfs_data[room][1];
+	d->bfs_data[room][0] = 0;
+	d->bfs_data[room][1] = 0;
 	while (i < links)
 	{
-		link = data->links[room][i];
-		if (link == -1)
-		{
-			i++;
-			continue ;
-		}
-		if (data->bfs_data[link][0] == upstream_val && data->bfs_data[link][1] == path && data->bfs_data[link][0] > 0)
-			clear_upstream(data, link);
+		link = d->links[room][i];
+		if (link != -1 && d->bfs_data[link][0] == next &&
+			d->bfs_data[link][1] == path &&
+			d->bfs_data[link][0] > 0)
+			clear_upstream(d, link);
 		i++;
 	}
 }
 
-void			purge_upstream(t_pathdata *data, int room)
+void			purge_upstream(t_pathdata *d, int room)
 {
 	int i;
 	int links;
-	int link;
+	int l;
 
 	i = 0;
-	links = data->links_num[room];
+	links = d->links_num[room];
 	while (i < links)
 	{
-		link = data->links[room][i];
-		if (link == -1)
+		l = d->links[room][i];
+		if (l == -1)
 		{
 			i++;
 			continue ;
 		}
-		if (data->bfs_data[link][1] == data->bfs_data[room][1])
+		if (d->bfs_data[l][1] == d->bfs_data[room][1])
 		{
-			if (data->bfs_data[link][0] > data->bfs_data[room][0] && data->bfs_data[link][0] > 0)
-				clear_upstream(data, link);
+			if (d->bfs_data[l][0] > d->bfs_data[room][0] &&
+				d->bfs_data[l][0] > 0)
+				clear_upstream(d, l);
 		}
 		i++;
 	}

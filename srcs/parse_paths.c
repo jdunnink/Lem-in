@@ -12,68 +12,69 @@
 
 #include "lemin.h"
 
-static	t_list	*map_to_path(t_pathdata *data, int room, t_list *path, int depth)
+static	int		is_next_node(t_pathdata *d, int link, int path_num, int room)
+{
+	if (d->bfs_data[link][1] == path_num)
+	{
+		if (d->bfs_data[link][0] == d->bfs_data[room][0] - 1)
+		{
+			if (d->bfs_data[link][0] > 0)
+			{
+				return (1);
+			}
+			return (0);
+		}
+		return (0);
+	}
+	return (0);
+}
+
+static	t_list	*map_to_path(t_pathdata *d, int room, t_list *p, int depth)
 {
 	int i;
 	int links;
 	int link;
 	int path_num;
 
-	if (room == data->start)
-		return (path);
-	path_num = data->bfs_data[room][1];
-	ft_lstpushback(&path, &room, sizeof(int *));
+	if (room == d->start)
+		return (p);
+	path_num = d->bfs_data[room][1];
+	ft_lstpushback(&p, &room, sizeof(int *));
 	i = 0;
-	links = data->links_num[room];
+	links = d->links_num[room];
 	while (i < links)
 	{
-		link = data->links[room][i];
-		if (link == -1 || link == data->start)
+		link = d->links[room][i];
+		if (link == -1 || link == d->start)
 		{
 			i++;
 			continue ;
 		}
-		if (data->bfs_data[link][1] == path_num)
-		{
-			if (data->bfs_data[link][0] == data->bfs_data[room][0] - 1)
-			{
-				if (data->bfs_data[link][0] > 0)
-				{
-					path = map_to_path(data, link, path, depth + 1);
-					return (path);
-				}
-			}
-		}
+		if (is_next_node(d, link, path_num, room) == 1)
+			return (map_to_path(d, link, p, depth + 1));
 		i++;
 	}
-	return (path);
+	return (p);
 }
 
-static	int		is_shortest_of_paths(t_pathdata *data, int room)
+static	int		is_shortest_of_paths(t_pathdata *d, int room)
 {
 	int i;
 	int path;
 	int links;
 	int link;
-	int distance;
+	int dist;
 
 	i = 0;
-	path = data->bfs_data[room][1];
-	links = data->links_num[data->end];
-	distance = data->bfs_data[room][0];
+	path = d->bfs_data[room][1];
+	links = d->links_num[d->end];
+	dist = d->bfs_data[room][0];
 	while (i < links)
 	{
-		link = data->links[data->end][i];
-		if (link == -1 || link == room)
-		{
-			i++;
-			continue ;
-		}
-		if (data->bfs_data[link][1] == path)
-		{
-			if (data->bfs_data[link][0] < distance && data->bfs_data[link][0] > 0)
+		link = d->links[d->end][i];
+		if (link != -1 && link != room && d->bfs_data[link][1] == path)
+			if (d->bfs_data[link][0] < dist && d->bfs_data[link][0] > 0)
 				return (0);
-		}
 		i++;
 	}
 	return (1);
@@ -92,12 +93,8 @@ void			parse_paths(t_pathdata *data)
 	while (i < links)
 	{
 		link = data->links[data->end][i];
-		if (link == -1 || data->bfs_data[link][0] == 0)
-		{
-			i++;
-			continue ;
-		}
-		if (is_shortest_of_paths(data, link) == 0)
+		if (link == -1 || data->bfs_data[link][0] == 0 ||
+			is_shortest_of_paths(data, link) == 0)
 		{
 			i++;
 			continue ;

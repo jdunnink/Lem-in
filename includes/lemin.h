@@ -125,6 +125,7 @@ int				path_end_conn(t_pathdata *data, int path);
 int				active_end_conn(t_pathdata *data);
 void			process_rooms(t_pathdata *data, int *curr_depth);
 void			process_bfs(t_pathdata *data, int *curr_depth);
+int				is_upconvergence(t_pathdata *d, int room);
 
 /*
 **	traversal algorithm

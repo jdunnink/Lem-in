@@ -59,6 +59,7 @@ SRC = 	main.c				\
 		active_end_conn.c	\
 		process_rooms.c 	\
 		process_bfs.c		\
+		is_upconvergence.c 	\
 
 OBJ = $(SRC:.c=.o)
 
