@@ -12,32 +12,28 @@
 
 #include "lemin.h"
 
-static	void	assign_to_ant(t_pathdata *data, t_ant *ant, int *counter)
+static	void	assign_to_ant(t_list *paths, t_ant *ant, int *counter)
 {
 	int i;
 	int curr_score;
 	int best_score;
 	int	path_cnt;
-	t_list *iter;
-	t_list *path;
 	t_list *best_path;
 
 	i = 0;
 	curr_score = 0;
 	best_score = __INT_MAX__;
 	best_path = NULL;
-	iter = data->paths;
-	while (iter)
+	while (paths)
 	{
-		path = iter->content;
-		curr_score =	(int)ft_listlen(path) + counter[i];
+		curr_score = (int)ft_listlen(paths->content) + counter[i];
 		if (curr_score < best_score)
 		{
 			best_score = curr_score;
-			best_path = path;
+			best_path = paths->content;
 			path_cnt = i;
 		}
-		iter = iter->next;
+		paths = paths->next;
 		i++;
 	}
 	counter[path_cnt]++;
@@ -55,7 +51,7 @@ void			assign_routes(t_data *data, t_pathdata *path_data)
 	while (iter)
 	{
 		curr_ant = iter->content;
-		assign_to_ant(path_data, curr_ant, counter);
+		assign_to_ant(path_data->paths, curr_ant, counter);
 		iter = iter->next;
 	}
 	free(counter);

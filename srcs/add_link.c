@@ -53,7 +53,6 @@ void	process_link(int src_index, int dst_index, t_data **data)
 		(*data)->links[src_index] = new_array;
 	}
 	(((*data)->links_num)[src_index])++;
-	(((*data)->active_links_num)[src_index])++;
 }
 
 void			add_link(char *link, t_data **data)

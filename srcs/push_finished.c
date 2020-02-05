@@ -30,7 +30,7 @@ void    push_finished(t_pathdata *data)
         }
         if (data->bfs_data[link][0] > 0)
         {
-            if (contains(data->finish_order, data->bfs_data[link][1]) == 0)
+            if (ft_lstcontains(data->finish_order, data->bfs_data[link][1]) == 0)
                 ft_lstpushfront(&data->bfs_data[link][1], &data->finish_order, sizeof(int *));
         }
         i++;

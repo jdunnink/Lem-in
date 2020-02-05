@@ -21,7 +21,6 @@ static	void	process_start(t_pathdata *data, int *curr_depth)
 	i = 0;
 	data->bfs_data[data->start][0] = -1;
 	data->bfs_data[data->start][1] = -1;
-	data->bfs_data[data->start][2] = data->active_links_num[data->start];
 	total_links = data->links_num[data->start];
 	while (i < total_links)
 	{
@@ -30,7 +29,6 @@ static	void	process_start(t_pathdata *data, int *curr_depth)
 		{
 			data->bfs_data[link][0] = 1;
 			data->bfs_data[link][1] = i;
-			data->bfs_data[link][2] = data->active_links_num[link];
 		}
 		i++;
 	}
@@ -41,7 +39,6 @@ static	void	set_empty(int link, int index, t_pathdata *data)
 {
 	data->bfs_data[link][0] = data->bfs_data[index][0] + 1;
 	data->bfs_data[link][1] = data->bfs_data[index][1];
-	data->bfs_data[link][2] = data->active_links_num[link];
 	if (data->bfs_data[link][2] == 1)
 		data->bfs_data[index][2] -= 1;
 }
@@ -52,9 +49,7 @@ static	void push_link(int link, int index, t_pathdata *data)
 
 	conn.src = index;
 	conn.dst = link;
-	if (data->bfs_data[link][1] == data->bfs_data[index][1])
-		ft_lstpushfront(&conn, &data->same_override, sizeof(t_link *));
-	else
+	if (data->bfs_data[link][1] != data->bfs_data[index][1])
 		ft_lstpushfront(&conn, &data->diff_override, sizeof(t_link *));
 }
 
@@ -109,31 +104,6 @@ static	void	process_rooms(t_pathdata *data, int *curr_depth)
 		process_start(data, curr_depth);
 	else
 		process_bfs(data, curr_depth);
-}
-
-static	int	active_end_conn(t_pathdata *data)
-{
-	int i;
-	int links;
-	int	link;
-	int paths;
-
-	paths = 0;
-	links = data->links_num[data->end];
-	i = 0;
-	while (i < links)
-	{
-		link = data->links[data->end][i];
-		if (link == -1)
-		{
-			i++;
-			continue ;
-		}
-		if (data->bfs_data[link][0] > 0)
-			paths++;
-		i++;
-	}
-	return (paths);
 }
 
 void			search_maze(t_pathdata *data)

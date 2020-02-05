@@ -24,15 +24,12 @@ typedef	struct	s_pathdata
 	int			end;
 	int			**links;
 	int			*links_num;
-	int			*active_links_num;
 	int			**bfs_data;
-	t_list		*diff_override;
-	t_list		*same_override;
-
-	t_list		*paths;
 	int			total_paths;
 	int			path_threshold;
 	t_list		*finish_order;
+	t_list		*diff_override;
+	t_list		*paths;
 }				t_pathdata;
 
 typedef struct	s_data
@@ -45,11 +42,10 @@ typedef struct	s_data
 	int			total_links;
 	int			start;
 	int			end;
-	char		**room_names;
 	int			**links;
 	int			*links_num;
-	int			*active_links_num;
 	int			*state;
+	char		**room_names;
 	t_list		*move_list;
 	t_list		*active_ants;
 	t_list		*lines;
@@ -126,6 +122,7 @@ void			reset_bfs_data(t_data *data, t_pathdata *path_data);
 void			show_bfs_data(t_pathdata *data);
 int				count_branches(t_pathdata *data, int path, int curr_depth);
 int				path_end_conn(t_pathdata *data, int path);
+int				active_end_conn(t_pathdata *data);
 
 /*
 **	traversal algorithm
@@ -152,9 +149,8 @@ int				moves(t_list *ants);
 void			show_paths(t_list *paths);
 void			free_paths(t_pathdata *data);
 void			free_data(t_data **target);
-int				contains(t_list *list, int value);
-int				in_range(int num, int floor, int ceil);
 int				is_link_to_start(t_pathdata *data, int room);
+void			block_link(t_data *data, int room);
 
 /*
 **	error handlers

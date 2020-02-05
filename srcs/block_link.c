@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   filter_deadends.c                                  :+:    :+:            */
+/*   block_link.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -12,44 +12,38 @@
 
 #include "lemin.h"
 
-static  int count_links(int room, t_data *data)
+static  void    block_reverse(t_data *data, int src, int dst)
 {
     int i;
-    int links;
-    int link;
-    int count;
+    int links_num;
 
-    count = 0;
+    links_num = data->links_num[src];
     i = 0;
-    links = data->links_num[room];
-    while (i < links)
+    while (i < links_num)
     {
-        link = data->links[room][i];
-        if (link == -1)
+        if (data->links[src][i] == dst)
         {
-            i++;
-            continue ;
+            data->links[src][i] = -1;
+            return ;
         }
-        else
-            count++;
         i++;
     }
-    return (count);
 }
 
-void    filter_deadends(t_data **data)
+void    block_link(t_data *data, int room)
 {
-    t_data *curr;
-    int     i;
+    int i;
+    int links_num;
 
-    curr = *data;
+    links_num = data->links_num[room];
     i = 0;
-    while (i < curr->rooms)
+    while (i < links_num)
     {
-        if (count_links(i, curr) == 1 && i != curr->end && i != curr->start)
+        if (data->links[room][i] != -1)
         {
-            block_link(*data, i);
-            i = 0;
+            block_reverse(data, data->links[room][i], room);
+            data->links[room][i] = -1;
+            return ;
         }
         i++;
     }

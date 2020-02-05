@@ -32,8 +32,6 @@ static	void	select_array(char *segment, t_data **data)
 	}
 	else if (ft_strcmp(segment, "links_num") == 0)
 		ft_putnbr_array(segment, (*data)->links_num, (*data)->rooms);
-	else if (ft_strcmp(segment, "active_links_num") == 0)
-		ft_putnbr_array(segment, (*data)->active_links_num, (*data)->rooms);
 	else if (ft_strcmp(segment, "state") == 0)
 		ft_putnbr_array(segment, (*data)->state, (*data)->rooms);
 }

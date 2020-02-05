@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   create_backup.c                                    :+:    :+:            */
+/*   ft_inrange.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/08 16:25:20 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/01/08 16:25:21 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/04 16:33:35 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/04 16:33:37 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lemin.h"
+#include "libft.h"
 
-void	create_backup(t_list *paths, t_list **backup)
+/*
+**  ft_inrange checks if the parameter 'num' is
+**  between, or equal to bounds, of 'floor' and 'ceil' parameters.
+*/
+
+int	ft_inrange(int num, int floor, int ceil)
 {
-	t_list *target;
-	t_list *inner;
-	t_list *iter;
-
-	inner = NULL;
-	target = NULL;
-	iter = paths;
-	while (iter)
-	{
-		inner = ft_lstcpy(iter->content);
-		ft_lstappend(&target, inner, sizeof(t_list *));
-		inner = NULL;
-		iter = iter->next;
-	}
-	*backup = target;
+	if (num >= floor && num <= ceil)
+		return (1);
+	return (0);
 }

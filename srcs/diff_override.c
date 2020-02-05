@@ -41,7 +41,6 @@ static	void	exec_override(int dst, int src, t_pathdata *data, t_list **overridde
 		ft_lstpushfront(&dst, overridden, sizeof(int *));
 		data->bfs_data[dst][0] = data->bfs_data[src][0] + 1;
 		data->bfs_data[dst][1] = data->bfs_data[src][1];
-		data->bfs_data[dst][2] = data->active_links_num[dst];
 	}
 }
 
@@ -56,7 +55,7 @@ void	diff_override(t_pathdata *data, int *curr_depth)
 		curr = pop_link(data);
 		if (curr->dst != data->start)
 		{
-			if (contains(overridden, curr->src) == 0)
+			if (ft_lstcontains(overridden, curr->src) == 0)
 			{
 				if (path_end_conn(data, data->bfs_data[curr->src][1]) <= path_end_conn(data, data->bfs_data[curr->dst][1]))
 				{

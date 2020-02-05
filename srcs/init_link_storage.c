@@ -56,29 +56,10 @@ static	void	init_links_num(t_data **data)
 	}
 }
 
-static	void	init_active_links_num(t_data **data)
-{
-	int rooms;
-	int i;
-
-	rooms = (*data)->rooms;
-	(*data)->active_links_num = (int *)malloc(sizeof(int) * rooms);
-	if (!(*data)->active_links_num)
-		error_input(4, *data, NULL);
-	i = 0;
-	while (i < rooms)
-	{
-		(*data)->active_links_num[i] = (*data)->links_num[i];
-		i++;
-	}
-}
-
 void			init_link_storage(t_data **data)
 {
 	if ((*data)->links == NULL)
 		init_links_lookup(data);
 	if ((*data)->links_num == NULL)
 		init_links_num(data);
-	if ((*data)->active_links_num == NULL && (*data)->links_num != NULL)
-		init_active_links_num(data);
 }

@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   contains.c                                         :+:    :+:            */
+/*   ft_count_int.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/04 16:32:09 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/02/04 16:32:11 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/05 08:34:54 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/05 08:35:23 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lemin.h"
+#include "libft.h"
 
-int	contains(t_list *list, int value)
+int	ft_count_int(int *array, int len, int value)
 {
-	t_list *iter;
-	int		val;
+	int i;
+	int total;
+	i = 0;
 
-	iter = list;
-	while (iter)
+	total = 0;
+	while (i < len)
 	{
-		val = *(int *)iter->content;
-		if (val == value)
-			return (1);
-		iter = iter->next;
+		if (array[i] == value)
+			total++;
+		i++;
 	}
-	return (0);
+	return (total);
 }

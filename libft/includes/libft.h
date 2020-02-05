@@ -32,6 +32,7 @@ size_t			ft_count_cinstr(char *str, char c);
 size_t			ft_strlen(const char *str);
 size_t			ft_count_digits(char *str);
 int				ft_strarrlen(char **array);
+int				ft_count_int(int *array, int len, int value);
 
 /*
 **	boolean identifiers
@@ -48,6 +49,7 @@ int				ft_cinstr(const char *str, char c);
 int				ft_str_only(char *str, char c);
 int				ft_issign(int c);
 int				ft_isint(char *line);
+int				ft_inrange(int num, int floor, int ceil);
 
 /*
 **	comparison
@@ -79,6 +81,7 @@ size_t			ft_listlen(t_list *list);
 void			ft_lstdelmiddle(int i, t_list **list);
 void			ft_lstdelend(t_list **list);
 void			ft_lstdelfront(t_list **active_ants);
+int				ft_lstcontains(t_list *list, int value);
 
 /*
 **	type/format conversion

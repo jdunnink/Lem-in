@@ -43,7 +43,7 @@ int				main(void)
 {
 	t_data		*data;
 	t_pathdata	*path_data;
-	
+
 	setup(&data, &path_data);
 	while (eval_paths(data, path_data) == 0)
 	{

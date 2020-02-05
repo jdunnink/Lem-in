@@ -108,6 +108,9 @@ SRC =	ft_swap.c			\
 		ft_lstdelmiddle.c	\
 		ft_lstdelend.c		\
 		ft_intnew.c 		\
+		ft_lstcontains.c 	\
+		ft_inrange.c 		\
+		ft_count_int.c 		\
 
 OBJ = $(SRC:.c=.o)
 

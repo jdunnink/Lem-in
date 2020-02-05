@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   free_backup.c                                      :+:    :+:            */
+/*   active_end_conn.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/08 16:23:28 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/01/08 16:23:29 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/05 09:46:17 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/05 09:46:25 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void		free_backup(t_list *backup)
+int	active_end_conn(t_pathdata *data)
 {
-	t_list *iter;
-	t_list *curr;
+	int i;
+	int links;
+	int	link;
+	int paths;
 
-	iter = backup;
-	while (iter)
+	paths = 0;
+	links = data->links_num[data->end];
+	i = 0;
+	while (i < links)
 	{
-		curr = iter->content;
-		ft_lstdel(&curr, &ft_del);
-		iter->content = NULL;
-		iter = iter->next;
+		link = data->links[data->end][i];
+		if (link == -1)
+		{
+			i++;
+			continue ;
+		}
+		if (data->bfs_data[link][0] > 0)
+			paths++;
+		i++;
 	}
-	if (backup)
-		ft_lstdel(&backup, &ft_del);
-	backup = NULL;
+	return (paths);
 }

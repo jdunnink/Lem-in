@@ -39,7 +39,6 @@ SRC = 	main.c				\
 		get_path.c 			\
 		assign_routes.c 	\
 		free_paths.c		\
-		conflicts.c			\
 		free_data.c 		\
 		print_data.c 		\
 		init_link_storage.c	\
@@ -47,8 +46,6 @@ SRC = 	main.c				\
 		filter_deadends.c 	\
 		purge_upstream.c	\
 		purge_downstream.c	\
-		contains.c			\
-		in_range.c 			\
 		is_link_to_start.c	\
 		reconstruct_path.c	\
 		parse_paths.c 		\
@@ -58,6 +55,8 @@ SRC = 	main.c				\
 		show_bfs_data.c 	\
 		count_branches.c	\
 		path_end_conn.c		\
+		block_link.c		\
+		active_end_conn.c	\
 
 OBJ = $(SRC:.c=.o)
 
