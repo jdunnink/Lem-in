@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static	t_link *pop_link(t_pathdata *data)
+static	t_link	*pop_link(t_pathdata *data)
 {
 	t_list *node;
 	t_link *link;
@@ -24,7 +24,7 @@ static	t_link *pop_link(t_pathdata *data)
 	return (link);
 }
 
-static	int	check_override(int room, t_pathdata *data, int src)
+static	int		check_override(int room, t_pathdata *data, int src)
 {
 	if (data->bfs_data[src][0] + 1 >= data->bfs_data[room][0])
 		return (1);
@@ -44,9 +44,9 @@ static	void	exec_override(int dst, int src, t_pathdata *data, t_list **overridde
 	}
 }
 
-void	diff_override(t_pathdata *data, int *curr_depth)
+void			diff_override(t_pathdata *data, int *curr_depth)
 {
-	t_link *curr;
+	t_link	*curr;
 	t_list	*overridden;
 
 	overridden = NULL;

@@ -26,7 +26,7 @@ static void	print_path(t_list *path)
 	ft_putchar('\n');
 }
 
-void	show_paths(t_list *paths)
+void		show_paths(t_list *paths)
 {
 	t_list *iter;
 

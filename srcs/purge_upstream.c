@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static	int	is_convergence(t_pathdata *data, int room)
+static	int		is_convergence(t_pathdata *data, int room)
 {
 	int i;
 	int links;
@@ -71,7 +71,7 @@ static	void	clear_upstream(t_pathdata *data, int room)
 	}
 }
 
-void	purge_upstream(t_pathdata *data, int room)
+void			purge_upstream(t_pathdata *data, int room)
 {
 	int i;
 	int links;

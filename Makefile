@@ -57,6 +57,8 @@ SRC = 	main.c				\
 		path_end_conn.c		\
 		block_link.c		\
 		active_end_conn.c	\
+		process_rooms.c 	\
+		process_bfs.c		\
 
 OBJ = $(SRC:.c=.o)
 

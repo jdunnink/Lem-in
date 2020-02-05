@@ -12,27 +12,29 @@
 
 #include "lemin.h"
 
-void    push_finished(t_pathdata *data)
+void	push_finished(t_pathdata *data)
 {
-    int i;
-    int links;
-    int link;
+	int i;
+	int links;
+	int link;
+	int path;
 
-    i = 0;
-    links = data->links_num[data->end];
-    while (i < links)
-    {
-        link = data->links[data->end][i];
-        if (link == -1)
-        {
-            i++;
-            continue ;
-        }
-        if (data->bfs_data[link][0] > 0)
-        {
-            if (ft_lstcontains(data->finish_order, data->bfs_data[link][1]) == 0)
-                ft_lstpushfront(&data->bfs_data[link][1], &data->finish_order, sizeof(int *));
-        }
-        i++;
-    }
+	i = 0;
+	links = data->links_num[data->end];
+	while (i < links)
+	{
+		link = data->links[data->end][i];
+		if (link == -1)
+		{
+			i++;
+			continue ;
+		}
+		if (data->bfs_data[link][0] > 0)
+		{
+			path = data->bfs_data[link][1];
+			if (ft_lstcontains(data->finish_order, path) == 0)
+				ft_lstpushfront(&path, &data->finish_order, sizeof(int *));
+		}
+		i++;
+	}
 }

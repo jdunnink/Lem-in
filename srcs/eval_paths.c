@@ -14,11 +14,11 @@
 
 static	void	distribute(t_list *paths, int *counter)
 {
-	int i;
-	int curr_score;
-	int best_score;
-	int	path_cnt;
-	t_list *best_path;
+	int		i;
+	int		curr_score;
+	int		best_score;
+	int		path_cnt;
+	t_list	*best_path;
 
 	i = 0;
 	curr_score = 0;
@@ -26,7 +26,7 @@ static	void	distribute(t_list *paths, int *counter)
 	best_path = NULL;
 	while (paths)
 	{
-		curr_score =  (int)ft_listlen(paths->content) + counter[i];
+		curr_score = (int)ft_listlen(paths->content) + counter[i];
 		if (curr_score < best_score)
 		{
 			best_score = curr_score;
@@ -39,7 +39,7 @@ static	void	distribute(t_list *paths, int *counter)
 	counter[path_cnt]++;
 }
 
-int		eval_paths(t_data *data, t_pathdata *path_data)
+int				eval_paths(t_data *data, t_pathdata *path_data)
 {
 	int		*counter;
 	int		i;
@@ -47,12 +47,12 @@ int		eval_paths(t_data *data, t_pathdata *path_data)
 	if (path_data->total_paths == 0)
 		return (0);
 	counter = ft_intnew(path_data->total_paths);
-    i = 0;
+	i = 0;
 	while (i < data->ants)
-    {
+	{
 		distribute(path_data->paths, counter);
-        i++;
-    }
+		i++;
+	}
 	free(counter);
 	if (ft_count_int(counter, path_data->total_paths, 0) > 3)
 	{

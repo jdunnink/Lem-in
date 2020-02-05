@@ -14,11 +14,11 @@
 
 static	void	assign_to_ant(t_list *paths, t_ant *ant, int *counter)
 {
-	int i;
-	int curr_score;
-	int best_score;
-	int	path_cnt;
-	t_list *best_path;
+	int		i;
+	int		curr_score;
+	int		best_score;
+	int		path_cnt;
+	t_list	*best_path;
 
 	i = 0;
 	curr_score = 0;

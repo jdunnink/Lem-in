@@ -36,7 +36,7 @@ static	int	init_bfs_data(t_pathdata **new)
 	return (1);
 }
 
-void	init_pathdata(t_data **data, t_pathdata **path_data)
+void		init_pathdata(t_data **data, t_pathdata **path_data)
 {
 	t_pathdata *new;
 

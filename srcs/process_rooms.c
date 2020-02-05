@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   search_maze.c                                      :+:    :+:            */
+/*   process_rooms.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -12,20 +12,33 @@
 
 #include "lemin.h"
 
-void			search_maze(t_pathdata *data)
+static	void	process_start(t_pathdata *data, int *curr_depth)
 {
-	int			curr_depth;
+	int i;
+	int	total_links;
+	int	link;
 
-	curr_depth = 1;
-	while (curr_depth < 100)
+	i = 0;
+	data->bfs_data[data->start][0] = -1;
+	data->bfs_data[data->start][1] = -1;
+	total_links = data->links_num[data->start];
+	while (i < total_links)
 	{
-		process_rooms(data, &curr_depth);
-		push_finished(data);
-		if (active_end_conn(data) == data->path_threshold)
+		link = data->links[data->start][i];
+		if (link != -1)
 		{
-			if ((int)ft_listlen(data->finish_order) >= data->path_threshold)
-				break ;
+			data->bfs_data[link][0] = 1;
+			data->bfs_data[link][1] = i;
 		}
+		i++;
 	}
-	parse_paths(data);
+	(*curr_depth)++;
+}
+
+void			process_rooms(t_pathdata *data, int *curr_depth)
+{
+	if (*curr_depth == 1)
+		process_start(data, curr_depth);
+	else
+		process_bfs(data, curr_depth);
 }

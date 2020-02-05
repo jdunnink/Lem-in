@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-void show_bfs_data(t_pathdata *data)
+void	show_bfs_data(t_pathdata *data)
 {
 	int i;
 
