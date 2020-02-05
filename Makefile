@@ -60,6 +60,11 @@ SRC = 	main.c				\
 		process_rooms.c 	\
 		process_bfs.c		\
 		is_upconvergence.c 	\
+		dump_lines.c		\
+		setup.c 			\
+		try_superpos.c 		\
+		try_normal.c 		\
+		n_bfs.c 			\
 
 OBJ = $(SRC:.c=.o)
 
@@ -72,7 +77,7 @@ NAME = lem-in
 
 HEADER = -I includes/
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = #-Wall -Wextra -Werror
 LIBS = -L libft/ -lft
 
 all: $(NAME)

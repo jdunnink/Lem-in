@@ -12,46 +12,14 @@
 
 #include "lemin.h"
 
-static	void	setup(t_data **data, t_pathdata **path_data)
-{
-	read_input(data);
-	verify_data(*data);
-	init_state(data);
-	(*data)->ants_at_start = (*data)->ants;
-	filter_deadends(data);
-	init_pathdata(data, path_data);
-}
-
-static	void	dump_lines(t_data *data)
-{
-	t_list	*iter;
-	char	*curr;
-
-	iter = data->lines;
-	while (iter)
-	{
-		curr = iter->content;
-		ft_putendl(curr);
-		iter = iter->next;
-	}
-	ft_lstdel(&data->lines, &ft_del);
-	ft_putchar('\n');
-	data->lines = NULL;
-}
-
 int				main(void)
 {
 	t_data		*data;
 	t_pathdata	*path_data;
 
 	setup(&data, &path_data);
-	while (eval_paths(data, path_data) == 0)
-	{
-		search_maze(path_data);
-		path_data->total_paths = (int)ft_listlen(path_data->paths);
-		if (path_data->total_paths >= path_data->path_threshold)
-			break ;
-	}
+	if (try_normal(data) == 0)
+		try_superpos(data, path_data);
 	dump_lines(data);
 	traverse_maze(data, path_data);
 	free(path_data);

@@ -93,6 +93,7 @@ typedef	struct	s_link
 **	reading input and data structure setup
 */
 
+void			setup(t_data **data, t_pathdata **path_data);
 ssize_t			new_gnl(const int fd, char **line);
 void			read_input(t_data **data);
 void			init_data(t_data **data);
@@ -106,10 +107,18 @@ void			add_link(char *link, t_data **data);
 void			verify_data(t_data *data);
 void			filter_deadends(t_data **data);
 
-/*
-**	exploration algorithm
+/* 
+**	regular explore algorithm
 */
 
+int				try_normal(t_data *data);
+int				*n_bfs(t_data *data, int link, int **state);
+
+/*
+**	BFS	exploration algorithm
+*/
+
+void			try_superpos(t_data *data, t_pathdata *path_data);
 void			search_maze(t_pathdata *data);
 void			diff_override(t_pathdata *data, int *curr_depth);
 int				purge_downstream(t_pathdata *data, int room, int *curr_path);
@@ -154,6 +163,7 @@ void			free_paths(t_pathdata *data);
 void			free_data(t_data **target);
 int				is_link_to_start(t_pathdata *data, int room);
 void			block_link(t_data *data, int room);
+void			dump_lines(t_data *data);
 
 /*
 **	error handlers

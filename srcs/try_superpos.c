@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   show_bfs_data.c                                    :+:    :+:            */
+/*   try_superpos.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/04 16:40:08 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/02/04 16:40:09 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/12/02 08:49:11 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/01/20 09:14:58 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-void	show_bfs_data(t_pathdata *data)
+void	try_superpos(t_data *data, t_pathdata *path_data)
 {
-	int i;
-
-	i = 0;
-	while (i < data->rooms)
+	while (eval_paths(data, path_data) == 0)
 	{
-		ft_putchar('\n');
-		ft_putchar(' ');
-		ft_putnbr(i);
-		ft_putstr(" => ");
-		ft_putnbr(data->bfs_data[i][0]);
-		ft_putchar(' ');
-		ft_putnbr(data->bfs_data[i][1]);
-		ft_putchar('\n');
-		i++;
+		search_maze(path_data);
+		path_data->total_paths = (int)ft_listlen(path_data->paths);
+		if (path_data->total_paths >= path_data->path_threshold)
+			break ;
 	}
+	if (path_data->total_paths <= 0)
+		error_exec(26, data, path_data);
 }
