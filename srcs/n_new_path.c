@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   n_new_path.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 08:49:11 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/01/20 09:14:58 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/06 11:57:30 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/06 11:57:31 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				main(void)
+static	int	n_lstcmp(t_list *one, t_list *two)
 {
-	t_data		*data;
-	t_pathdata	*path_data;
+	if (ft_listlen(one) != ft_listlen(two))
+		return (0);
+	while (one)
+	{
+		if (*(int *)one->content != *(int *)two->content)
+			return (0);
+		one = one->next;
+		two = two->next;
+	}
+	return (1);
+}
 
-	setup(&data, &path_data);
-	if (try_normal(data, path_data) == 0)
-		try_superpos(data, path_data);
-	dump_lines(data);
-	traverse_maze(data, path_data);
-	free(path_data);
-	free_data(&data);
-	return (0);
+int	n_new_path(t_list *new, t_list **batch)
+{
+	t_list *iter;
+
+	iter = *batch;
+	while (iter)
+	{
+		if (n_lstcmp(new, iter->content) == 1)
+			return (0);
+		iter = iter->next;
+	}
+	return (1);
 }

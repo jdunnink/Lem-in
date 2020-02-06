@@ -21,13 +21,6 @@
 
 //	find a combination of routes that produces maximum flow, given the amount of ants
 
-static t_list	*n_coll_paths(int *state)
-{
-	t_list *paths_l2;
-
-	return (paths_l2);
-}
-
 static	void	n_revert_local(int rooms, int *state)
 {
 	int i;
@@ -49,6 +42,7 @@ static	void	n_find(t_data *data, t_list **paths_l3)
 	int	*state;
 
 	i = 0;
+	paths_l2 = NULL;
 	state = NULL;
 	links = data->links_num[data->end];
 	while (i < links)
@@ -57,22 +51,27 @@ static	void	n_find(t_data *data, t_list **paths_l3)
 		if (link != -1)
 		{
 			n_bfs(data, link, &state);									// run a bfs from link into the maze
-			paths_l2 = n_coll_paths(state);							// collect all the paths that have found start
-			ft_lstpushfront(paths_l2, paths_l3, sizeof(t_list *));		//	store pointer to path collection
+			paths_l2 = n_coll_paths(data, state, link);						// collect all the paths that have found start
+//			printf("	n_find --> batchsize: %lu\n", ft_listlen(paths_l2));
+			if (paths_l2 != NULL)
+				ft_lstappend(paths_l3, paths_l2, sizeof(t_list *));		//	store pointer to path collection
 			n_revert_local(data->rooms, state);						// reset the local bfs state
+			paths_l2 = NULL;
 		}
 		i++;
 	}
 	free(state);
 }
 
-int	try_normal(t_data *data)
+int	try_normal(t_data *d, t_pathdata *p)
 {
 	t_list *paths_l3;
 
-	return (0);
-	print_data("links", &data);
+//	print_data("links", &data);
 
-	n_find(data, &paths_l3);
-	return (0);
+	paths_l3 = NULL;
+	n_find(d, &paths_l3);
+	n_split_cycles(d, &paths_l3);
+	n_sort(&paths_l3);
+	return (n_solve(paths_l3, p));
 }

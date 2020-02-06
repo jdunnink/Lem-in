@@ -65,6 +65,13 @@ SRC = 	main.c				\
 		try_superpos.c 		\
 		try_normal.c 		\
 		n_bfs.c 			\
+		n_state.c 			\
+		n_coll_paths.c		\
+		n_split_cycles.c 	\
+		n_dump_paths.c 		\
+		n_solve.c 			\
+		n_new_path.c 		\
+		n_sort.c 			\
 
 OBJ = $(SRC:.c=.o)
 

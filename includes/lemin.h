@@ -111,8 +111,15 @@ void			filter_deadends(t_data **data);
 **	regular explore algorithm
 */
 
-int				try_normal(t_data *data);
+int				try_normal(t_data *d, t_pathdata *p);
 int				*n_bfs(t_data *data, int link, int **state);
+void			n_state(int *state, int rooms);
+t_list			*n_coll_paths(t_data *d, int *state, int src);
+void			n_split_cycles(t_data *d, t_list **paths_l3);
+void			n_dump_paths(t_list *paths_l3);
+int				n_solve(t_list *paths_l3, t_pathdata *p);
+int				n_new_path(t_list *new, t_list **batch);
+void			n_sort(t_list **paths_l3);
 
 /*
 **	BFS	exploration algorithm
@@ -164,6 +171,7 @@ void			free_data(t_data **target);
 int				is_link_to_start(t_pathdata *data, int room);
 void			block_link(t_data *data, int room);
 void			dump_lines(t_data *data);
+void			print_path(t_list *path);
 
 /*
 **	error handlers

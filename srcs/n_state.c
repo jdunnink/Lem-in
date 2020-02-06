@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   n_state.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 08:49:11 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/01/20 09:14:58 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/06 07:21:03 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/06 07:21:05 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				main(void)
-{
-	t_data		*data;
-	t_pathdata	*path_data;
+#include <stdio.h>
 
-	setup(&data, &path_data);
-	if (try_normal(data, path_data) == 0)
-		try_superpos(data, path_data);
-	dump_lines(data);
-	traverse_maze(data, path_data);
-	free(path_data);
-	free_data(&data);
-	return (0);
+void	n_state(int *state, int rooms)
+{
+	int i;
+
+	i = 0;
+	while (i < rooms)
+	{
+		printf("	[ %i ] => %i\n", i, state[i]);
+		i++;
+	}
+	ft_putchar('\n');
 }
