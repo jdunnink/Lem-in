@@ -12,15 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
-//	for every connection to end
-//		run a bfs from the connected room into the maze
-//		if (all connections to start are filled)
-//			parse all routes and store them
-
-//	find a combination of routes that produces maximum flow, given the amount of ants
-
 static	void	n_revert_local(int rooms, int *state)
 {
 	int i;
@@ -50,12 +41,11 @@ static	void	n_find(t_data *data, t_list **paths_l3)
 		link = data->links[data->end][i];
 		if (link != -1)
 		{
-			n_bfs(data, link, &state);									// run a bfs from link into the maze
-			paths_l2 = n_coll_paths(data, state, link);						// collect all the paths that have found start
-//			printf("	n_find --> batchsize: %lu\n", ft_listlen(paths_l2));
+			n_bfs(data, link, &state);
+			paths_l2 = n_coll_paths(data, state, link);
 			if (paths_l2 != NULL)
-				ft_lstappend(paths_l3, paths_l2, sizeof(t_list *));		//	store pointer to path collection
-			n_revert_local(data->rooms, state);						// reset the local bfs state
+				ft_lstappend(paths_l3, paths_l2, sizeof(t_list *));
+			n_revert_local(data->rooms, state);
 			paths_l2 = NULL;
 		}
 		i++;
@@ -66,8 +56,6 @@ static	void	n_find(t_data *data, t_list **paths_l3)
 int	try_normal(t_data *d, t_pathdata *p)
 {
 	t_list *paths_l3;
-
-//	print_data("links", &data);
 
 	paths_l3 = NULL;
 	n_find(d, &paths_l3);

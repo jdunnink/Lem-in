@@ -120,6 +120,7 @@ void			n_dump_paths(t_list *paths_l3);
 int				n_solve(t_list *paths_l3, t_pathdata *p);
 int				n_new_path(t_list *new, t_list **batch);
 void			n_sort(t_list **paths_l3);
+int				n_conflict(t_list *new, t_list *paths_l2);
 
 /*
 **	BFS	exploration algorithm

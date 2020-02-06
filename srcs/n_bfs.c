@@ -12,11 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
-//	run a reverse bfs from link towards start
-//		exit once all connections to start are filled
-
 static	int	n_open_links(t_data *data, int *state, int room, int src)
 {
 	int i;
@@ -39,7 +34,6 @@ static	int	n_open_links(t_data *data, int *state, int room, int src)
 			open++;
 		i++;
 	}
-//	printf("	room %i has %i open links (excluding %i)\n\n", room, open, src);
 	return (open);
 }
 
@@ -60,13 +54,9 @@ static	void	n_init_spread(t_data *data, int *state, int src)
 			continue ;
 		}
 		else if (link != data->start && link != data->end)
-		{
-//			printf("	setting room %i to 1\n", link);
 			state[link] = 1;
-		}
 		i++;
 	}
-//	ft_putchar('\n');
 }
 
 static	void	link_spread(t_data *d, int *state, int *curr_depth, int src, int bfs_src)
@@ -82,13 +72,9 @@ static	void	link_spread(t_data *d, int *state, int *curr_depth, int src, int bfs
 		link = d->links[src][i];
 		if (link != -1 && link != d->end && link != d->start && link != bfs_src)
 			if (state[link] == 0 || state[link] > *curr_depth)
-			{
-//				printf("	setting room %i to %i\n", link, *curr_depth);
 				state[link] = *curr_depth;
-			}
 		i++;
 	}
-//	ft_putchar('\n');
 }
 
 static	void	n_default_spread(t_data *d, int *state, int *curr_depth, int src)
@@ -116,24 +102,13 @@ int	*n_bfs(t_data *data, int link, int **state)
 	int curr_depth;
 	if (*state == NULL)
 		*state = ft_intnew(data->rooms);
-//	printf("\n\n	<------------------------------------- initiating n_spread bfs from room %i -----------------> \n\n", link);
-//	printf("	start is in room %i\n", data->start);
-//	printf("	end is in room %i\n\n", data->end);
-
-//	printf("	initial state: \n");
-//	n_state(*state, data->rooms);
-
 	(*state)[data->start] = -999;
 	(*state)[data->end] = -444;
-
 	curr_depth = 1;
-	while (n_open_links(data, *state, data->start, link) > 0 && curr_depth < 150)
+	while (n_open_links(data, *state, data->start, link) > 0 && curr_depth < 100)
 	{
 		n_spread(data, *state, &curr_depth, link);
 		curr_depth++;
 	}
-//	printf("	final state: \n");
-//	n_state(*state, data->rooms);
-//	printf("\n\n	<-----------------------------------------------finished call to n_spread ----------------------------->\n\n");
 	return (*state);
 }

@@ -72,6 +72,7 @@ SRC = 	main.c				\
 		n_solve.c 			\
 		n_new_path.c 		\
 		n_sort.c 			\
+		n_conflict.c 		\
 
 OBJ = $(SRC:.c=.o)
 
