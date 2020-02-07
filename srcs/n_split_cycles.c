@@ -69,6 +69,10 @@ static	void	n_regen(t_data *d, t_list *branch, t_list *origin)
 	t_list *iter;
 	t_list *branch_tail;
 
+	t_list *tail_ptr;
+	t_list *tail;
+
+	tail_ptr = NULL;
 	branch_tail = branch;
 	while (branch && branch_tail->next)
 		branch_tail = branch_tail->next;
@@ -76,12 +80,15 @@ static	void	n_regen(t_data *d, t_list *branch, t_list *origin)
 	while (iter)
 	{
 		if (n_conn(d, *(int *)iter->content, *(int *)branch_tail->content) == 1 && ft_lstcontains(branch, *(int *)iter->content) == 0)
-		{
-			branch_tail->next = ft_lstcpy(iter);
-			return ;
-		}
+			tail_ptr = iter;
 		iter = iter->next;
 	}
+	if (tail_ptr != NULL)
+	{
+		tail = ft_lstcpy(tail_ptr);
+		branch_tail->next = ft_lstcpy(tail_ptr);
+	}
+	return ;
 }
 
 static	void	n_split(t_data *d, t_list *split_target, t_list **paths_l2)
@@ -101,22 +108,27 @@ static	void	n_split(t_data *d, t_list *split_target, t_list **paths_l2)
 	{
 		trail->next = NULL;
 		n_regen(d, split_target, iter);
-		if (n_new_path(iter, paths_l2) == 1)
-			ft_lstappend(paths_l2, iter, sizeof(t_list *));
+		if (n_new_path(split_target, paths_l2) == 1)
+			ft_lstappend(paths_l2, split_target, sizeof(t_list *));
 	}
 }
 
-static	void	n_parse_lists(t_data *d, t_list **paths_l2)
+static	void	n_parse_lists(t_data *d, t_list **paths_l2, int i)
 {
 	t_list *iter;
+	int j;
 
+	j = 0;
 	iter = *paths_l2;
 	while (iter)
 	{
 		if (n_has_cycle(iter->content) == 1)
+		{
 			n_split(d, iter->content, paths_l2);
+		}
 		else
 			iter = iter->next;
+		j++;
 	}
 }
 
@@ -129,7 +141,7 @@ void	n_split_cycles(t_data *d, t_list **paths_l3)
 	i = 1;
 	while (iter)
 	{
-		n_parse_lists(d, (t_list **)&iter->content);
+		n_parse_lists(d, (t_list **)&iter->content, i);
 		iter = iter->next;
 		i++;
 	}
