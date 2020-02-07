@@ -12,6 +12,8 @@
 
 #include "lemin.h"
 
+#include <stdio.h>
+
 void	dump_lines(t_data *data)
 {
 	t_list	*iter;

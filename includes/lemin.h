@@ -121,6 +121,9 @@ int				n_solve(t_list *paths_l3, t_pathdata *p);
 int				n_new_path(t_list *new, t_list **batch);
 void			n_sort(t_list **paths_l3);
 int				n_conflict(t_list *new, t_list *paths_l2);
+int				try_alt(t_data *d, t_pathdata *p);
+int				n_alt_solve(t_list *paths_l3, t_pathdata *p);
+void			n_find(t_data *data, t_list **paths_l3);
 
 /*
 **	BFS	exploration algorithm

@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 
-void	n_del(void *content, size_t content_size)
+static	void	n_del(void *content, size_t content_size)
 {
 	if (content && content_size > 0)
 		return ;
