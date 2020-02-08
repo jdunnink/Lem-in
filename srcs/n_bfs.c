@@ -12,31 +12,6 @@
 
 #include "lemin.h"
 
-static	int	n_open_links(t_data *data, int *state, int room, int src)
-{
-	int i;
-	int links;
-	int link;
-	int open;
-
-	i = 0;
-	open = 0;
-	links = data->links_num[room];
-	while (i < links)
-	{
-		link = data->links[room][i];
-		if (link == -1)
-		{
-			i++;
-			continue ;
-		}
-		if (state[link] == 0 && link != src)
-			open++;
-		i++;
-	}
-	return (open);
-}
-
 static	void	n_init_spread(t_data *data, int *state, int src)
 {
 	int i;
@@ -97,9 +72,10 @@ static	void	n_spread(t_data *data, int *state, int *curr_depth, int link)
 	return (n_default_spread(data, state, curr_depth, link));
 }
 
-int	*n_bfs(t_data *data, int link, int **state)
+int				*n_bfs(t_data *data, int link, int **state)
 {
 	int curr_depth;
+
 	if (*state == NULL)
 		*state = ft_intnew(data->rooms);
 	(*state)[data->start] = -999;

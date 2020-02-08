@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   try_normal.c                                       :+:    :+:            */
+/*   n_open_links.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/05 14:41:17 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/02/05 14:41:18 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/05 15:32:11 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/05 15:32:12 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int	try_normal(t_data *d, t_pathdata *p)
+int		n_open_links(t_data *data, int *state, int room, int src)
 {
-	t_list *paths_l3;
+	int i;
+	int links;
+	int link;
+	int open;
 
-	paths_l3 = NULL;
-	n_find(d, &paths_l3);
-	n_split_cycles(d, &paths_l3);
-	n_sort(&paths_l3);
-	return (n_solve(paths_l3, p));
+	i = 0;
+	open = 0;
+	links = data->links_num[room];
+	while (i < links)
+	{
+		link = data->links[room][i];
+		if (link == -1)
+		{
+			i++;
+			continue ;
+		}
+		if (state[link] == 0 && link != src)
+			open++;
+		i++;
+	}
+	return (open);
 }

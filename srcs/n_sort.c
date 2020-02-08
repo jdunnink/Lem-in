@@ -12,15 +12,13 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 static	void	n_del(void *content, size_t content_size)
 {
 	if (content && content_size > 0)
 		return ;
 }
 
-t_list	*n_next_short(t_list *paths_l2)
+t_list			*n_next_short(t_list *paths_l2)
 {
 	t_list *iter;
 	t_list **store;
@@ -49,9 +47,9 @@ t_list	*n_next_short(t_list *paths_l2)
 
 static	t_list	*n_sort_batch(t_list *paths_l2)
 {
-	t_list *next;
-	t_list *sorted;
-	int len;
+	t_list	*next;
+	t_list	*sorted;
+	int		len;
 
 	len = ft_listlen(paths_l2);
 	sorted = NULL;
@@ -64,13 +62,13 @@ static	t_list	*n_sort_batch(t_list *paths_l2)
 	return (sorted);
 }
 
-static	t_list *n_sort_batch_ptrs(t_list *paths_l3)
+static	t_list	*n_sort_batch_ptrs(t_list *paths_l3)
 {
-	t_list *sorted;
-	t_list *iter;
-	t_list *inc_shortest;
-	t_list **store;
-	int len;
+	t_list	*sorted;
+	t_list	*iter;
+	t_list	*inc_shortest;
+	t_list	**store;
+	int		len;
 
 	len = (int)ft_listlen(paths_l3);
 	sorted = NULL;
@@ -103,7 +101,7 @@ static	t_list *n_sort_batch_ptrs(t_list *paths_l3)
 	return (sorted);
 }
 
-void	n_sort(t_list **paths_l3)
+void			n_sort(t_list **paths_l3)
 {
 	t_list *iter;
 

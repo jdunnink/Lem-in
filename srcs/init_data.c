@@ -30,6 +30,7 @@ void	init_data(t_data **data)
 	(*data)->links = NULL;
 	(*data)->links_num = NULL;
 	(*data)->state = NULL;
+	(*data)->bfs_state = NULL;
 	(*data)->move_list = NULL;
 	(*data)->active_ants = NULL;
 	(*data)->lines = NULL;

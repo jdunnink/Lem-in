@@ -18,7 +18,7 @@
 **	is regenerated from the room where the path branched.
 */
 
-static	int	n_cycle(int value, t_list *rem_path)
+static	int		n_cycle(int value, t_list *rem_path)
 {
 	t_list *iter;
 
@@ -32,7 +32,7 @@ static	int	n_cycle(int value, t_list *rem_path)
 	return (0);
 }
 
-static	int	n_has_cycle(t_list *path_l1)
+static	int		n_has_cycle(t_list *path_l1)
 {
 	t_list *iter;
 
@@ -46,7 +46,7 @@ static	int	n_has_cycle(t_list *path_l1)
 	return (0);
 }
 
-static	int	n_conn(t_data *d, int room_1, int room_2)
+static	int		n_conn(t_data *d, int room_1, int room_2)
 {
 	int i;
 	int links;
@@ -68,7 +68,6 @@ static	void	n_regen(t_data *d, t_list *branch, t_list *origin)
 {
 	t_list *iter;
 	t_list *branch_tail;
-
 	t_list *tail_ptr;
 	t_list *tail;
 
@@ -94,8 +93,8 @@ static	void	n_regen(t_data *d, t_list *branch, t_list *origin)
 static	void	n_split(t_data *d, t_list *split_target, t_list **paths_l2)
 {
 	int		split;
-	t_list *iter;
-	t_list *trail;
+	t_list	*iter;
+	t_list	*trail;
 
 	split = *(int *)split_target->content;
 	iter = split_target->next;
@@ -115,8 +114,8 @@ static	void	n_split(t_data *d, t_list *split_target, t_list **paths_l2)
 
 static	void	n_parse_lists(t_data *d, t_list **paths_l2, int i)
 {
-	t_list *iter;
-	int j;
+	t_list	*iter;
+	int		j;
 
 	j = 0;
 	iter = *paths_l2;
@@ -132,9 +131,9 @@ static	void	n_parse_lists(t_data *d, t_list **paths_l2, int i)
 	}
 }
 
-void	n_split_cycles(t_data *d, t_list **paths_l3)
+void			n_split_cycles(t_data *d, t_list **paths_l3)
 {
-	t_list *iter;
+	t_list	*iter;
 	int		i;
 
 	iter = *paths_l3;

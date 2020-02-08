@@ -12,19 +12,16 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 void	n_dump_paths(t_list *paths_l3)
 {
-	t_list *iter;
-	int i;
+	t_list	*iter;
+	int		i;
 
 	ft_putchar('\n');
 	iter = paths_l3;
 	i = 1;
 	while (iter)
 	{
-		printf("	showing batch %i\n", i);
 		show_paths(iter->content);
 		ft_putchar('\n');
 		iter = iter->next;

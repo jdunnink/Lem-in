@@ -12,54 +12,52 @@
 
 #include "lemin.h"
 
-static	void	n_parse(t_data *d, int *state, int src, int dst, t_list **paths_l1)
+static	void	n_parse(t_data *d, int src, int dst, t_list **l1)
 {
-	int i;
-	int links;
-	int link;
-	int depth;
-	t_list *path;
+	int		i;
+	int		links;
+	int		link;
+	int		depth;
+	t_list	*path;
 
-	ft_lstpushfront(&src, paths_l1, sizeof(int *));
+	ft_lstpushfront(&src, l1, sizeof(int *));
 	if (src == dst)
 		return ;
 	i = 0;
 	links = d->links_num[src];
-	depth = state[src];
+	depth = d->bfs_state[src];
 	if (depth == 1)
-		return (ft_lstpushfront(&dst, paths_l1, sizeof(int *)));
+		return (ft_lstpushfront(&dst, l1, sizeof(int *)));
 	while (i < links)
 	{
 		link = d->links[src][i];
-		if (link != -1 && state[link] == depth - 1)
-			n_parse(d, state, link, dst, paths_l1);
+		if (link != -1 && d->bfs_state[link] == depth - 1)
+			n_parse(d, link, dst, l1);
 		i++;
 	}
 }
 
-t_list	*n_coll_paths(t_data *d, int *state, int src)
+t_list			*n_coll_paths(t_data *d, int *state, int src)
 {
-	int i;
-	int links;
-	int link;
-	t_list *paths_l2;
-	t_list *paths_l1;
+	int		i;
+	int		links;
+	int		link;
+	t_list	*paths_l2;
+	t_list	*paths_l1;
 
 	paths_l2 = NULL;
 	paths_l1 = NULL;
+	d->bfs_state = state;
 	i = 0;
 	links = d->links_num[d->start];
 	while (i < links)
 	{
 		link = d->links[d->start][i];
-		if (link == -1)
+		if (link != -1 &&
+			(state[link] != 0 || (state[link] == 0 &&
+			link == src)))
 		{
-			i++;
-			continue ;
-		}
-		else if (state[link] != 0 || (state[link] == 0 && link == src))
-		{	 
-			n_parse(d, state, link, src, &paths_l1);
+			n_parse(d, link, src, &paths_l1);
 			ft_lstappend(&paths_l2, paths_l1, sizeof(t_list *));
 			paths_l1 = NULL;
 		}

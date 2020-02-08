@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 static	void	n_del(void *content, size_t content_size)
 {
 	if (content && content_size > 0)
@@ -198,11 +196,11 @@ static	t_list	*n_combine(t_list *macro)
 	return (ret);
 }
 
-static	void	n_push_ends(t_pathdata *p)
+static	void	n_push_ends(t_list *batch, t_pathdata *p)
 {
 	t_list *iter;
 
-	iter = p->paths;
+	iter = batch;
 	while(iter)
 	{
 		ft_lstpushfront(&p->end, (t_list **)&iter->content, sizeof(int *));
@@ -217,14 +215,19 @@ int	n_alt_solve(t_list *paths_l3, t_pathdata *p)
 
 	macro_list = NULL;
 	if (ft_listlen(paths_l3) == 1 && ft_listlen(paths_l3->content) == 1)
-		p->paths = paths_l3->content;
+	{
+		n_push_ends(paths_l3->content, p);
+		if (n_compare(paths_l3->content, p->paths) == 1)
+			p->paths = paths_l3->content;
+	}
 	else
 	{
 		n_create_macro(&macro_list, paths_l3);
 		solution = n_combine(macro_list);
-		p->paths = solution;
+		n_push_ends(solution, p);
+		if (n_compare(solution, p->paths) == 1)
+			p->paths = solution;
 	}
 	p->total_paths = ft_listlen(p->paths);
-	n_push_ends(p);
 	return (1);
 }

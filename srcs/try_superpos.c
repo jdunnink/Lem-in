@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-void	try_superpos(t_data *data, t_pathdata *path_data)
+int	try_superpos(t_data *data, t_pathdata *path_data)
 {
 	while (eval_paths(data, path_data) == 0)
 	{
@@ -23,4 +23,5 @@ void	try_superpos(t_data *data, t_pathdata *path_data)
 	}
 	if (path_data->total_paths <= 0)
 		error_exec(26, data, path_data);
+	return (0);
 }

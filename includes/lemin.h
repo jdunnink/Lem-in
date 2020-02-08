@@ -45,6 +45,7 @@ typedef struct	s_data
 	int			**links;
 	int			*links_num;
 	int			*state;
+	int			*bfs_state;
 	char		**room_names;
 	t_list		*move_list;
 	t_list		*active_ants;
@@ -111,25 +112,23 @@ void			filter_deadends(t_data **data);
 **	regular explore algorithm
 */
 
-int				try_normal(t_data *d, t_pathdata *p);
 int				*n_bfs(t_data *data, int link, int **state);
-void			n_state(int *state, int rooms);
 t_list			*n_coll_paths(t_data *d, int *state, int src);
 void			n_split_cycles(t_data *d, t_list **paths_l3);
 void			n_dump_paths(t_list *paths_l3);
-int				n_solve(t_list *paths_l3, t_pathdata *p);
 int				n_new_path(t_list *new, t_list **batch);
 void			n_sort(t_list **paths_l3);
 int				n_conflict(t_list *new, t_list *paths_l2);
 int				try_alt(t_data *d, t_pathdata *p);
 int				n_alt_solve(t_list *paths_l3, t_pathdata *p);
 void			n_find(t_data *data, t_list **paths_l3);
+int				n_open_links(t_data *data, int *state, int room, int src);
 
 /*
 **	BFS	exploration algorithm
 */
 
-void			try_superpos(t_data *data, t_pathdata *path_data);
+int				try_superpos(t_data *data, t_pathdata *path_data);
 void			search_maze(t_pathdata *data);
 void			diff_override(t_pathdata *data, int *curr_depth);
 int				purge_downstream(t_pathdata *data, int room, int *curr_path);

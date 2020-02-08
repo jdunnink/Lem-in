@@ -26,7 +26,7 @@ static	int	n_batch_has_value(int value, t_list *paths_l2)
 	return (0);
 }
 
-int	n_conflict(t_list *new, t_list *paths_l2)
+int			n_conflict(t_list *new, t_list *paths_l2)
 {
 	t_list *iter;
 

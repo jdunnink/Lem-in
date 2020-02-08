@@ -63,19 +63,17 @@ SRC = 	main.c				\
 		dump_lines.c		\
 		setup.c 			\
 		try_superpos.c 		\
-		try_normal.c 		\
 		n_bfs.c 			\
-		n_state.c 			\
 		n_coll_paths.c		\
 		n_split_cycles.c 	\
 		n_dump_paths.c 		\
-		n_solve.c 			\
 		n_new_path.c 		\
 		n_sort.c 			\
 		n_conflict.c 		\
 		try_alt.c 			\
 		n_alt_solve.c		\
 		n_find.c			\
+		n_open_links.c 		\
 
 OBJ = $(SRC:.c=.o)
 

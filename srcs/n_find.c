@@ -24,13 +24,13 @@ static	void	n_revert_local(int rooms, int *state)
 	}
 }
 
-void	n_find(t_data *data, t_list **paths_l3)
+void			n_find(t_data *data, t_list **paths_l3)
 {
-	int i;
-	int links;
-	int link;
+	int		i;
+	int		links;
+	int		link;
 	t_list	*paths_l2;
-	int	*state;
+	int		*state;
 
 	i = 0;
 	paths_l2 = NULL;
