@@ -20,26 +20,27 @@ static	void	n_del(void *content, size_t content_size)
 
 t_list			*n_next_short(t_list *paths_l2)
 {
-	t_list *iter;
+	t_list *i;
 	t_list **store;
 	t_list *shortest;
 
 	shortest = NULL;
-	iter = paths_l2;
+	i = paths_l2;
 	store = NULL;
-	while (iter)
+	while (i)
 	{
-		if (shortest == NULL && iter->content != NULL)
+		if (shortest == NULL && i->content != NULL)
 		{
-			shortest = iter->content;
-			store = (t_list **)&iter->content;
+			shortest = i->content;
+			store = (t_list **)&i->content;
 		}
-		else if (iter->content != NULL && ft_listlen(iter->content) < ft_listlen(shortest))
+		else if (i->content != NULL &&
+				ft_listlen(i->content) < ft_listlen(shortest))
 		{
-			shortest = iter->content;
-			store = (t_list **)&iter->content;
+			shortest = i->content;
+			store = (t_list **)&i->content;
 		}
-		iter = iter->next;
+		i = i->next;
 	}
 	*store = NULL;
 	return (shortest);
@@ -53,51 +54,12 @@ static	t_list	*n_sort_batch(t_list *paths_l2)
 
 	len = ft_listlen(paths_l2);
 	sorted = NULL;
-	while (ft_listlen(sorted) < len)
+	while ((int)ft_listlen(sorted) < len)
 	{
 		next = n_next_short(paths_l2);
 		ft_lstappend(&sorted, next, sizeof(t_list *));
 	}
 	ft_lstdel(&paths_l2, &n_del);
-	return (sorted);
-}
-
-static	t_list	*n_sort_batch_ptrs(t_list *paths_l3)
-{
-	t_list	*sorted;
-	t_list	*iter;
-	t_list	*inc_shortest;
-	t_list	**store;
-	int		len;
-
-	len = (int)ft_listlen(paths_l3);
-	sorted = NULL;
-	inc_shortest = NULL;
-	iter = paths_l3;
-	while (iter)
-	{
-		if (iter->content != NULL && inc_shortest == NULL)
-		{
-			inc_shortest = iter->content;
-			store = (t_list **)&iter->content;
-		}
-		else if (iter->content != NULL && ft_listlen(((t_list *)iter->content)->content) < ft_listlen(((t_list *)inc_shortest->content)))
-		{
-			inc_shortest = iter->content;
-			store = (t_list **)&iter->content;
-		}
-		iter = iter->next;
-		if (iter == NULL)
-		{
-			ft_lstappend(&sorted, inc_shortest, sizeof(t_list *));
-			*store = NULL;
-			inc_shortest = NULL;
-			iter = paths_l3;
-		}
-		if (ft_listlen(sorted) == len)
-			break ;
-	}
-	ft_lstdel(&paths_l3, &n_del);
 	return (sorted);
 }
 
@@ -111,5 +73,4 @@ void			n_sort(t_list **paths_l3)
 		iter->content = n_sort_batch(iter->content);
 		iter = iter->next;
 	}
-	*paths_l3 = n_sort_batch_ptrs(*paths_l3);
 }

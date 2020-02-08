@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   try_alt.c                                          :+:    :+:            */
+/*   n_conn.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/07 11:26:59 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/02/07 11:27:00 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/08 15:21:44 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/08 15:21:45 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int	try_alt(t_data *d, t_pathdata *p)
+int		n_conn(t_data *d, int room_1, int room_2)
 {
-	t_list *paths_l3;
+	int i;
+	int links;
+	int link;
 
-	paths_l3 = NULL;
-	n_find(d, &paths_l3);
-	n_split_cycles(d, &paths_l3);
-	n_sort(&paths_l3);
-	return (n_alt_solve(paths_l3, p));
+	i = 0;
+	links = d->links_num[room_1];
+	while (i < links)
+	{
+		link = d->links[room_1][i];
+		if (link != -1 && link == room_2)
+			return (1);
+		i++;
+	}
+	return (0);
 }

@@ -74,6 +74,10 @@ SRC = 	main.c				\
 		n_alt_solve.c		\
 		n_find.c			\
 		n_open_links.c 		\
+		n_conn.c 			\
+		n_regen.c 			\
+		n_compare.c			\
+		n_create_macro.c	\
 
 OBJ = $(SRC:.c=.o)
 
@@ -86,7 +90,7 @@ NAME = lem-in
 
 HEADER = -I includes/
 CC = gcc
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 LIBS = -L libft/ -lft
 
 all: $(NAME)

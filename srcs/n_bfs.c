@@ -34,7 +34,7 @@ static	void	n_init_spread(t_data *data, int *state, int src)
 	}
 }
 
-static	void	link_spread(t_data *d, int *state, int *curr_depth, int src, int bfs_src)
+static	void	link_spread(t_data *d, int *depth, int src, int o_src)
 {
 	int i;
 	int links;
@@ -45,46 +45,47 @@ static	void	link_spread(t_data *d, int *state, int *curr_depth, int src, int bfs
 	while (i < links)
 	{
 		link = d->links[src][i];
-		if (link != -1 && link != d->end && link != d->start && link != bfs_src)
-			if (state[link] == 0 || state[link] > *curr_depth)
-				state[link] = *curr_depth;
+		if (link != -1 && link != d->end && link != d->start && link != o_src)
+			if (d->bfs_state[link] == 0 || d->bfs_state[link] > *depth)
+				d->bfs_state[link] = *depth;
 		i++;
 	}
 }
 
-static	void	n_default_spread(t_data *d, int *state, int *curr_depth, int src)
+static	void	n_default_spread(t_data *d, int *curr_depth, int src)
 {
 	int i;
 
 	i = 0;
 	while (i < d->rooms)
 	{
-		if (state[i] == *curr_depth - 1 && i != src)
-			link_spread(d, state, curr_depth, i, src);
+		if (d->bfs_state[i] == *curr_depth - 1 && i != src)
+			link_spread(d, curr_depth, i, src);
 		i++;
 	}
 }
 
-static	void	n_spread(t_data *data, int *state, int *curr_depth, int link)
+static	void	n_spread(t_data *data, int *curr_depth, int link)
 {
 	if (*curr_depth == 1)
-		return (n_init_spread(data, state, link));
-	return (n_default_spread(data, state, curr_depth, link));
+		return (n_init_spread(data, data->bfs_state, link));
+	return (n_default_spread(data, curr_depth, link));
 }
 
-int				*n_bfs(t_data *data, int link, int **state)
+int				*n_bfs(t_data *data, int link, int **s)
 {
-	int curr_depth;
+	int depth;
 
-	if (*state == NULL)
-		*state = ft_intnew(data->rooms);
-	(*state)[data->start] = -999;
-	(*state)[data->end] = -444;
-	curr_depth = 1;
-	while (n_open_links(data, *state, data->start, link) > 0 && curr_depth < 100)
+	if (*s == NULL)
+		*s = ft_intnew(data->rooms);
+	(*s)[data->start] = -999;
+	(*s)[data->end] = -444;
+	depth = 1;
+	while (n_open_links(data, *s, data->start, link) > 0 && depth < 100)
 	{
-		n_spread(data, *state, &curr_depth, link);
-		curr_depth++;
+		data->bfs_state = *s;
+		n_spread(data, &depth, link);
+		depth++;
 	}
-	return (*state);
+	return (*s);
 }

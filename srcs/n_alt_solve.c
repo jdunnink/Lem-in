@@ -18,134 +18,6 @@ static	void	n_del(void *content, size_t content_size)
 		return ;
 }
 
-static	t_list *n_pop(t_list *batch, t_list ***ptr)
-{
-	t_list *iter;
-
-	iter = batch;
-	while (iter)
-	{
-		if (iter->content != NULL)
-		{
-			*ptr = (t_list **)&iter->content;
-			return (iter->content);
-		}
-		iter = iter->next;
-	}
-	return (NULL);
-}
-
-static	t_list	*n_select_list(t_list *batch_a, t_list *batch_b)
-{
-	t_list *list_a;
-	t_list *list_b;
-	t_list **a_ptr;
-	t_list **b_ptr;
-
-	a_ptr = NULL;
-	b_ptr = NULL;
-
-	list_a = n_pop(batch_a, &a_ptr);
-	list_b = n_pop(batch_b, &b_ptr);
-	if (list_a == NULL)
-	{
-		*b_ptr = NULL;
-		return (list_b);
-	}
-	else if (list_b == NULL)
-	{
-		*a_ptr = NULL;
-		return (list_a);
-	}
-	else if (ft_listlen(list_a) <= ft_listlen(list_b))
-	{
-		*a_ptr = NULL;
-		return (list_a);
-	}
-	else if (ft_listlen(list_b) < ft_listlen(list_a))
-	{
-		*b_ptr = NULL;
-		return (list_b);
-	}
-	return (NULL);
-}
-
-static	t_list	*n_merge(t_list *batch_a, t_list *batch_b)
-{
-	t_list *merged;
-	t_list *selected;
-
-	merged = NULL;
-	while (ft_listlen(merged) < ft_listlen(batch_a) + ft_listlen(batch_b))
-	{
-		selected = n_select_list(batch_a, batch_b);
-		ft_lstappend(&merged, selected, sizeof(t_list *));
-	}
-	return (merged);
-}
-
-static	void	n_create_macro(t_list **macro, t_list *src)
-{
-	t_list *tmp;
-	t_list	*batch_a;
-	t_list *batch_b;
-
-	tmp = NULL;
-	batch_a = src->content;
-	src = src->next;
-	if (src == NULL)
-	{
-		*macro = batch_a;
-		return ;
-	}
-	batch_b = src->content;
-	while (1)
-	{
-		if (tmp == NULL)
-			tmp = n_merge(batch_a, batch_b);
-		else
-		{
-			src = src->next;
-			if (src == NULL)
-				break ;
-			batch_a = src->content;
-			tmp = n_merge(tmp, batch_a);
-		}
-	}
-	*macro = tmp;
-}
-
-static float	n_ratio(t_list *paths)
-{
-	float total_paths;
-	float average_len;
-	float	len_aggr;
-
-	total_paths = (float)ft_listlen(paths);
-	len_aggr = 0;
-	while (paths)
-	{
-		len_aggr += (float)ft_listlen(paths->content);
-		paths = paths->next;
-	}
-	average_len = len_aggr / total_paths;
-	return (average_len / total_paths);
-}	
-
-static	int	n_compare(t_list *new, t_list *prev)
-{
-	float prev_ratio;
-	float new_ratio;
-
-	prev_ratio = n_ratio(prev);
-	new_ratio = n_ratio(new);
-	if (new_ratio < prev_ratio)
-	{
-		return (1);
-	}
-	return (0);
-}
-
 static	void	n_get_combo(t_list *macro, int start_list, t_list **ret)
 {
 	int i;
@@ -165,10 +37,7 @@ static	void	n_get_combo(t_list *macro, int start_list, t_list **ret)
 	ft_lstappend(&curr_ret, macro->content, sizeof(t_list *));
 	macro = macro->next;
 	if (macro == NULL)
-	{
-		ft_lstdel(&curr_ret, &n_del);
-		return ;
-	}
+		return (ft_lstdel(&curr_ret, &n_del));
 	while (macro)
 	{
 		if (n_conflict(macro->content, curr_ret) == 0)

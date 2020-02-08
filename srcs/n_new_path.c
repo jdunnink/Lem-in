@@ -26,7 +26,7 @@ static	int	n_lstcmp(t_list *one, t_list *two)
 	return (1);
 }
 
-int	n_new_path(t_list *new, t_list **batch)
+int			n_new_path(t_list *new, t_list **batch)
 {
 	t_list *iter;
 

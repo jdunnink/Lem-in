@@ -18,7 +18,6 @@ static	void	n_parse(t_data *d, int src, int dst, t_list **l1)
 	int		links;
 	int		link;
 	int		depth;
-	t_list	*path;
 
 	ft_lstpushfront(&src, l1, sizeof(int *));
 	if (src == dst)

@@ -112,6 +112,8 @@ void			filter_deadends(t_data **data);
 **	regular explore algorithm
 */
 
+void			n_create_macro(t_list **macro, t_list *src);
+int				n_compare(t_list *new, t_list *prev);
 int				*n_bfs(t_data *data, int link, int **state);
 t_list			*n_coll_paths(t_data *d, int *state, int src);
 void			n_split_cycles(t_data *d, t_list **paths_l3);
@@ -123,6 +125,8 @@ int				try_alt(t_data *d, t_pathdata *p);
 int				n_alt_solve(t_list *paths_l3, t_pathdata *p);
 void			n_find(t_data *data, t_list **paths_l3);
 int				n_open_links(t_data *data, int *state, int room, int src);
+int				n_conn(t_data *d, int room_1, int room_2);
+void			n_regen(t_data *d, t_list *branch, t_list *origin);
 
 /*
 **	BFS	exploration algorithm
