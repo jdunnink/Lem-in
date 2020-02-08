@@ -78,6 +78,8 @@ SRC = 	main.c				\
 		n_regen.c 			\
 		n_compare.c			\
 		n_create_macro.c	\
+		n_pop.c				\
+		n_pushends.c		\
 
 OBJ = $(SRC:.c=.o)
 

@@ -18,22 +18,28 @@ static	void	n_del(void *content, size_t content_size)
 		return ;
 }
 
-static	void	n_get_combo(t_list *macro, int start_list, t_list **ret)
+static	void	n_goto_list(t_list **macro, int start_list)
 {
 	int i;
-	t_list *curr_ret;
+
+	i = 0;
+	while (i < start_list && *macro)
+	{
+		*macro = (*macro)->next;
+		i++;
+	}
+}
+
+static	void	n_get_combo(t_list *macro, int start_list, t_list **ret)
+{
+	t_list	*curr_ret;
 
 	curr_ret = NULL;
 	if (macro == NULL || macro->next == NULL)
 		return ;
-	i = 0;
-	while (i < start_list)
-	{
-		macro = macro->next;
-		if (macro == NULL)
-			return ;
-		i++;
-	}
+	n_goto_list(&macro, start_list);
+	if (macro == NULL)
+		return ;
 	ft_lstappend(&curr_ret, macro->content, sizeof(t_list *));
 	macro = macro->next;
 	if (macro == NULL)
@@ -52,8 +58,8 @@ static	void	n_get_combo(t_list *macro, int start_list, t_list **ret)
 
 static	t_list	*n_combine(t_list *macro)
 {
-	int i;
-	t_list *ret;
+	int		i;
+	t_list	*ret;
 
 	ret = NULL;
 	i = 0;
@@ -65,19 +71,7 @@ static	t_list	*n_combine(t_list *macro)
 	return (ret);
 }
 
-static	void	n_push_ends(t_list *batch, t_pathdata *p)
-{
-	t_list *iter;
-
-	iter = batch;
-	while(iter)
-	{
-		ft_lstpushfront(&p->end, (t_list **)&iter->content, sizeof(int *));
-		iter = iter->next;
-	}
-}
-
-int	n_alt_solve(t_list *paths_l3, t_pathdata *p)
+int				n_alt_solve(t_list *paths_l3, t_pathdata *p)
 {
 	t_list *macro_list;
 	t_list *solution;

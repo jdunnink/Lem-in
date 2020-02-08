@@ -17,6 +17,8 @@ size_t	ft_listlen(t_list *list)
 	size_t len;
 	t_list *iter;
 
+	if (list == NULL)
+		return (0);
 	len = 0;
 	iter = list;
 	while (iter)

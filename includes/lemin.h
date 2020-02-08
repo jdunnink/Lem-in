@@ -108,10 +108,12 @@ void			add_link(char *link, t_data **data);
 void			verify_data(t_data *data);
 void			filter_deadends(t_data **data);
 
-/* 
+/*
 **	regular explore algorithm
 */
 
+void			n_push_ends(t_list *batch, t_pathdata *p);
+t_list			*n_pop(t_list *batch, t_list ***ptr);
 void			n_create_macro(t_list **macro, t_list *src);
 int				n_compare(t_list *new, t_list *prev);
 int				*n_bfs(t_data *data, int link, int **state);
@@ -137,7 +139,7 @@ void			search_maze(t_pathdata *data);
 void			diff_override(t_pathdata *data, int *curr_depth);
 int				purge_downstream(t_pathdata *data, int room, int *curr_path);
 void			purge_upstream(t_pathdata *data, int room);
-void			reconstruct_path(t_pathdata *data, int room, int curr_depth, int path);
+void			reconstruct_path(t_pathdata *d, int room, int depth, int path);
 void			parse_paths(t_pathdata *data);
 int				eval_paths(t_data *data, t_pathdata *path_data);
 void			push_finished(t_pathdata *data);

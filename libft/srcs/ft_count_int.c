@@ -16,8 +16,8 @@ int	ft_count_int(int *array, int len, int value)
 {
 	int i;
 	int total;
-	i = 0;
 
+	i = 0;
 	total = 0;
 	while (i < len)
 	{

@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstcontains.c                                   :+:    :+:            */
+/*   n_pushends.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/04 16:32:09 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/02/04 16:32:11 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/08 16:32:16 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/08 16:32:16 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lemin.h"
 
-/*
-**  ft_lstcontains receives a t_list and checks if the
-**  list has an element containing the parameter 'value'.
-*/
-
-int	ft_lstcontains(t_list *list, int value)
+void	n_push_ends(t_list *batch, t_pathdata *p)
 {
-	t_list	*iter;
-	int		val;
+	t_list *iter;
 
-	iter = list;
+	iter = batch;
 	while (iter)
 	{
-		val = *(int *)iter->content;
-		if (val == value)
-			return (1);
+		ft_lstpushfront(&p->end, (t_list **)&iter->content, sizeof(int *));
 		iter = iter->next;
 	}
-	return (0);
 }
