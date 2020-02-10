@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   n_nodel.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 08:49:11 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/01/20 09:14:58 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/10 15:30:27 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/10 15:30:37 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				main(void)
+void	n_nodel(void *content, size_t content_size)
 {
-	t_data		*data;
-	t_pathdata	*path_data;
-
-	setup(&data, &path_data);
-	if (try_superpos(data, path_data) == 0)
-		try_alt(data, path_data);
-	dump_lines(data);
-	traverse_maze(data, path_data);
-	free_pathdata(path_data);
-	free_data(&data);
-	return (0);
+	if (content == NULL)
+		return ;
+	return ;
+	content_size = 0;
 }

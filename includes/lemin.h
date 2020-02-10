@@ -129,6 +129,12 @@ void			n_find(t_data *data, t_list **paths_l3);
 int				n_open_links(t_data *data, int *state, int room, int src);
 int				n_conn(t_data *d, int room_1, int room_2);
 void			n_regen(t_data *d, t_list *branch, t_list *origin);
+void			n_free_paths(t_list *paths);
+void			n_movelinks(t_list *ret, t_list *macro);
+void			n_del(void *content, size_t content_size);
+void			n_nodel(void *content, size_t content_size);
+t_list			*n_combine(t_list *macro);
+void			n_free_batch(t_list *batch);
 
 /*
 **	BFS	exploration algorithm
@@ -177,10 +183,10 @@ int				moves(t_list *ants);
 void			show_paths(t_list *paths);
 void			free_paths(t_pathdata *data);
 void			free_data(t_data **target);
+void			free_pathdata(t_pathdata *target);
 int				is_link_to_start(t_pathdata *data, int room);
 void			block_link(t_data *data, int room);
 void			dump_lines(t_data *data);
-void			print_path(t_list *path);
 
 /*
 **	error handlers
@@ -196,5 +202,6 @@ void			error_exec(int err_code, t_data *data, t_pathdata *pathdata);
 
 void			print_move_list(t_data *data);
 void			print_data(char *segment, t_data **data);
+void			print_path(t_list *path);
 
 #endif

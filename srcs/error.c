@@ -12,14 +12,6 @@
 
 #include "lemin.h"
 
-static	void	free_pathdata(t_pathdata *data)
-{
-	if (data->paths != NULL)
-		free_paths(data);
-	data->paths = NULL;
-	free(data);
-}
-
 void			error_input(int err_code, t_data *data, char *line)
 {
 	if (err_code > 0)

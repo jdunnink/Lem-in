@@ -60,14 +60,18 @@ static	t_list	*n_merge(t_list *batch_a, t_list *batch_b)
 		selected = n_select_list(batch_a, batch_b);
 		ft_lstappend(&merged, selected, sizeof(t_list *));
 	}
+	n_free_batch(batch_a);
+	n_free_batch(batch_b);
 	return (merged);
 }
 
-static	int		n_verif_batch(t_list *src, t_list **macro, t_list *batch_a)
+static	int		n_verif_batch(t_list **src, t_list **macro, t_list **batch_a)
 {
-	if (src == NULL)
+	(*batch_a) = (*src)->content;
+	(*src) = (*src)->next;
+	if (*src == NULL)
 	{
-		*macro = batch_a;
+		*macro = *batch_a;
 		return (0);
 	}
 	return (1);
@@ -78,11 +82,11 @@ void			n_create_macro(t_list **macro, t_list *src)
 	t_list	*tmp;
 	t_list	*batch_a;
 	t_list	*batch_b;
+	t_list	*paths_l3;
 
+	paths_l3 = src;
 	tmp = NULL;
-	batch_a = src->content;
-	src = src->next;
-	if (n_verif_batch(src, macro, batch_a) == 0)
+	if (n_verif_batch(&src, macro, &batch_a) == 0)
 		return ;
 	batch_b = src->content;
 	while (1)

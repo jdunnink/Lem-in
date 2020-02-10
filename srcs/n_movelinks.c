@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   n_movelinks.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 08:49:11 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/01/20 09:14:58 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/10 15:24:54 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/10 15:24:55 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				main(void)
+static	void	n_disable(t_list *path, t_list *macro)
 {
-	t_data		*data;
-	t_pathdata	*path_data;
+	t_list *iter;
 
-	setup(&data, &path_data);
-	if (try_superpos(data, path_data) == 0)
-		try_alt(data, path_data);
-	dump_lines(data);
-	traverse_maze(data, path_data);
-	free_pathdata(path_data);
-	free_data(&data);
-	return (0);
+	iter = macro;
+	while (iter)
+	{
+		if (iter->content == path)
+			iter->content = NULL;
+		iter = iter->next;
+	}
+}
+
+void			n_movelinks(t_list *ret, t_list *macro)
+{
+	t_list *iter;
+
+	iter = ret;
+	while (iter)
+	{
+		n_disable(iter->content, macro);
+		iter = iter->next;
+	}
 }

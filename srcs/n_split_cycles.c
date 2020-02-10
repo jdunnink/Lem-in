@@ -63,8 +63,10 @@ static	void	n_split(t_data *d, t_list *split_target, t_list **paths_l2)
 	{
 		trail->next = NULL;
 		n_regen(d, split_target, iter);
-		if (n_new_path(split_target, paths_l2) == 1)
-			ft_lstappend(paths_l2, split_target, sizeof(t_list *));
+		if (n_new_path(iter, paths_l2) == 1)
+			ft_lstappend(paths_l2, iter, sizeof(t_list *));
+		else
+			ft_lstdel(&iter, &ft_del);
 	}
 }
 

@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-static	void	n_del(void *content, size_t content_size)
+static	void	n_dels(void *content, size_t content_size)
 {
 	if (content && content_size > 0)
 		return ;
@@ -59,7 +59,7 @@ static	t_list	*n_sort_batch(t_list *paths_l2)
 		next = n_next_short(paths_l2);
 		ft_lstappend(&sorted, next, sizeof(t_list *));
 	}
-	ft_lstdel(&paths_l2, &n_del);
+	ft_lstdel(&paths_l2, &n_dels);
 	return (sorted);
 }
 

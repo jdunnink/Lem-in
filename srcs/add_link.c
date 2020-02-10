@@ -17,18 +17,23 @@ static	int	load_old_links(t_data *data, int **array, int src, int dst)
 	int curr_links;
 	int *ptr;
 	int i;
+	int contains;
 
 	ptr = *array;
 	curr_links = ((data->links_num)[src]);
 	i = 0;
+	contains = 0;
 	while (i < curr_links)
 	{
 		ptr[i] = data->links[src][i];
 		if (ptr[i] == dst)
-			return (0);
+			contains = 1;
 		i++;
 	}
-	ptr[i] = dst;
+	if (contains == 0)
+		ptr[i] = dst;
+	else
+		ptr[i] = -1;
 	return (1);
 }
 
@@ -74,7 +79,9 @@ void		add_link(char *link, t_data **data)
 	dst_index = get_room_index(dst_room, *data);
 	src_index = get_room_index(src_room, *data);
 	free(src_room);
+	src_room = 0;
 	free(dst_room);
+	dst_room = 0;
 	if (dst_index == -1 || src_index == -1)
 		error_input(15, *data, line);
 	process_link(src_index, dst_index, data);

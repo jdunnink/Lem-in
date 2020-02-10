@@ -67,6 +67,7 @@ SRC = 	main.c				\
 		n_coll_paths.c		\
 		n_split_cycles.c 	\
 		n_dump_paths.c 		\
+		free_pathdata.c		\
 		n_new_path.c 		\
 		n_sort.c 			\
 		n_conflict.c 		\
@@ -80,6 +81,12 @@ SRC = 	main.c				\
 		n_create_macro.c	\
 		n_pop.c				\
 		n_pushends.c		\
+		n_movelinks.c		\
+		n_free_paths.c		\
+		n_del.c				\
+		n_nodel.c			\
+		n_combine.c			\
+		n_free_batch.c		\
 
 OBJ = $(SRC:.c=.o)
 
