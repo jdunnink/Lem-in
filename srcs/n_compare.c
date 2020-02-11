@@ -36,6 +36,7 @@ int				n_compare(t_list *new, t_list *prev)
 
 	prev_ratio = n_ratio(prev);
 	new_ratio = n_ratio(new);
+
 	if (new_ratio < prev_ratio)
 		return (1);
 	return (0);

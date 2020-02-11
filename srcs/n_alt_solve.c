@@ -25,15 +25,10 @@ static	void	n_usefirst_batch(t_pathdata *p, t_list *paths_l3)
 	paths_l3->content = NULL;
 }
 
-#include <stdio.h>
-
 int				n_alt_solve(t_list *paths_l3, t_pathdata *p)
 {
 	t_list *macro_list;
 	t_list *solution;
-
-//	ft_putstr("	n_alt solve is called with batches: \n");
-//	n_dump_paths(paths_l3);
 
 	macro_list = NULL;
 	if (ft_listlen(paths_l3) == 1 && ft_listlen(paths_l3->content) == 1)
