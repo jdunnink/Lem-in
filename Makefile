@@ -32,7 +32,6 @@ SRC = 	main.c				\
 		exit_ants.c			\
 		exit_ant.c			\
 		init_pathdata.c		\
-		search_maze.c		\
 		show_paths.c		\
 		new_gnl.c			\
 		get_pathcpy.c		\
@@ -42,26 +41,8 @@ SRC = 	main.c				\
 		free_data.c 		\
 		print_data.c 		\
 		init_link_storage.c	\
-		diff_override.c 	\
-		purge_upstream.c	\
-		purge_downstream.c	\
-		is_link_to_start.c	\
-		reconstruct_path.c	\
-		parse_paths.c 		\
-		eval_paths.c		\
-		push_finished.c 	\
-		reset_bfs_data.c 	\
-		show_bfs_data.c 	\
-		count_branches.c	\
-		path_end_conn.c		\
-		block_link.c		\
-		active_end_conn.c	\
-		process_rooms.c 	\
-		process_bfs.c		\
-		is_upconvergence.c 	\
 		dump_lines.c		\
 		setup.c 			\
-		try_superpos.c 		\
 		n_bfs.c 			\
 		n_coll_paths.c		\
 		n_split_cycles.c 	\

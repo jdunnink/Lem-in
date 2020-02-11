@@ -18,8 +18,10 @@ int				main(void)
 	t_pathdata	*path_data;
 
 	setup(&data, &path_data);
-	if (try_superpos(data, path_data) == 0)
-		try_alt(data, path_data);
+//	print_data("links", &data);
+	try_alt(data, path_data);
+//	show_paths(path_data->paths);
+//	exit (0);
 	dump_lines(data);
 	traverse_maze(data, path_data);
 	free_pathdata(path_data);

@@ -21,19 +21,19 @@ static	void	free_path_coll(t_list *collection)
 static	void	n_usefirst_batch(t_pathdata *p, t_list *paths_l3)
 {
 	n_push_ends(paths_l3->content, p);
-	if (n_compare(paths_l3->content, p->paths) == 1)
-	{
-		n_free_paths(p->paths);
-		ft_lstdel(&p->paths, &n_nodel);
-		p->paths = paths_l3->content;
-		paths_l3->content = NULL;
-	}
+	p->paths = paths_l3->content;
+	paths_l3->content = NULL;
 }
+
+#include <stdio.h>
 
 int				n_alt_solve(t_list *paths_l3, t_pathdata *p)
 {
 	t_list *macro_list;
 	t_list *solution;
+
+//	ft_putstr("	n_alt solve is called with batches: \n");
+//	n_dump_paths(paths_l3);
 
 	macro_list = NULL;
 	if (ft_listlen(paths_l3) == 1 && ft_listlen(paths_l3->content) == 1)
@@ -43,13 +43,7 @@ int				n_alt_solve(t_list *paths_l3, t_pathdata *p)
 		n_create_macro(&macro_list, paths_l3);
 		solution = n_combine(macro_list);
 		n_push_ends(solution, p);
-		if (n_compare(solution, p->paths) == 1)
-		{
-			free_path_coll(p->paths);
-			p->paths = solution;
-		}
-		else
-			free_path_coll(solution);
+		p->paths = solution;
 		free_path_coll(macro_list);
 	}
 	p->total_paths = ft_listlen(p->paths);

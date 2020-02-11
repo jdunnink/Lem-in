@@ -24,11 +24,7 @@ typedef	struct	s_pathdata
 	int			end;
 	int			**links;
 	int			*links_num;
-	int			**bfs_data;
 	int			total_paths;
-	int			path_threshold;
-	t_list		*finish_order;
-	t_list		*diff_override;
 	t_list		*paths;
 }				t_pathdata;
 
@@ -134,28 +130,6 @@ void			n_del(void *content, size_t content_size);
 void			n_nodel(void *content, size_t content_size);
 t_list			*n_combine(t_list *macro);
 void			n_free_batch(t_list *batch);
-
-/*
-**	BFS	exploration algorithm
-*/
-
-int				try_superpos(t_data *data, t_pathdata *path_data);
-void			search_maze(t_pathdata *data);
-void			diff_override(t_pathdata *data, int *curr_depth);
-int				purge_downstream(t_pathdata *data, int room, int *curr_path);
-void			purge_upstream(t_pathdata *data, int room);
-void			reconstruct_path(t_pathdata *d, int room, int depth, int path);
-void			parse_paths(t_pathdata *data);
-int				eval_paths(t_data *data, t_pathdata *path_data);
-void			push_finished(t_pathdata *data);
-void			reset_bfs_data(t_data *data, t_pathdata *path_data);
-void			show_bfs_data(t_pathdata *data);
-int				count_branches(t_pathdata *data, int path, int curr_depth);
-int				path_end_conn(t_pathdata *data, int path);
-int				active_end_conn(t_pathdata *data);
-void			process_rooms(t_pathdata *data, int *curr_depth);
-void			process_bfs(t_pathdata *data, int *curr_depth);
-int				is_upconvergence(t_pathdata *d, int room);
 
 /*
 **	traversal algorithm
