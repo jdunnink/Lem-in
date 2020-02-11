@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/07 11:28:49 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/02/07 11:28:49 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/07 11:28:49 by jdunnink       #+#    #+#                */
+/*   Updated: 2020/02/11 15:45:38 by mlokhors      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static	void	n_usefirst_batch(t_pathdata *p, t_list *paths_l3)
 	paths_l3->content = NULL;
 }
 
-int				n_alt_solve(t_list *paths_l3, t_pathdata *p)
+int				n_alt_solve(int ants, t_list *paths_l3, t_pathdata *p)
 {
 	t_list *macro_list;
 	t_list *solution;
@@ -36,7 +36,7 @@ int				n_alt_solve(t_list *paths_l3, t_pathdata *p)
 	else
 	{
 		n_create_macro(&macro_list, paths_l3);
-		solution = n_combine(macro_list);
+		solution = n_combine(ants, macro_list);
 		n_push_ends(solution, p);
 		p->paths = solution;
 		free_path_coll(macro_list);

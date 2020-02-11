@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 08:53:24 by jdunnink      #+#    #+#                 */
-/*   Updated: 2019/12/02 08:53:27 by jdunnink      ########   odam.nl         */
+/*   Created: 2019/12/02 08:53:24 by jdunnink       #+#    #+#                */
+/*   Updated: 2020/02/11 15:45:54 by mlokhors      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void			verify_data(t_data *data);
 void			n_push_ends(t_list *batch, t_pathdata *p);
 t_list			*n_pop(t_list *batch, t_list ***ptr);
 void			n_create_macro(t_list **macro, t_list *src);
-int				n_compare(t_list *new, t_list *prev);
+int				n_compare(int ants, t_list *new, t_list *prev);
 int				*n_bfs(t_data *data, int link, int **state);
 t_list			*n_coll_paths(t_data *d, int *state, int src);
 void			n_split_cycles(t_data *d, t_list **paths_l3);
@@ -119,7 +119,7 @@ int				n_new_path(t_list *new, t_list **batch);
 void			n_sort(t_list **paths_l3);
 int				n_conflict(t_list *new, t_list *paths_l2);
 int				try_alt(t_data *d, t_pathdata *p);
-int				n_alt_solve(t_list *paths_l3, t_pathdata *p);
+int				n_alt_solve(int ants, t_list *paths_l3, t_pathdata *p);
 void			n_find(t_data *data, t_list **paths_l3);
 int				n_open_links(t_data *data, int *state, int room, int src);
 int				n_conn(t_data *d, int room_1, int room_2);
@@ -128,7 +128,7 @@ void			n_free_paths(t_list *paths);
 void			n_movelinks(t_list *ret, t_list *macro);
 void			n_del(void *content, size_t content_size);
 void			n_nodel(void *content, size_t content_size);
-t_list			*n_combine(t_list *macro);
+t_list			*n_combine(int ants, t_list *macro);
 void			n_free_batch(t_list *batch);
 
 /*

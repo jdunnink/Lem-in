@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/07 11:26:59 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/02/07 11:27:00 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/07 11:26:59 by jdunnink       #+#    #+#                */
+/*   Updated: 2020/02/11 16:02:36 by mlokhors      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ int	try_alt(t_data *d, t_pathdata *p)
 	n_find(d, &paths_l3);
 	n_split_cycles(d, &paths_l3);
 	n_sort(&paths_l3);
-	return (n_alt_solve(paths_l3, p));
+	return (n_alt_solve(d->ants, paths_l3, p));
 }
