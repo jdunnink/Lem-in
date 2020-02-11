@@ -106,7 +106,6 @@ int				is_valid_room(char *line, t_data *data);
 void			add_room(char *line, t_data **data, int *type);
 void			add_link(char *link, t_data **data);
 void			verify_data(t_data *data);
-void			filter_deadends(t_data **data);
 
 /*
 **	regular explore algorithm

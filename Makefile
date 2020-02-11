@@ -43,7 +43,6 @@ SRC = 	main.c				\
 		print_data.c 		\
 		init_link_storage.c	\
 		diff_override.c 	\
-		filter_deadends.c 	\
 		purge_upstream.c	\
 		purge_downstream.c	\
 		is_link_to_start.c	\

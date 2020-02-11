@@ -18,6 +18,5 @@ void	setup(t_data **data, t_pathdata **path_data)
 	verify_data(*data);
 	init_state(data);
 	(*data)->ants_at_start = (*data)->ants;
-	filter_deadends(data);
 	init_pathdata(data, path_data);
 }

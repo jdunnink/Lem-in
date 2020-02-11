@@ -58,7 +58,6 @@ void			reset_bfs_data(t_data *main, t_pathdata *data)
 	if (room == -1)
 		error_exec(25, main, data);
 	block_link(main, room);
-	filter_deadends(&main);
 	clear_bfs_state(data);
 	ft_lstdel(&data->finish_order, &ft_del);
 	data->total_paths = 0;
