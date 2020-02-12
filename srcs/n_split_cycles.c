@@ -71,7 +71,9 @@ static	void	n_parse_lists(t_data *d, t_list **paths_l2)
 	iter = *paths_l2;
 	while (iter)
 	{
-		if (n_has_cycle(iter->content) == 1)
+		if (n_count_cycles(iter->content) > 50)
+			n_take_origin((t_list **)&iter->content);
+		else if (n_has_cycle(iter->content) == 1)
 			n_split(d, iter->content, paths_l2);
 		else
 			iter = iter->next;

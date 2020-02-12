@@ -72,7 +72,7 @@ t_list			*n_combine(int ants, t_list *macro)
 
 	ret = NULL;
 	i = 0;
-	while (i < 50 && i < (int)ft_listlen(macro) / 2)
+	while (i < 10 && i < (int)ft_listlen(macro) / 2)
 	{
 		n_get_combo(ants, macro, i, &ret);
 		i++;

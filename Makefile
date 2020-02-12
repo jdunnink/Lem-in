@@ -67,6 +67,8 @@ SRC = 	main.c				\
 		n_nodel.c			\
 		n_combine.c			\
 		n_free_batch.c		\
+		n_take_origin.c		\
+		n_count_cycles.c	\
 
 OBJ = $(SRC:.c=.o)
 

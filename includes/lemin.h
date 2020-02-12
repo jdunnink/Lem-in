@@ -104,7 +104,7 @@ void			add_link(char *link, t_data **data);
 void			verify_data(t_data *data);
 
 /*
-**	regular explore algorithm
+**	exploration algorithm
 */
 
 void			n_push_ends(t_list *batch, t_pathdata *p);
@@ -130,6 +130,8 @@ void			n_del(void *content, size_t content_size);
 void			n_nodel(void *content, size_t content_size);
 t_list			*n_combine(int ants, t_list *macro);
 void			n_free_batch(t_list *batch);
+void			n_take_origin(t_list **path);
+int				n_count_cycles(t_list *path);
 
 /*
 **	traversal algorithm
