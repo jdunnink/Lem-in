@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/02 08:53:24 by jdunnink       #+#    #+#                */
-/*   Updated: 2020/02/11 15:45:54 by mlokhors      ########   odam.nl         */
+/*   Updated: 2020/02/12 17:41:02 by mlokhors      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void			n_dump_paths(t_list *paths_l3);
 int				n_new_path(t_list *new, t_list **batch);
 void			n_sort(t_list **paths_l3);
 int				n_conflict(t_list *new, t_list *paths_l2);
-int				try_alt(t_data *d, t_pathdata *p);
+int				gen_paths(t_data *d, t_pathdata *p);
 int				n_alt_solve(int ants, t_list *paths_l3, t_pathdata *p);
 void			n_find(t_data *data, t_list **paths_l3);
 int				n_open_links(t_data *data, int *state, int room, int src);

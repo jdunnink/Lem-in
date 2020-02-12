@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/08 15:22:45 by jdunnink      #+#    #+#                 */
-/*   Updated: 2020/02/08 15:22:48 by jdunnink      ########   odam.nl         */
+/*   Created: 2020/02/08 15:22:45 by jdunnink       #+#    #+#                */
+/*   Updated: 2020/02/12 17:47:54 by mlokhors      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 **	ending branch: 8, 7, 6, 2, 1
 */
 
-void	n_regen(t_data *d, t_list *branch, t_list *origin)
+void	n_regen(t_data *data, t_list *branch, t_list *origin)
 {
 	t_list *i;
 	t_list *b_tail;
@@ -40,7 +40,7 @@ void	n_regen(t_data *d, t_list *branch, t_list *origin)
 	i = origin;
 	while (i)
 	{
-		if (n_conn(d, *(int *)i->content, *(int *)b_tail->content) == 1 &&
+		if (n_conn(data, *(int *)i->content, *(int *)b_tail->content) == 1 &&
 			ft_lstcontains(branch, *(int *)i->content) == 0)
 		{
 			tail_ptr = i;

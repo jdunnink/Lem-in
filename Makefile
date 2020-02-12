@@ -6,7 +6,7 @@
 #    By: jdunnink <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/20 09:33:47 by jdunnink       #+#    #+#                 #
-#    Updated: 2019/08/28 11:42:33 by jdunnink      ########   odam.nl          #
+#    Updated: 2020/02/12 17:48:56 by mlokhors      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRC = 	main.c				\
 		n_new_path.c 		\
 		n_sort.c 			\
 		n_conflict.c 		\
-		try_alt.c 			\
+		gen_paths.c 		\
 		n_alt_solve.c		\
 		n_find.c			\
 		n_open_links.c 		\
