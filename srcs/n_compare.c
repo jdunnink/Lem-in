@@ -12,95 +12,111 @@
 
 #include "lemin.h"
 
-static	int		check_amount_ants_flow(int ants, int length_array, int *array)
+#include <stdio.h>
+
+static	void	distribute(t_list *batch, int *batch_distr)
 {
-	int i;
-	int combine;
+	int		i;
+	int		curr_score;
+	int		best_score;
+	int		path_cnt;
+	t_list	*best_path;
 
 	i = 0;
-	combine = 0;
-	while (i < length_array)
+	curr_score = 0;
+	best_score = __INT_MAX__;
+	best_path = NULL;
+	while (batch)
 	{
-		if (combine > ants)
-			return (1);
-		combine += array[i];
+		curr_score = (int)ft_listlen(batch->content) + batch_distr[i];
+		if (curr_score < best_score)
+		{
+			best_score = curr_score;
+			best_path = batch->content;
+			path_cnt = i;
+		}
+		batch = batch->next;
 		i++;
 	}
-	return (0);
+	batch_distr[path_cnt]++;
 }
 
-static	int		*make_path_array(int length_paths, t_list *list)
+/*
+
+static	void	show_batch_distr(t_list *batch, int *batch_distr)
 {
 	int i;
-	int *array;
+	int len;
 
 	i = 0;
-	array = NULL;
-	array = (int *)malloc(sizeof(int) * length_paths);
-	if (!array)
-		exit(-1);
-	while (list)
+	len = (int)ft_listlen(batch);
+	while (i < len)
 	{
-		array[i] = ft_listlen(list->content);
-		list = list->next;
+		printf(" path: %i --> %i ants\n", i, batch_distr[i]);
 		i++;
 	}
-	return (array);
+	ft_putchar('\n');
 }
 
-static	int		ants_flow_check(int ants, t_list *new, t_list *prev)
+*/
+
+
+static	int	get_line_cnt(t_list *batch, int *batch_distr)
 {
-	int ret;
-	int total_path_prev;
-	int total_path_new;
-	int	*array_new;
-	int *array_prev;
+	int i;
+	int path_nbr;
+	t_list	*longest;
+	t_list *iter;
 
-	ret = 0;
-	array_new = NULL;
-	array_prev = NULL;
-	total_path_new = ft_listlen(new);
-	total_path_prev = ft_listlen(prev);
-	array_new = make_path_array(total_path_new, new);
-	array_prev = make_path_array(total_path_prev, prev);
-	if (check_amount_ants_flow(ants, total_path_prev, array_prev) == 1)
-		return (1);
-	if (check_amount_ants_flow(ants, total_path_new, array_new) == 1)
-		return (2);
-	return (0);
-}
-
-static	float	n_ratio(t_list *paths)
-{
-	float	total_paths;
-	float	average_len;
-	float	len_aggr;
-
-	total_paths = (float)ft_listlen(paths);
-	len_aggr = 0;
-	while (paths)
+	path_nbr = 0;
+	longest = batch->content;
+	iter = batch;
+	i = 0;
+	while (iter)
 	{
-		len_aggr += (float)ft_listlen(paths->content);
-		paths = paths->next;
+		if (ft_listlen(iter->content) > ft_listlen(longest) && batch_distr[i] > 0)
+		{
+			longest = iter->content;
+			path_nbr = i;
+		}
+		iter = iter->next;
+		i++;
 	}
-	average_len = len_aggr / total_paths;
-	return (average_len / total_paths);
+//	printf("	longest list len: %i\n", (int)ft_listlen(longest));
+	return (ft_listlen(longest) + batch_distr[path_nbr]);
 }
 
-int				n_compare(int ants, t_list *new, t_list *prev)
-{
-	int		ret;
-	float	prev_ratio;
-	float	new_ratio;
 
-	ret = ants_flow_check(ants, new, prev);
-	prev_ratio = n_ratio(prev);
-	new_ratio = n_ratio(new);
-	if (ret == 1)
-		return (0);
-	else if (ret == 2)
-		return (1);
-	if (new_ratio < prev_ratio)
+#include <stdio.h>
+
+int			n_compare(int ants, t_list *new, t_list *prev)
+{
+	int		*new_distr;
+	int		*prev_distr;
+	int		i;
+	int		new_line_cnt;
+	int		prev_line_cnt;
+
+	new_distr = ft_intnew((int)ft_listlen(new));
+	prev_distr = ft_intnew((int)ft_listlen(prev));
+	i = 0;
+	while (i < ants)
+	{
+		distribute(new, new_distr);
+		i++;
+	}
+	new_line_cnt = get_line_cnt(new, new_distr);
+	free(new_distr);
+	i = 0;
+	while(i < ants)
+	{
+		distribute(prev, prev_distr);
+		i++;
+	}
+	prev_line_cnt = get_line_cnt(prev, prev_distr);
+	free(prev_distr);
+//	printf("	new_line_cnt: %i vs prev_line_cnt: %i\n", new_line_cnt, prev_line_cnt);
+	if (new_line_cnt < prev_line_cnt)
 		return (1);
 	return (0);
 }

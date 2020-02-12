@@ -19,6 +19,7 @@ int				main(void)
 
 	setup(&data, &path_data);
 	try_alt(data, path_data);
+//	exit (0);
 	dump_lines(data);
 	traverse_maze(data, path_data);
 	free_pathdata(path_data);

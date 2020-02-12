@@ -81,7 +81,7 @@ int				*n_bfs(t_data *data, int link, int **s)
 	(*s)[data->start] = -999;
 	(*s)[data->end] = -444;
 	depth = 1;
-	while (n_open_links(data, *s, data->start, link) > 0 && depth < 100)
+	while (n_open_links(data, *s, data->start, link) > 0 && depth < 150)
 	{
 		data->bfs_state = *s;
 		n_spread(data, &depth, link);
