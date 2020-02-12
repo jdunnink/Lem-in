@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 static	void	distribute(t_list *batch, int *batch_distr)
 {
 	int		i;
@@ -41,81 +39,57 @@ static	void	distribute(t_list *batch, int *batch_distr)
 	batch_distr[path_cnt]++;
 }
 
-/*
-
-static	void	show_batch_distr(t_list *batch, int *batch_distr)
+static	int		get_line_cnt(t_list *batch, int *distr)
 {
-	int i;
-	int len;
-
-	i = 0;
-	len = (int)ft_listlen(batch);
-	while (i < len)
-	{
-		printf(" path: %i --> %i ants\n", i, batch_distr[i]);
-		i++;
-	}
-	ft_putchar('\n');
-}
-
-*/
-
-
-static	int	get_line_cnt(t_list *batch, int *batch_distr)
-{
-	int i;
-	int path_nbr;
-	t_list	*longest;
-	t_list *iter;
+	int		i;
+	int		path_nbr;
+	t_list	*lng;
+	t_list	*iter;
 
 	path_nbr = 0;
-	longest = batch->content;
+	lng = batch->content;
 	iter = batch;
 	i = 0;
 	while (iter)
 	{
-		if (ft_listlen(iter->content) > ft_listlen(longest) && batch_distr[i] > 0)
+		if (ft_listlen(iter->content) > ft_listlen(lng) && distr[i] > 0)
 		{
-			longest = iter->content;
+			lng = iter->content;
 			path_nbr = i;
 		}
 		iter = iter->next;
 		i++;
 	}
-//	printf("	longest list len: %i\n", (int)ft_listlen(longest));
-	return (ft_listlen(longest) + batch_distr[path_nbr]);
+	return (ft_listlen(lng) + distr[path_nbr]);
 }
 
+static	void	distribute_ants(int ants, t_list *batch, int *distr)
+{
+	int i;
 
-#include <stdio.h>
+	i = 0;
+	while (i < ants)
+	{
+		distribute(batch, distr);
+		i++;
+	}
+}
 
-int			n_compare(int ants, t_list *new, t_list *prev)
+int				n_compare(int ants, t_list *new, t_list *prev)
 {
 	int		*new_distr;
 	int		*prev_distr;
-	int		i;
 	int		new_line_cnt;
 	int		prev_line_cnt;
 
 	new_distr = ft_intnew((int)ft_listlen(new));
 	prev_distr = ft_intnew((int)ft_listlen(prev));
-	i = 0;
-	while (i < ants)
-	{
-		distribute(new, new_distr);
-		i++;
-	}
+	distribute_ants(ants, new, new_distr);
 	new_line_cnt = get_line_cnt(new, new_distr);
 	free(new_distr);
-	i = 0;
-	while(i < ants)
-	{
-		distribute(prev, prev_distr);
-		i++;
-	}
+	distribute_ants(ants, prev, prev_distr);
 	prev_line_cnt = get_line_cnt(prev, prev_distr);
 	free(prev_distr);
-//	printf("	new_line_cnt: %i vs prev_line_cnt: %i\n", new_line_cnt, prev_line_cnt);
 	if (new_line_cnt < prev_line_cnt)
 		return (1);
 	return (0);

@@ -37,25 +37,25 @@ static	void	n_select_best(int ants, t_list **ret, t_list **curr_ret)
 		ft_lstdel(curr_ret, &n_nodel);
 }
 
-static	void	n_get_combo(int ants, t_list *macro, int start_list, t_list **ret)
+static	void	n_get_combo(int ants, t_list *m, int start, t_list **ret)
 {
 	t_list	*curr_ret;
 
 	curr_ret = NULL;
-	if (macro == NULL || macro->next == NULL)
+	if (m == NULL || m->next == NULL)
 		return ;
-	n_goto_list(&macro, start_list);
-	if (macro == NULL)
+	n_goto_list(&m, start);
+	if (m == NULL)
 		return ;
-	ft_lstappend(&curr_ret, macro->content, sizeof(t_list *));
-	macro = macro->next;
-	if (macro == NULL)
+	ft_lstappend(&curr_ret, m->content, sizeof(t_list *));
+	m = m->next;
+	if (m == NULL)
 		return (ft_lstdel(&curr_ret, &n_del));
-	while (macro)
+	while (m)
 	{
-		if (n_conflict(macro->content, curr_ret) == 0)
-			ft_lstappend(&curr_ret, macro->content, sizeof(t_list *));
-		macro = macro->next;
+		if (n_conflict(m->content, curr_ret) == 0)
+			ft_lstappend(&curr_ret, m->content, sizeof(t_list *));
+		m = m->next;
 	}
 	return (n_select_best(ants, ret, &curr_ret));
 }
