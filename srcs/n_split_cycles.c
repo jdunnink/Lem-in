@@ -12,12 +12,6 @@
 
 #include "lemin.h"
 
-/*
-**	aggregate of paths contains cycles due to branching
-**	cycles are moved into seperate lists and their backend connection to start
-**	is regenerated from the room where the path branched.
-*/
-
 static	int		n_cycle(int value, t_list *rem_path)
 {
 	t_list *iter;
@@ -83,6 +77,21 @@ static	void	n_parse_lists(t_data *d, t_list **paths_l2)
 			iter = iter->next;
 	}
 }
+
+/*
+**	n_split_cycle detects branches within parsed paths. Each branch is removed
+**	from its origin and stored as a new path within the same batch.
+**
+**	example:
+**	path containing branch: 8, 7, 6, 4, 8, 7, 6, 5, 3, 2, 1
+**
+**	split into:
+**	branch: 8, 7, 6, 4
+**	origin: 8, 7, 6, 3, 2, 1
+**
+**	regerated branch if branch occurred at room 2:
+**	8, 7, 6, 4, 2, 1
+*/
 
 void			n_split_cycles(t_data *d, t_list **paths_l3)
 {

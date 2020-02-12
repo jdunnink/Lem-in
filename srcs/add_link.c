@@ -60,6 +60,13 @@ static void	process_link(int src_index, int dst_index, t_data **data)
 	(((*data)->links_num)[src_index])++;
 }
 
+/*
+**	add_link receives a link in the format "one-two"
+**	and adds the links to the global adjacency list,
+**	such that, data->links[index of one] contains index of two,
+**	and data->links[index of two] contains index of one.
+*/
+
 void		add_link(char *link, t_data **data)
 {
 	char	*src_room;

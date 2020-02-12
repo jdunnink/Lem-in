@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	try_alt calls the functions needed to find
+**	the best combination of paths through the maze.
+*/
+
 int	try_alt(t_data *d, t_pathdata *p)
 {
 	t_list *paths_l3;

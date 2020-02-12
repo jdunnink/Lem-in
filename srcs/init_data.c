@@ -12,6 +12,10 @@
 
 #include "lemin.h"
 
+/*
+**	init_data initialized all the elements in the main data struct.
+*/
+
 void	init_data(t_data **data)
 {
 	*data = NULL;

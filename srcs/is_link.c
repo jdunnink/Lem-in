@@ -26,6 +26,12 @@ static	int	check_dup(char *one, char *two)
 	return (0);
 }
 
+/*
+**	is_link checks if the string parament 'link'
+**	represents a corrent link between two rooms.
+**	returns 1 if valid, 0 if invalid.
+*/
+
 int			is_link(char *link, t_data *data)
 {
 	int		i;

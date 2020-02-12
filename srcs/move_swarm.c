@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	move_swarm executes move_ant on all the ants
+**	that are currently active in the maze.
+*/
+
 void	move_swarm(t_data *data)
 {
 	t_list	*iter;

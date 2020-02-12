@@ -56,6 +56,19 @@ static	void	init_links_num(t_data **data)
 	}
 }
 
+/*
+**	init_link_storage initializes the elements needed for storing
+**	the adjancy list (data->links) and
+**	the number of links per room (data->links_num)
+**
+**	example with indices:
+**
+**	room 56 has 3 links which are 34, 77 and 99
+**
+**	----------->			data->links[56] = { 34, 77, 99 }
+**	----------->			data->links_num[56] = 3
+*/
+
 void			init_link_storage(t_data **data)
 {
 	if ((*data)->links == NULL)

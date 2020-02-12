@@ -12,6 +12,16 @@
 
 #include "lemin.h"
 
+/*
+**	n_open links counts all the open links of the room parameter
+**	within the state variable passed as parameter.
+**
+**	example:
+**	room 67 is connected to room 45 and room 45 is empty
+**	--------------->	data->links[67] = { .. , 45, .. }
+**	--------------->	state[45] = 0
+*/
+
 int		n_open_links(t_data *data, int *state, int room, int src)
 {
 	int i;

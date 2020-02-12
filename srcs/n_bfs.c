@@ -72,6 +72,12 @@ static	void	n_spread(t_data *data, int *curr_depth, int link)
 	return (n_default_spread(data, curr_depth, link));
 }
 
+/*
+**	n_bfs runs a BFS from the room 'link' into the maze until
+**	all connections to start are filled. the resulting maze state
+**	is returned.
+*/
+
 int				*n_bfs(t_data *data, int link, int **s)
 {
 	int depth;

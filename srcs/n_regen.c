@@ -12,7 +12,20 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
+/*
+**	n_regen is used to regerate the tail of a path branch, which
+**	has been seperated in n_split_cycles. The origin list is parsed
+**	until a room is found that is connected to the tail of
+**	the branch. From this point the origin list is copied and
+**	appended to the branch.
+**
+**	example:
+**	starting branch: 8, 7, 6
+**	origin: 4, 3, 2, 1
+**	branch occurred at room 2
+**
+**	ending branch: 8, 7, 6, 2, 1
+*/
 
 void	n_regen(t_data *d, t_list *branch, t_list *origin)
 {

@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	spawn_ants is used during the traversal phase
+**	of the program to send ants into the maze.
+*/
+
 void	spawn_ant(t_data *data)
 {
 	t_ant *new_ant;

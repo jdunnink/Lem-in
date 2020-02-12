@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	n_push_ends takes a batch and pushed the room index of
+**	the end node and pushes it to the front of each path.
+*/
+
 void	n_push_ends(t_list *batch, t_pathdata *p)
 {
 	t_list *iter;

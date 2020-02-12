@@ -26,6 +26,12 @@ static	int	n_lstcmp(t_list *one, t_list *two)
 	return (1);
 }
 
+/*
+**	n_new_path checks if a path (new) is a unique
+**	path that is not already in the batch passed
+**	as parameter. returns 1 if unique, 0 if not.
+*/
+
 int			n_new_path(t_list *new, t_list **batch)
 {
 	t_list *iter;

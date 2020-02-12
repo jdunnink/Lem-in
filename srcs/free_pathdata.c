@@ -12,6 +12,12 @@
 
 #include "lemin.h"
 
+/*
+**	free_pathdata frees the path collection currently stored
+**	in the target pathdata struct, which is extended from
+**	the main data struct.
+*/
+
 void			free_pathdata(t_pathdata *target)
 {
 	if (target->paths != NULL)

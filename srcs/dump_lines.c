@@ -12,7 +12,10 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
+/*
+**	dump_lines returns the lines read during the input phase,
+**	back to the standard output.
+*/
 
 void	dump_lines(t_data *data)
 {

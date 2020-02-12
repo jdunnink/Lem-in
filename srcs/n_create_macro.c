@@ -77,6 +77,11 @@ static	int		n_verif_batch(t_list **src, t_list **macro, t_list **batch_a)
 	return (1);
 }
 
+/*
+**	n_create takes all the patch batches in src
+**	and combines them in one sorted path batch.
+*/
+
 void			n_create_macro(t_list **macro, t_list *src)
 {
 	t_list	*tmp;

@@ -25,6 +25,13 @@ static	void	n_usefirst_batch(t_pathdata *p, t_list *paths_l3)
 	paths_l3->content = NULL;
 }
 
+/*
+**	n_alt_solve receives all the paths found during n_find and n_bfs
+**	and finds a combination of paths that minimizes the number of
+**	turns taken during the traversal phase.
+**	ending solution is loaded into data->paths.
+*/
+
 int				n_alt_solve(int ants, t_list *paths_l3, t_pathdata *p)
 {
 	t_list *macro_list;

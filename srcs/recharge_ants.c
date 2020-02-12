@@ -12,6 +12,12 @@
 
 #include "lemin.h"
 
+/*
+**	recharge_ants is used to reset the has_moved
+**	variable in the active ants list after all
+**	ants have moved and the turn has ended.
+*/
+
 void	recharge_ants(t_list *active_ants)
 {
 	t_list	*iter;

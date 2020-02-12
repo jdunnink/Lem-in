@@ -12,6 +12,12 @@
 
 #include "lemin.h"
 
+/*
+**	n_free_batch takes a pointer to a batch of paths
+**	and frees each path in the batch, as well as
+**	the batch-level linked list
+*/
+
 void	n_free_batch(t_list *batch)
 {
 	t_list *iter;

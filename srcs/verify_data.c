@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	verify_data parses the data in the main data struct
+**	and performs some basic error checks.
+*/
+
 void			verify_data(t_data *data)
 {
 	if (data->start == -1 || data->end == -1)

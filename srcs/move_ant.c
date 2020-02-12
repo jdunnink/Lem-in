@@ -46,6 +46,12 @@ static	void	move_to_room(t_data *data, t_ant *ant, int next_room)
 	ant->room = next_room;
 }
 
+/*
+**	move_ant takes a pointer to an ant and moves that ant
+**	to the next room in the ants target path if the
+**	target room is empty.
+*/
+
 void			move_ant(t_data *data, t_ant *ant)
 {
 	t_list	*iter;

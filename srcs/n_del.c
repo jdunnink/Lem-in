@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	n_del can be to free content pointers in a linked list
+**	which also includes content pointer that are NULL.
+*/
+
 void	n_del(void *content, size_t content_size)
 {
 	if (content == NULL)

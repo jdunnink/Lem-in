@@ -43,6 +43,11 @@ static	void	check_arrays(t_data *data)
 	}
 }
 
+/*
+**	free_data cleans up the memory of the main data struct after
+**	successfull completion or in case of errors.
+*/
+
 void			free_data(t_data **target)
 {
 	t_data *data;

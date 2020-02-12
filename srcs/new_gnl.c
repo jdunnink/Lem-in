@@ -108,6 +108,11 @@ static	void	read_buff(const int fd, t_list **d, t_list **b, t_gnl *byt)
 	}
 }
 
+/*
+**	an alternative get_next_line which returns the number of bytes
+**	of the line read.
+*/
+
 ssize_t			new_gnl(const int fd, char **line)
 {
 	static t_list	*backup;

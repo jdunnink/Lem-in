@@ -27,6 +27,11 @@ static	void	choose_del_ant(int i, t_list **active_ants)
 		*active_ants = NULL;
 }
 
+/*
+**	exit_ant removes an ant from the active_ants list
+**	once it has reached the end.
+*/
+
 void			exit_ant(t_ant *ant, t_data *data)
 {
 	t_list	*iter;

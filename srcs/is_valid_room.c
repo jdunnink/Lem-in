@@ -60,6 +60,12 @@ static	int	verif_coor(char *x, char *y, t_data *data)
 	return (ret);
 }
 
+/*
+**	is_room checks if the string parament 'line'
+**	represents a corrent room
+**	returns 1 if valid, 0 if invalid.
+*/
+
 int			is_valid_room(char *line, t_data *data)
 {
 	int		i;

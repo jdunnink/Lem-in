@@ -25,6 +25,13 @@ static	void	n_disable(t_list *path, t_list *macro)
 	}
 }
 
+/*
+**	n_movelinkes takes a path_batch and
+**	sets all the same pointers in the macro list
+**	to NULL to prevent double frees when the macro
+**	list is removed.
+*/
+
 void			n_movelinks(t_list *ret, t_list *macro)
 {
 	t_list *iter;

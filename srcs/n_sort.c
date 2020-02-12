@@ -63,6 +63,11 @@ static	t_list	*n_sort_batch(t_list *paths_l2)
 	return (sorted);
 }
 
+/*
+**	n_sort takes a list of batches and sorts each
+**	batch internally.
+*/
+
 void			n_sort(t_list **paths_l3)
 {
 	t_list *iter;

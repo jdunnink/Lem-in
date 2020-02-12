@@ -40,6 +40,13 @@ static	void	assign_to_ant(t_list *paths, t_ant *ant, int *counter)
 	ant->target_path = ft_lstcpy(best_path);
 }
 
+/*
+**	assign_routes takes the ending path combination and
+**	assigns each ant a route such that the flow of ants through
+**	the maze is optimized. shorter routes are prioritized over longer
+**	routes, but longer routes will be used when necessary.
+*/
+
 void			assign_routes(t_data *data, t_pathdata *path_data)
 {
 	t_list	*iter;

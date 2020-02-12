@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	print_move_list prints the moves
+**	currently stored in the move_list element.
+*/
+
 void	print_move_list(t_data *data)
 {
 	t_list	*iter;

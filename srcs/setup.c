@@ -12,6 +12,12 @@
 
 #include "lemin.h"
 
+/*
+**	setup is used to call all functions needed
+**	start the program and verify the correctness of
+**	the data.
+*/
+
 void	setup(t_data **data, t_pathdata **path_data)
 {
 	read_input(data);

@@ -12,6 +12,24 @@
 
 #include "lemin.h"
 
+/*
+**	is_link_to_start takes the index of the room and checks if
+**	this room is connected to the start node. returns 1 if connected
+**	0 if not.
+**
+**	examples:
+**
+**	room 68 is connected to the start node, which is 45,
+**	where room 68 is the first link to 45, and 45 is the second
+**	link to 68.
+**
+**	---------------> data->links[45] = { 68, etc.. }
+**	---------------> data->links[45][0] = 68
+**
+**	---------------> data->links[68] = { 1, 45, etc.. }
+**	---------------> data->links[68][1] = 45
+*/
+
 int	is_link_to_start(t_pathdata *data, int room)
 {
 	int i;

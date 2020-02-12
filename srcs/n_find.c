@@ -24,6 +24,15 @@ static	void	n_revert_local(int rooms, int *state)
 	}
 }
 
+/*
+**	n_find generates all the possible routes from
+**	end to start and stores them in paths_L3, which is
+**	a list of path batches.
+**
+**	a batch is list of paths
+**	a path is a list of room indices
+*/
+
 void			n_find(t_data *data, t_list **paths_l3)
 {
 	int		i;

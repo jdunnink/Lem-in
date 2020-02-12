@@ -12,6 +12,13 @@
 
 #include "lemin.h"
 
+/*
+**	n_pop returns the first path contained in the batch
+**	passed as paramenter. The path pointer in the batch is stored as
+**	as well, which is set to NULL, once the path is moved to another
+**	batch.
+*/
+
 t_list	*n_pop(t_list *batch, t_list ***ptr)
 {
 	t_list *iter;

@@ -12,6 +12,10 @@
 
 #include "lemin.h"
 
+/*
+**	n_conn checks if two rooms are connected.
+*/
+
 int		n_conn(t_data *d, int room_1, int room_2)
 {
 	int i;

@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	get_room_name returns the name of a room as a string.
+**	requires the index of the room.
+*/
+
 char	*get_room_name(int room_index, t_data *data)
 {
 	return (data->room_names[room_index]);

@@ -26,6 +26,12 @@ static	int	n_batch_has_value(int value, t_list *paths_l2)
 	return (0);
 }
 
+/*
+**	n_conflict checks if a path (new) has the same room
+**	as one the paths currently contained in paths_l2.
+**	returns 1 if a conflict is found, 0 if not.
+*/
+
 int			n_conflict(t_list *new, t_list *paths_l2)
 {
 	t_list *iter;

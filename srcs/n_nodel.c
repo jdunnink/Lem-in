@@ -12,6 +12,12 @@
 
 #include "lemin.h"
 
+/*
+**	no_del can be used in ft_lstdel to free the list
+**	but not the content pointers, for example if the
+**	pointers are still being used somewhere else.
+*/
+
 void	n_nodel(void *content, size_t content_size)
 {
 	if (content == NULL)

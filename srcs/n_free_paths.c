@@ -12,6 +12,12 @@
 
 #include "lemin.h"
 
+/*
+**	n_free_paths frees all the paths
+**	currently contained in the 'paths'
+**	parameter, which is a linked list of paths.
+*/
+
 void	n_free_paths(t_list *paths)
 {
 	t_list *iter;

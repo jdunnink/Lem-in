@@ -54,6 +54,12 @@ static	void	add_name(char *name, t_data **data)
 		add_next_name(name, data);
 }
 
+/*
+**	add_room takes a str in the format "roomname" and adds
+**	its name to the room_names element of the data struct
+**	such that: data->room_names[index of room] == "roomname".
+*/
+
 void			add_room(char *room, t_data **data, int *type)
 {
 	char	**array;

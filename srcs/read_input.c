@@ -63,6 +63,12 @@ static	int		unrecog_cmd(char *line)
 	return (0);
 }
 
+/*
+**	read_input is used the read the maze provided
+**	to lemin and stores the information in the main
+**	data struct.
+*/
+
 void			read_input(t_data **data)
 {
 	char		*line;

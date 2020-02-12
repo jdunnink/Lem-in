@@ -60,6 +60,11 @@ static	void	n_get_combo(int ants, t_list *m, int start, t_list **ret)
 	return (n_select_best(ants, ret, &curr_ret));
 }
 
+/*
+**	n_combine takes a list of paths and find the combination of paths
+**	that produces the least amount of moves.
+*/
+
 t_list			*n_combine(int ants, t_list *macro)
 {
 	int		i;

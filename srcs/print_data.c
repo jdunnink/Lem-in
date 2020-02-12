@@ -54,6 +54,11 @@ static	void	print_all(t_data **data)
 	ft_putchar('\n');
 }
 
+/*
+**	print_data can be used to selectively print data elements
+**	from the main data struct
+*/
+
 void			print_data(char *segment, t_data **data)
 {
 	int mode;

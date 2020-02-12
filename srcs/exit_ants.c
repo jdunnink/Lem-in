@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	exit_ants removes all ants that have reached the end
+**	from the active_ants list.
+*/
+
 void	exit_ants(t_data *data)
 {
 	t_list	*iter;

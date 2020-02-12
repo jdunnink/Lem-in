@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	The 3 main error handlers for each phase of the program.
+**	inspect error codes to trace the source of errors.
+*/
+
 void			error_input(int err_code, t_data *data, char *line)
 {
 	if (err_code > 0)

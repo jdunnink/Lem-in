@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	get_path takes an index and returns the path currently
+**	stored at that location in the paths element.
+*/
+
 t_list	*get_path(t_pathdata *path_data, int index)
 {
 	int		i;

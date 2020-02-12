@@ -24,6 +24,14 @@ static	void	spawn_ants(t_data *data)
 	}
 }
 
+/*
+**	traverse_maze takes the path solution provided
+**	and sends the ants through the maze by giving each ant
+**	a target route from the batch stored in data->paths.
+**	moves performed by the ants are stored in the move_list
+**	and printed to the standard output
+*/
+
 void			traverse_maze(t_data *data, t_pathdata *path_data)
 {
 	spawn_ants(data);

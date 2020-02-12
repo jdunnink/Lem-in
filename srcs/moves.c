@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	moves counts the number of ants left
+**	in a list of ants that have not moved yet.
+*/
+
 int	moves(t_list *ants)
 {
 	t_list	*iter;

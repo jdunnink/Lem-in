@@ -12,6 +12,18 @@
 
 #include "lemin.h"
 
+/*
+**	init_state initialized the state element used for maze traversal
+**	if a rooms state is 0, it is empty, otherwise it is not.
+**
+**	examples:
+**
+**	room 56 is empty
+**	---------------->		data->state[56] = 0;
+**	room 77 is not empty
+**	---------------->		data->state[77] = 1;
+*/
+
 void	init_state(t_data **data)
 {
 	int	i;

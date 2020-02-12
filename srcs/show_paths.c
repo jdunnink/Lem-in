@@ -26,6 +26,12 @@ void	print_path(t_list *path)
 	ft_putchar('\n');
 }
 
+/*
+**	show_paths is a utility function which is used
+**	print out the paths stored in the batch passed
+**	as parameter.
+*/
+
 void	show_paths(t_list *paths)
 {
 	t_list *iter;

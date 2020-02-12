@@ -12,6 +12,11 @@
 
 #include "lemin.h"
 
+/*
+**	init_pathdata initialized the main pathdata struct by
+**	extending from the main data struct.
+*/
+
 void		init_pathdata(t_data **data, t_pathdata **path_data)
 {
 	t_pathdata *new;
