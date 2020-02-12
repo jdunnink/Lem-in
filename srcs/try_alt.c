@@ -23,9 +23,13 @@ int	try_alt(t_data *d, t_pathdata *p)
 
 	paths_l3 = NULL;
 	n_find(d, &paths_l3);
+	if (ft_listlen(paths_l3) == 0)
+	{
+		error_exec(666, d, p);
+		return (-1);
+	}
 	n_split_cycles(d, &paths_l3);
 	n_sort(&paths_l3);
-	if (ft_listlen(paths_l3) == 0)
-		error_exec(666, d, p);
+	
 	return (n_alt_solve(d->ants, paths_l3, p));
 }
