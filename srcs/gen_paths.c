@@ -20,8 +20,20 @@
 int	gen_paths(t_data *data, t_pathdata *data_path)
 {
 	t_list *paths_l3;
+	t_list *no_end;
+	t_list *no_end2;
 
+	no_end = NULL;
+	no_end2 = NULL;
 	paths_l3 = NULL;
+	if (n_conn(data, data->end, data->start) == 1)
+	{
+		no_end = ft_lstnew(&data->end, sizeof(int *));
+		ft_lstappend(&no_end2, no_end, sizeof(t_list *));
+		data_path->total_paths = ft_listlen(no_end2);
+		data_path->paths = no_end2;
+		return (1);
+	}
 	n_find(data, &paths_l3);
 	if (ft_listlen(paths_l3) == 0)
 		error_exec(666, data, data_path);

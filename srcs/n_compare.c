@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/08 15:34:37 by jdunnink       #+#    #+#                */
-/*   Updated: 2020/02/11 16:42:41 by mlokhors      ########   odam.nl         */
+/*   Updated: 2020/02/13 17:15:27 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static	int		get_line_cnt(t_list *batch, int *distr)
 
 static	void	distribute_ants(int ants, t_list *batch, int *distr)
 {
-	int i;
+	int i;	
 
 	i = 0;
 	while (i < ants)
