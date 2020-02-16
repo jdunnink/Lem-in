@@ -6,7 +6,7 @@
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/02 08:53:24 by jdunnink       #+#    #+#                */
-/*   Updated: 2020/02/12 17:41:02 by mlokhors      ########   odam.nl         */
+/*   Updated: 2020/02/16 10:43:28 by mlokhors      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct	s_data
 	int			total_links;
 	int			start;
 	int			end;
+	int			*ant_each_route;
 	int			**links;
 	int			*links_num;
 	int			*state;
@@ -48,6 +49,7 @@ typedef struct	s_data
 	t_list		*lines;
 	t_list		*coors;
 }				t_data;
+
 
 typedef	struct	s_coor
 {
@@ -137,6 +139,7 @@ int				n_count_cycles(t_list *path);
 **	traversal algorithm
 */
 
+void			distribute_ants(int ants, t_list *batch, int *distr);
 void			traverse_maze(t_data *data, t_pathdata *path_data);
 void			move_swarm(t_data *data);
 void			spawn_ant(t_data *data);
