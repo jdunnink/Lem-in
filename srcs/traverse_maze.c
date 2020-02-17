@@ -50,7 +50,7 @@ static	void	remove_unused(t_pathdata *path_data, int *ant_distr)
 	t_list	*new;
 	t_list	*iter;
 	int		i;
-	
+
 	new = NULL;
 	iter = path_data->paths;
 	i = 0;

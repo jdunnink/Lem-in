@@ -36,17 +36,16 @@ static	t_list	*get_se(int end)
 	return (batch);
 }
 
-static	void	get_batch(t_data *data, int link, int **state, t_list **paths_l3)
+static	void	get_batch(t_data *data, int link, int **s, t_list **paths_l3)
 {
 	t_list *paths_l2;
 
-
 	paths_l2 = NULL;
-	*state = n_bfs(data, link, state);
-	paths_l2 = n_coll_paths(data, *state, link);
+	*s = n_bfs(data, link, s);
+	paths_l2 = n_coll_paths(data, *s, link);
 	if (paths_l2 != NULL)
 		ft_lstappend(paths_l3, paths_l2, sizeof(t_list *));
-	n_revert_local(data->rooms, *state);
+	n_revert_local(data->rooms, *s);
 }
 
 /*
