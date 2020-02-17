@@ -67,6 +67,8 @@ void			free_data(t_data **target)
 	data->lines = NULL;
 	if (data->coors != NULL)
 		ft_lstdel(&data->coors, &ft_del);
+	if (data->ant_distr != NULL)
+		free(data->ant_distr);
 	data->coors = NULL;
 	free(data);
 	data = NULL;
