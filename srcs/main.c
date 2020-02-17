@@ -12,8 +12,6 @@
 
 #include "lemin.h"
 
-#include <stdio.h>
-
 int				main(void)
 {
 	t_data		*data;
