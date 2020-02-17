@@ -49,7 +49,6 @@ typedef struct	s_data
 	t_list		*coors;
 }				t_data;
 
-
 typedef	struct	s_coor
 {
 	int x;

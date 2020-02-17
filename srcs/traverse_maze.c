@@ -14,8 +14,8 @@
 
 static	void	parse_path(t_data *data, t_list *path, int path_index)
 {
-	t_list *iter;
-	t_list *trail;
+	t_list	*iter;
+	t_list	*trail;
 	int		room;
 
 	trail = path;
@@ -23,7 +23,7 @@ static	void	parse_path(t_data *data, t_list *path, int path_index)
 	while (iter)
 	{
 		room = *(int *)iter->content;
-		if(data->state[room] != 0)
+		if (data->state[room] != 0)
 			n_move(data, room, *(int *)trail->content, path_index);
 		trail = iter;
 		iter = iter->next;
@@ -32,7 +32,7 @@ static	void	parse_path(t_data *data, t_list *path, int path_index)
 
 static	void	parse_paths(t_data *data, t_list *paths)
 {
-	t_list *iter;
+	t_list	*iter;
 	int		path_index;
 
 	iter = paths;
@@ -46,7 +46,7 @@ static	void	parse_paths(t_data *data, t_list *paths)
 }
 
 /*
-//	execute path traversal
+**	execute path traversal
 */
 
 void			traverse_maze(t_data *data, t_pathdata *path_data)

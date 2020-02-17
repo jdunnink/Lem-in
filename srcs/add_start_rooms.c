@@ -14,7 +14,7 @@
 
 void	add_start_rooms(int start, t_list *paths)
 {
-	t_list *iter;
+	t_list	*iter;
 	int		room;
 
 	iter = paths;

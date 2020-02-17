@@ -15,7 +15,7 @@
 static	void	n_startend(t_data *data, int path_index, int *ant_nbr)
 {
 	if (data->ant_distr[path_index] < 0)
-			error_exec(80, data, NULL);
+		error_exec(80, data, NULL);
 	if (data->ant_distr[path_index] == 0)
 		return ;
 	data->state[data->end]++;
@@ -26,21 +26,21 @@ static	void	n_startend(t_data *data, int path_index, int *ant_nbr)
 
 static	void	n_start(t_data *data, int next, int path_index, int *ant_nbr)
 {
-		if (data->ant_distr[path_index] < 0)
-			error_exec(80, data, NULL);
-		if (data->ant_distr[path_index] == 0)
-			return ;
-		data->state[next] = data->state[data->start];
-		*ant_nbr = data->state[next];
-		data->state[data->start]++;
-		data->ant_distr[path_index]--;
+	if (data->ant_distr[path_index] < 0)
+		error_exec(80, data, NULL);
+	if (data->ant_distr[path_index] == 0)
+		return ;
+	data->state[next] = data->state[data->start];
+	*ant_nbr = data->state[next];
+	data->state[data->start]++;
+	data->ant_distr[path_index]--;
 }
 
 /*
-//	move ants between rooms by adjusting the maze state
+**	move ants between rooms by adjusting the maze state
 */
 
-void	n_move(t_data *data, int room, int next, int path_index)
+void			n_move(t_data *data, int room, int next, int path_index)
 {
 	int ant_nbr;
 
