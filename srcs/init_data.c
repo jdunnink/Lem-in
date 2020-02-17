@@ -26,6 +26,7 @@ void	init_data(t_data **data)
 	(*data)->ants_at_start = 0;
 	(*data)->ants_in_maze = 0;
 	(*data)->ants_at_end = 0;
+	(*data)->ant_distr = NULL;
 	(*data)->rooms = 0;
 	(*data)->total_links = 0;
 	(*data)->start = -1;
@@ -36,7 +37,6 @@ void	init_data(t_data **data)
 	(*data)->state = NULL;
 	(*data)->bfs_state = NULL;
 	(*data)->move_list = NULL;
-	(*data)->active_ants = NULL;
 	(*data)->lines = NULL;
 	(*data)->coors = NULL;
 }

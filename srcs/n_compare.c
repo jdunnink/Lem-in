@@ -63,11 +63,13 @@ static	int		get_line_cnt(t_list *batch, int *distr)
 	return (ft_listlen(lng) + distr[path_nbr]);
 }
 
-void	distribute_ants(int ants, t_list *batch, int *distr)
+static void		rate_batch(int ants, t_list *batch, int *distr)
 {
-	int i;	
+	int i;
 
 	i = 0;
+	if (ants > 500)
+		ants = 500;
 	while (i < ants)
 	{
 		distribute(batch, distr);
@@ -90,10 +92,10 @@ int				n_compare(int ants, t_list *new, t_list *prev)
 
 	new_distr = ft_intnew((int)ft_listlen(new));
 	prev_distr = ft_intnew((int)ft_listlen(prev));
-	distribute_ants(ants, new, new_distr);
+	rate_batch(ants, new, new_distr);
 	new_line_cnt = get_line_cnt(new, new_distr);
 	free(new_distr);
-	distribute_ants(ants, prev, prev_distr);
+	rate_batch(ants, prev, prev_distr);
 	prev_line_cnt = get_line_cnt(prev, prev_distr);
 	free(prev_distr);
 	if (new_line_cnt < prev_line_cnt)

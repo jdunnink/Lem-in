@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   add_start_rooms.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 08:49:11 by jdunnink       #+#    #+#                */
-/*   Updated: 2020/02/12 17:41:02 by mlokhors      ########   odam.nl         */
+/*   Created: 2020/02/17 09:11:33 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/17 09:11:34 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				main(void)
+void	add_start_rooms(int start, t_list *paths)
 {
-	t_data		*data;
-	t_pathdata	*path_data;
+	t_list *iter;
+	int		room;
 
-	setup(&data, &path_data);
-	gen_paths(data, path_data);
-	dump_lines(data);
-	traverse_maze(data, path_data);
-	free_pathdata(path_data);
-	free_data(&data);
-	return (0);
+	iter = paths;
+	while (iter)
+	{
+		room = start;
+		ft_lstpushback((t_list **)&iter->content, &room, sizeof(int *));
+		iter = iter->next;
+	}
 }

@@ -38,14 +38,13 @@ typedef struct	s_data
 	int			total_links;
 	int			start;
 	int			end;
-	int			*ant_each_route;
+	int			*ant_distr;
 	int			**links;
 	int			*links_num;
 	int			*state;
 	int			*bfs_state;
 	char		**room_names;
 	t_list		*move_list;
-	t_list		*active_ants;
 	t_list		*lines;
 	t_list		*coors;
 }				t_data;
@@ -141,13 +140,10 @@ int				n_count_cycles(t_list *path);
 
 void			distribute_ants(int ants, t_list *batch, int *distr);
 void			traverse_maze(t_data *data, t_pathdata *path_data);
-void			move_swarm(t_data *data);
-void			spawn_ant(t_data *data);
-void			assign_routes(t_data *data, t_pathdata *path_data);
-void			move_ant(t_data *data, t_ant *ant);
-void			recharge_ants(t_list *active_ants);
-void			exit_ants(t_data *data);
-void			exit_ant(t_ant *ant, t_data *data);
+void			distribute_ants(int ants, t_list *batch, int *distr);
+void			add_start_rooms(int start, t_list *paths);
+void			save_move_output(int ant_nbr, int next_room, t_data *data);
+void			n_move(t_data *data, int room, int next, int path_index);
 
 /*
 **	utility

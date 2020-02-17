@@ -23,20 +23,12 @@ SRC = 	main.c				\
 		verify_data.c		\
 		init_state.c		\
 		traverse_maze.c		\
-		spawn_ant.c			\
-		move_ant.c			\
-		recharge_ants.c		\
-		moves.c				\
-		move_swarm.c		\
 		print_move_list.c	\
-		exit_ants.c			\
-		exit_ant.c			\
 		init_pathdata.c		\
 		show_paths.c		\
 		new_gnl.c			\
 		get_pathcpy.c		\
 		get_path.c 			\
-		assign_routes.c 	\
 		free_paths.c		\
 		free_data.c 		\
 		print_data.c 		\
@@ -69,6 +61,10 @@ SRC = 	main.c				\
 		n_free_batch.c		\
 		n_take_origin.c		\
 		n_count_cycles.c	\
+		distribute_ants.c	\
+		add_start_rooms.c	\
+		save_move_output.c	\
+		n_move.c			\
 
 OBJ = $(SRC:.c=.o)
 

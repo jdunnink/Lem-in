@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   save_move_output.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jdunnink <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 08:49:11 by jdunnink       #+#    #+#                */
-/*   Updated: 2020/02/12 17:41:02 by mlokhors      ########   odam.nl         */
+/*   Created: 2020/02/17 09:14:41 by jdunnink      #+#    #+#                 */
+/*   Updated: 2020/02/17 09:14:42 by jdunnink      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int				main(void)
+void	save_move_output(int ant_nbr, int next_room, t_data *data)
 {
-	t_data		*data;
-	t_pathdata	*path_data;
+	char	*move_output;
+	char	*ant_number;
+	char	*room_name;
 
-	setup(&data, &path_data);
-	gen_paths(data, path_data);
-	dump_lines(data);
-	traverse_maze(data, path_data);
-	free_pathdata(path_data);
-	free_data(&data);
-	return (0);
+	ant_number = ft_itoa(ant_nbr);
+	room_name = get_room_name(next_room, data);
+	move_output = ft_strjoin_free("L", ant_number, 2);
+	move_output = ft_strjoin_free(move_output, "-", 1);
+	move_output = ft_strjoin_free(move_output, room_name, 1);
+	ft_lstappend(&(data->move_list), move_output, sizeof(char *));
 }
