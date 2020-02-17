@@ -19,12 +19,17 @@
 
 void	n_push_ends(t_list *batch, t_pathdata *p)
 {
-	t_list *iter;
+	t_list	*iter;
+	int		start_val;
+	t_list	*path;
 
 	iter = batch;
 	while (iter)
 	{
-		ft_lstpushfront(&p->end, (t_list **)&iter->content, sizeof(int *));
+		path = iter->content;
+		start_val = *(int *)path->content;
+		if (start_val != p->end)
+			ft_lstpushfront(&p->end, (t_list **)&iter->content, sizeof(int *));
 		iter = iter->next;
 	}
 }

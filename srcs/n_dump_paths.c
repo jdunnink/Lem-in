@@ -30,6 +30,9 @@ void	n_dump_paths(t_list *paths_l3)
 	i = 1;
 	while (iter)
 	{
+		ft_putstr("	batch: ");
+		ft_putnbr(i);
+		ft_putchar('\n');
 		show_paths(iter->content);
 		ft_putchar('\n');
 		iter = iter->next;
