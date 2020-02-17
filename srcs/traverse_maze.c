@@ -45,6 +45,34 @@ static	void	parse_paths(t_data *data, t_list *paths)
 	}
 }
 
+static	void	remove_unused(t_pathdata *path_data, int *ant_distr)
+{
+	t_list	*new;
+	t_list	*iter;
+	int		i;
+	
+	new = NULL;
+	iter = path_data->paths;
+	i = 0;
+	while (iter)
+	{
+		if (ant_distr[i] != 0)
+		{
+			ft_lstappend(&new, iter->content, sizeof(t_list *));
+			iter->content = NULL;
+		}
+		else
+		{
+			ft_lstdel((t_list **)&iter->content, &ft_del);
+			iter->content = NULL;
+		}
+		iter = iter->next;
+		i++;
+	}
+	ft_lstdel(&path_data->paths, &ft_del);
+	path_data->paths = new;
+}
+
 /*
 **	execute path traversal
 */
@@ -54,6 +82,7 @@ void			traverse_maze(t_data *data, t_pathdata *path_data)
 	data->ant_distr = ft_intnew((int)ft_listlen(path_data->paths));
 	add_start_rooms(data->start, path_data->paths);
 	distribute_ants(data->ants, path_data->paths, data->ant_distr);
+	remove_unused(path_data, data->ant_distr);
 	data->state[data->start] = 1;
 	while (data->state[data->end] != data->ants)
 	{

@@ -36,16 +36,17 @@ static	t_list	*get_se(int end)
 	return (batch);
 }
 
-static	void	get_batch(t_data *data, int link, int *state, t_list **paths_l3)
+static	void	get_batch(t_data *data, int link, int **state, t_list **paths_l3)
 {
 	t_list *paths_l2;
 
+
 	paths_l2 = NULL;
-	n_bfs(data, link, &state);
-	paths_l2 = n_coll_paths(data, state, link);
+	*state = n_bfs(data, link, state);
+	paths_l2 = n_coll_paths(data, *state, link);
 	if (paths_l2 != NULL)
 		ft_lstappend(paths_l3, paths_l2, sizeof(t_list *));
-	n_revert_local(data->rooms, state);
+	n_revert_local(data->rooms, *state);
 }
 
 /*
@@ -71,8 +72,8 @@ void			n_find(t_data *data, t_list **paths_l3)
 	{
 		link = data->links[data->end][i];
 		if (link != -1 && link != data->start)
-			get_batch(data, link, state, paths_l3);
-		else if (link == data->start)
+			get_batch(data, link, &state, paths_l3);
+		if (link != -1 && link == data->start)
 			ft_lstappend(paths_l3, get_se(data->end), sizeof(t_list *));
 		i++;
 	}
