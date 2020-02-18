@@ -55,14 +55,6 @@ typedef	struct	s_coor
 	int	y;
 }				t_coor;
 
-typedef	struct	s_ant
-{
-	int			number;
-	int			room;
-	int			has_moved;
-	t_list		*target_path;
-}				t_ant;
-
 typedef	struct	s_gnl
 {
 	ssize_t		dest;

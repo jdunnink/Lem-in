@@ -29,7 +29,7 @@ int	get_room_index(char *roomname, t_data *data)
 		return (-1);
 	while (names[i] != NULL)
 	{
-		if (strcmp(names[i], roomname) == 0)
+		if (ft_strcmp(names[i], roomname) == 0)
 			return (i);
 		i++;
 	}
