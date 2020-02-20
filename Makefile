@@ -80,6 +80,14 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIBS = -L libft/ -lft
 
+print: $(SRCS)
+	@for file in $^ ; do \
+		printf "%s\n" "$${file}" ; \
+	done | sort
+
+$(SRCS):
+	#yes
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
