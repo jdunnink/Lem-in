@@ -6,7 +6,7 @@
 #    By: jdunnink <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/03/20 09:33:47 by jdunnink       #+#    #+#                 #
-#    Updated: 2020/02/12 17:48:56 by mlokhors      ########   odam.nl          #
+#    Updated: 2020/02/20 07:40:16 by jdunnink      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,14 +79,6 @@ HEADER = -I includes/
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIBS = -L libft/ -lft
-
-print: $(SRCS)
-	@for file in $^ ; do \
-		printf "%s\n" "$${file}" ; \
-	done | sort
-
-$(SRCS):
-	#yes
 
 all: $(NAME)
 
